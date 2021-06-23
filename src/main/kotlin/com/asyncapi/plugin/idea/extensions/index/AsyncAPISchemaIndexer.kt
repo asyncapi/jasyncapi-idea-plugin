@@ -22,8 +22,12 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
         }
 
         index[AsyncAPISchemaIndex.asyncapi] = setOf(inputData.file.path)
+        var foundReferences = emptySet<String>()
         AsyncAPISchemaReferencesCollector(inputData.psiFile as? JsonFile).collectFiles().forEach { (referenceType, references) ->
             index[referenceType] = references
+
+            foundReferences = foundReferences.plus(references)
+            index[AsyncAPISchemaIndex.references] = foundReferences
         }
 
         return index
