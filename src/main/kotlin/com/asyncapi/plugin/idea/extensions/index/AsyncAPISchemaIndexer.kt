@@ -21,9 +21,15 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
             return index
         }
 
+        val asyncapiSchema = when(inputData.psiFile) {
+            is JsonFile -> inputData.psiFile as JsonFile
+            is YAMLFile -> inputData.psiFile as YAMLFile
+            else -> null
+        }
+
         index[AsyncAPISchemaIndex.asyncapi] = setOf(inputData.file.path)
         var foundReferences = emptySet<String>()
-        AsyncAPISchemaReferencesCollector(inputData.psiFile as? JsonFile).collectFiles().forEach { (referenceType, references) ->
+        AsyncAPISchemaReferencesCollector(asyncapiSchema).collectFiles().forEach { (referenceType, references) ->
             index[referenceType] = references
 
             foundReferences = foundReferences.plus(references)
