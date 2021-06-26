@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.6.5"
+    id("org.jetbrains.intellij") version "1.0"
     java
     kotlin("jvm") version "1.4.21"
 }
@@ -18,13 +18,13 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = "2021.1.2"
-    setPlugins("yaml")
+    version.set("2021.1.2")
+    plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    sinceBuild("211")
-    untilBuild("212.*")
-    changeNotes("""
+    sinceBuild.set("211")
+    untilBuild.set("212.*")
+    changeNotes.set("""
         <b>IDEA compatability:</b>
         <ul>
             <li>IDEA 2021.1.*</li>
@@ -45,8 +45,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVerifier") {
-    setIdeVersions(listOf("2021.1", "2021.1.1", "2021.1.2"))
-    verifierVersion("1.256")
+    ideVersions.set(listOf("2021.1", "2021.1.1", "2021.1.2"))
+    verifierVersion.set("1.256")
 }
 
 tasks {
