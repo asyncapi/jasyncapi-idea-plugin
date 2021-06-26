@@ -26,10 +26,11 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
             is YAMLFile -> inputData.psiFile as YAMLFile
             else -> null
         }
+        asyncapiSchema ?: return index
 
         index[AsyncAPISchemaIndex.asyncapi] = setOf(inputData.file.path)
         var foundReferences = emptySet<String>()
-        AsyncAPISchemaReferencesCollector(asyncapiSchema).collectFiles().forEach { (referenceType, references) ->
+        AsyncAPISchemaReferencesCollector(asyncapiSchema, inputData.file.parent).collectFiles().forEach { (referenceType, references) ->
             index[referenceType] = references
 
             foundReferences = foundReferences.plus(references)
