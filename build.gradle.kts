@@ -5,7 +5,7 @@ plugins {
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.0.0-EAP-1+idea2021-snapshot"
+version = "1.0.0-EAP-1+idea2021"
 
 repositories {
     mavenCentral()
