@@ -50,7 +50,7 @@ class AsyncAPISchemaDetector {
 
     fun isReferencedAsyncAPIYamlSchema(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
-        if (psiFile !is JsonFile) {
+        if (psiFile !is YAMLFile) {
             return false
         }
 

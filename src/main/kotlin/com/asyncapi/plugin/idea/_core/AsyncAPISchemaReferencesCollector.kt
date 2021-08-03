@@ -4,6 +4,7 @@ import com.asyncapi.plugin.idea._core.xpath.JsonFileXPath
 import com.asyncapi.plugin.idea._core.xpath.YamlFileXPath
 import com.asyncapi.plugin.idea.extensions.index.AsyncAPISchemaIndex
 import com.intellij.json.psi.JsonFile
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import org.jetbrains.yaml.psi.YAMLFile
 
@@ -11,13 +12,11 @@ import org.jetbrains.yaml.psi.YAMLFile
  * @author Pavel Bodiachevskii
  */
 class AsyncAPISchemaReferencesCollector(
-        private val asyncAPISchema: PsiFile?
+        private val asyncAPISchema: PsiFile,
+        private val asyncAPISchemaDir: VirtualFile,
 ) {
 
     fun collectFiles(): Map<String, Set<String>> {
-        asyncAPISchema ?: return emptyMap()
-        val dir = asyncAPISchema.parent?.virtualFile
-
         val references = mutableMapOf<String, Set<String>>()
         possibleReferencesLocation.forEach { (referenceLocation, xpaths) ->
             references[referenceLocation] = xpaths.flatMap { collect(it) }
@@ -25,7 +24,7 @@ class AsyncAPISchemaReferencesCollector(
                     .filter { isFileReference(it) }
                     .map { cutReferenceToPropertyIfExists(it) }
                     .filter { isJsonOrYaml(it) }
-                    .mapNotNull { dir?.findFileByRelativePath(it)?.path }
+                    .mapNotNull { asyncAPISchemaDir.findFileByRelativePath(it)?.path }
                     .toSet()
         }
 
