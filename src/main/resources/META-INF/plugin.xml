@@ -22,6 +22,18 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.plugins.yaml</depends>
 
+    <extensionPoints>
+        <extensionPoint
+                qualifiedName="com.asyncapi.plugin.idea.extensions.ui.html.panel.provider"
+                interface="com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanelProvider"
+                dynamic="true"
+        />
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="com.asyncapi.plugin.idea.extensions.ui">
+        <html.panel.provider implementation="com.asyncapi.plugin.idea.extensions.ui.preview.jcef.AsyncAPIJCEFHtmlPanelProvider"/>
+    </extensions>
+
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
@@ -46,6 +58,9 @@
         <!-- Preview in built-in/external browser -->
         <webBrowserUrlProvider implementation="com.asyncapi.plugin.idea.extensions.web.AsyncAPIBrowserUrlProvider"/>
         <httpRequestHandler implementation="com.asyncapi.plugin.idea.extensions.web.StaticServer"/>
+
+        <!-- Preview in split-pane mode: [asyncapi | preview pane] -->
+        <fileEditorProvider implementation="com.asyncapi.plugin.idea.extensions.ui.split.AsyncAPISplitEditorProvider"/>
     </extensions>
 
     <actions>
