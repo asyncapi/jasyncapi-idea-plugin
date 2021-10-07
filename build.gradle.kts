@@ -27,6 +27,9 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     changeNotes.set("""
         <b>preview of AsyncAPI schema as html in built-in/external browser</b>
         <p>Known limitations: reload on save doesn't work</p>
+        
+        <b>preview of AsyncAPI schema as html in preview panel</b>
+        <p>Known limitations: reload on save doesn't work properly</p>
     """.trimIndent())
 }
 
