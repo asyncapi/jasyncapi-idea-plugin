@@ -163,17 +163,20 @@ class AsyncAPIPreviewFileEditor(
     }
 
     // Is always run from pooled thread
-    private fun updateHtml(asyncAPISchema: String? = null) {
+    private fun updateHtml(updatedAsyncAPISchema: String? = null) {
         val asyncAPIHtmlPanel = asyncAPIHtmlPanelReference.get()
 
         if (asyncAPIHtmlPanel == null || asyncAPISchemaAsDocument == null || !asyncAPISchemaFile.isValid || Disposer.isDisposed(this)) {
             return
         }
 
-        val temporalAsyncAPISchemaUrl = SchemaHelper.saveAsTemporalFile(
-            asyncAPISchema ?: asyncAPISchemaAsDocument.text,
-            asyncAPISchemaFile.fileType is JsonFileType
+        val isJson = asyncAPISchemaFile.fileType is JsonFileType
+        val asyncAPISchema = SchemaHelper.replaceLocalReferences(
+            updatedAsyncAPISchema ?: asyncAPISchemaAsDocument.text,
+            asyncAPISchemaFile,
+            isJson
         )
+        val urlToTemporalAsyncAPISchemaFile = SchemaHelper.saveAsTemporalFile(asyncAPISchema, isJson)
 
         // EA-75860: The lines to the top may be processed slowly; Since we're in pooled thread, we can be disposed already.
         if (!asyncAPISchemaFile.isValid || Disposer.isDisposed(this)) {
@@ -193,7 +196,7 @@ class AsyncAPIPreviewFileEditor(
 //                    lastRenderedAsyncAPI = temporalFile
                     val fileSystem = asyncAPISchemaFile.fileSystem
                     asyncAPIHtmlPanel.setHtml(
-                        temporalAsyncAPISchemaUrl,
+                        urlToTemporalAsyncAPISchemaFile,
                         mainEditor!!.caretModel.offset,
                         fileSystem.getNioPath(asyncAPISchemaFile)
                     )
