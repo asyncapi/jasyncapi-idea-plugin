@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.extensions.ui.split
+package com.asyncapi.plugin.idea.extensions.editor.preview
 
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.fileEditor.TextEditor

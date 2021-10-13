@@ -1,7 +1,8 @@
-package com.asyncapi.plugin.idea.extensions.ui.split
+package com.asyncapi.plugin.idea.extensions.editor.preview
 
 import com.asyncapi.plugin.idea._core.SchemaHelper
-import com.asyncapi.plugin.idea._core.SchemaHtmlRenderer
+import com.asyncapi.plugin.idea.extensions.editor.MyFileEditorState
+import com.asyncapi.plugin.idea.extensions.editor.split.AsyncAPISplitEditorProvider
 import com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanel
 import com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanelProvider
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter

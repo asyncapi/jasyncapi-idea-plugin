@@ -1,13 +1,10 @@
-package com.asyncapi.plugin.idea.extensions.ui.split
+package com.asyncapi.plugin.idea.extensions.editor
 
 import com.asyncapi.plugin.idea.extensions.inspection.AsyncAPISchemaDetector
 import com.intellij.ide.scratch.ScratchUtil
 import com.intellij.json.JsonFileType
-import com.intellij.openapi.fileEditor.FileEditor
-import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.fileEditor.impl.text.PsiAwareTextEditorProvider
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.yaml.YAMLFileType
 

@@ -1,5 +1,6 @@
-package com.asyncapi.plugin.idea.extensions.ui.split
+package com.asyncapi.plugin.idea.extensions.editor.split
 
+import com.asyncapi.plugin.idea.extensions.editor.MyFileEditorState
 import com.intellij.openapi.fileEditor.*
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project

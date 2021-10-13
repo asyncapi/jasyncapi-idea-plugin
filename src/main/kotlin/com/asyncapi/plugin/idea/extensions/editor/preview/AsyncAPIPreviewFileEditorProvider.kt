@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.extensions.ui.split
+package com.asyncapi.plugin.idea.extensions.editor.preview
 
 import com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanelProvider
 import com.intellij.json.JsonFileType

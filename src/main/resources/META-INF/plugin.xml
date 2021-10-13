@@ -60,7 +60,7 @@
         <httpRequestHandler implementation="com.asyncapi.plugin.idea.extensions.web.StaticServer"/>
 
         <!-- Preview in split-pane mode: [asyncapi | preview pane] -->
-        <fileEditorProvider implementation="com.asyncapi.plugin.idea.extensions.ui.split.AsyncAPISplitEditorProvider"/>
+        <fileEditorProvider implementation="com.asyncapi.plugin.idea.extensions.editor.split.AsyncAPISplitEditorProvider"/>
     </extensions>
 
     <actions>
