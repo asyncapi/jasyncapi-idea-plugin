@@ -21,7 +21,7 @@ class AsyncAPIJCEFHtmlPanel: JCEFHtmlPanel(
 //        super.setHtml(html)
         val port = BuiltInServerManager.getInstance().port
         val address = "http://localhost:$port/asyncapi/render" +
-                "?schemaUrl=${documentPath?.toFile()?.path}" +
+                "?schemaUrl=${html}" +
 //                "&projectUrl=$projectUrl" +
 //                "&projectName=$projectName" +
                 "&_ij_reload=RELOAD_ON_SAVE"

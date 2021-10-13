@@ -1,9 +1,11 @@
 package com.asyncapi.plugin.idea.extensions.ui.split
 
+import com.asyncapi.plugin.idea._core.SchemaHelper
 import com.asyncapi.plugin.idea._core.SchemaHtmlRenderer
 import com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanel
 import com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanelProvider
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter
+import com.intellij.json.JsonFileType
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
@@ -43,7 +45,7 @@ class AsyncAPIPreviewFileEditor(
     private var lastHtmlOrRefreshRequest: Runnable? = null
 
     @Volatile
-    private var lastRenderedAsyncAPIHtml = ""
+    private var lastRenderedAsyncAPI: String? = null
     private var mainEditor: Editor? = null
 
     init {
@@ -54,7 +56,7 @@ class AsyncAPIPreviewFileEditor(
             }
 
             override fun documentChanged(e: DocumentEvent) {
-                ideaPooledAlarm.addRequest({ updateHtml() }, PARSING_CALL_TIMEOUT_MS)
+                ideaPooledAlarm.addRequest({ updateHtml(e.document.text) }, PARSING_CALL_TIMEOUT_MS)
             }
 
         }, this)
@@ -160,14 +162,17 @@ class AsyncAPIPreviewFileEditor(
     }
 
     // Is always run from pooled thread
-    private fun updateHtml() {
+    private fun updateHtml(asyncAPISchema: String? = null) {
         val asyncAPIHtmlPanel = asyncAPIHtmlPanelReference.get()
 
         if (asyncAPIHtmlPanel == null || asyncAPISchemaAsDocument == null || !asyncAPISchemaFile.isValid || Disposer.isDisposed(this)) {
             return
         }
 
-        val html: String = SchemaHtmlRenderer().render(asyncAPISchemaFile.path)
+        val temporalAsyncAPISchemaUrl = SchemaHelper.saveAsTemporalFile(
+            asyncAPISchema ?: asyncAPISchemaAsDocument.text,
+            asyncAPISchemaFile.fileType is JsonFileType
+        )
 
         // EA-75860: The lines to the top may be processed slowly; Since we're in pooled thread, we can be disposed already.
         if (!asyncAPISchemaFile.isValid || Disposer.isDisposed(this)) {
@@ -183,15 +188,15 @@ class AsyncAPIPreviewFileEditor(
                     return@label
                 }
 
-                if (html != lastRenderedAsyncAPIHtml) {
-                    lastRenderedAsyncAPIHtml = html
+//                if (temporalFile != null && temporalFile != lastRenderedAsyncAPI) {
+//                    lastRenderedAsyncAPI = temporalFile
                     val fileSystem = asyncAPISchemaFile.fileSystem
                     asyncAPIHtmlPanel.setHtml(
-                        lastRenderedAsyncAPIHtml,
+                        temporalAsyncAPISchemaUrl,
                         mainEditor!!.caretModel.offset,
                         fileSystem.getNioPath(asyncAPISchemaFile)
                     )
-                }
+//                }
                 synchronized(REQUESTS_LOCK) { lastHtmlOrRefreshRequest = null }
             }
             swingUIAlarm.addRequest(
@@ -220,7 +225,7 @@ class AsyncAPIPreviewFileEditor(
             }
 
             asyncAPIHtmlPanelWrapper.repaint()
-            lastRenderedAsyncAPIHtml = ""
+            lastRenderedAsyncAPI = null
 
             updateHtmlPooled()
         }

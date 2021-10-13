@@ -33,7 +33,7 @@ class SchemaHtmlRenderer {
 
         val isJson = schemaVirtualFile.fileType is JsonFileType
         val schema = replaceLocalReferences(schemaFile.readText(Charsets.UTF_8), schemaVirtualFile, isJson)
-        val temporalSchemaUrl = saveAsTemporalFile(schema, isJson)
+        val temporalSchemaUrl = SchemaHelper.saveAsTemporalFile(schema, isJson)
 
         val schemaTemplate = this.javaClass.getResource(schemaTemplateUrl)
         schemaTemplate ?: return "schema template not found."
@@ -93,19 +93,6 @@ class SchemaHtmlRenderer {
         val url = Urls.parseEncoded("http://localhost:${serverManager.port}/asyncapi/resources?schemaUrl=$schemaUrl")
 
         return serverManager.addAuthToken(url!!).toExternalForm()
-    }
-
-    private fun saveAsTemporalFile(schema: String, isJson: Boolean): String {
-        val suffix = if (isJson) {
-            ".json"
-        } else {
-            ".yaml"
-        }
-
-        val tempSchema = FileUtil.createTempFile("jasyncapi-idea-plugin-${System.currentTimeMillis()}", suffix, true)
-        tempSchema.writeText(schema, Charsets.UTF_8)
-
-        return tempSchema.path
     }
 
 }
