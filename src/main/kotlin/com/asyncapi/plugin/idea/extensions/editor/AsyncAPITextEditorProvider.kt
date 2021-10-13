@@ -29,14 +29,5 @@ class AsyncAPITextEditorProvider: PsiAwareTextEditorProvider() {
         val fileContent = String(file.contentsToByteArray())
         return ScratchUtil.isScratch(file) && fileContent.contains("asyncapi")
     }
-//
-//    override fun createEditor(project: Project, file: VirtualFile): FileEditor {
-//        val actualEditor = super.createEditor(project, file)
-//        if (actualEditor is TextEditor) {
-//            val toolbar = FloatingToolbar(actualEditor.editor, "Markdown.Toolbar.Floating")
-//            Disposer.register(actualEditor, toolbar)
-//        }
-//        return actualEditor
-//    }
 
 }
