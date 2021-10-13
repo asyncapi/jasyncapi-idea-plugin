@@ -1,6 +1,5 @@
 package com.asyncapi.plugin.idea.extensions.editor
 
-import com.asyncapi.plugin.idea.extensions.inspection.AsyncAPISchemaDetector
 import com.intellij.ide.scratch.ScratchUtil
 import com.intellij.json.JsonFileType
 import com.intellij.openapi.fileEditor.impl.text.PsiAwareTextEditorProvider
@@ -9,8 +8,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.yaml.YAMLFileType
 
 class AsyncAPITextEditorProvider: PsiAwareTextEditorProvider() {
-
-    private val asyncApiSchemaDetector = AsyncAPISchemaDetector()
 
     override fun accept(project: Project, file: VirtualFile): Boolean {
         if (!super.accept(project, file)) {
