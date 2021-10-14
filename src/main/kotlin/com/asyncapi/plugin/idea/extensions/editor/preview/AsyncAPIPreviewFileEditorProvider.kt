@@ -1,27 +1,24 @@
 package com.asyncapi.plugin.idea.extensions.editor.preview
 
+import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
 import com.asyncapi.plugin.idea.extensions.ui.AsyncAPIHtmlPanelProvider
-import com.intellij.json.JsonFileType
+import com.intellij.openapi.components.service
 import com.intellij.openapi.fileEditor.FileEditor
 import com.intellij.openapi.fileEditor.FileEditorPolicy
 import com.intellij.openapi.fileEditor.WeighedFileEditorProvider
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import org.jetbrains.yaml.YAMLFileType
 
 class AsyncAPIPreviewFileEditorProvider: WeighedFileEditorProvider() {
+
+    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
 
     override fun accept(project: Project, file: VirtualFile): Boolean {
         if (!AsyncAPIHtmlPanelProvider.hasAvailableProviders()) {
             return false
         }
 
-        if (file.fileType !is JsonFileType && file.fileType !is YAMLFileType) {
-            return false
-        }
-
-        val content = String(file.contentsToByteArray())
-        return content.contains("asyncapi")
+        return asyncAPISchemaRecognizer.isSchema(project, file)
     }
 
     override fun createEditor(project: Project, file: VirtualFile): FileEditor {

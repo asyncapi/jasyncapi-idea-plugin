@@ -37,6 +37,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer"/>
+
         <!-- Templates for AsyncAPI schema example -->
         <internalFileTemplate name="AsyncAPI schema (yaml)"/>
         <internalFileTemplate name="AsyncAPI schema (json)"/>
