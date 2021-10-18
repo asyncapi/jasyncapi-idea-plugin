@@ -1,54 +1,29 @@
 package com.asyncapi.plugin.idea.extensions.web
 
 import com.asyncapi.plugin.idea._core.SchemaHtmlRenderer
-import com.intellij.ide.browsers.OpenInBrowserRequest
 import com.intellij.json.JsonFileType
+import com.intellij.openapi.components.service
 import com.intellij.openapi.vfs.LocalFileSystem
-import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.util.Url
-import com.intellij.util.Urls
 import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.http.*
-import org.jetbrains.ide.BuiltInServerManager
 import org.jetbrains.ide.HttpRequestHandler
 import org.jetbrains.io.send
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
-import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.util.*
 
 class StaticServer : HttpRequestHandler() {
 
+    private val urlProvider = service<UrlProvider>()
     private val schemaHtmlRenderer = SchemaHtmlRenderer()
 
-    fun getUrl(request: OpenInBrowserRequest, file: VirtualFile): Url? {
-        val port = BuiltInServerManager.getInstance().port
-        val schemaUrl = URLEncoder.encode(file.path, StandardCharsets.UTF_8.toString())
-        val projectUrl = URLEncoder.encode(request.project.presentableUrl, StandardCharsets.UTF_8.toString())
-        val projectName = URLEncoder.encode(request.project.name, StandardCharsets.UTF_8.toString())
-        val address = "http://localhost:$port/asyncapi/render" +
-                "?schemaUrl=$schemaUrl" +
-                "&projectUrl=$projectUrl" +
-                "&projectName=$projectName" +
-                "&_ij_reload=RELOAD_ON_SAVE"
-
-        val url = Urls.parseEncoded(address)
-//        val url = Urls.parseEncoded(getStaticUrl())
-        return if (request.isAppendAccessToken) {
-            BuiltInServerManager.getInstance().addAuthToken(Objects.requireNonNull<Url>(url))
-        } else {
-            url
-        }
-    }
-
     override fun isAccessible(request: HttpRequest): Boolean {
-        return request.uri().startsWith("/asyncapi") && super.isAccessible(request)
+        return urlProvider.isPlugin(request) && super.isAccessible(request)
     }
 
     override fun isSupported(request: FullHttpRequest): Boolean {
-        return request.uri().startsWith("/asyncapi") && super.isAccessible(request)
+        return urlProvider.isPlugin(request) && super.isAccessible(request)
     }
 
     override fun process(
@@ -56,50 +31,49 @@ class StaticServer : HttpRequestHandler() {
         request: FullHttpRequest,
         context: ChannelHandlerContext
     ): Boolean {
-        val htmlPage = urlDecoder.path().startsWith("/asyncapi/render")
-        val reference = urlDecoder.path().startsWith("/asyncapi/resources") && urlDecoder.parameters().contains("referenceUrl")
-        val schema = urlDecoder.path().startsWith("/asyncapi/resources") && urlDecoder.parameters().contains("schemaUrl")
+        val urlType = urlProvider.recognize(urlDecoder)
+        urlType ?: return false
 
-        return if (htmlPage) {
-            val schemaUrl = if (urlDecoder.parameters().contains("schemaUrl")) {
-                urlDecoder.parameters()["schemaUrl"]?.get(0)
-            } else {
-                null
+        val resourceHandler = when (urlType) {
+            UrlProvider.UrlType.HTML_FILE -> {
+                object : ResourceHandler {
+                    override fun handle(resourceUrl: String): Resource {
+                        return Resource(
+                            "text/html",
+                            schemaHtmlRenderer.render(resourceUrl).toByteArray(StandardCharsets.UTF_8)
+                        )
+                    }
+                }
             }
-
-            val html = schemaHtmlRenderer.render(schemaUrl).toByteArray(StandardCharsets.UTF_8)
-
-            sendResponse(html, request, context, "text/html")
-            true
-        } else if (reference) {
-            val referenceUrl = if (urlDecoder.parameters().contains("referenceUrl")) {
-                urlDecoder.parameters()["referenceUrl"]?.get(0)
-            } else {
-                null
+            UrlProvider.UrlType.SCHEMA_FILE, UrlProvider.UrlType.REFERENCED_SCHEMA_FILE -> {
+                object : ResourceHandler {
+                    override fun handle(resourceUrl: String): Resource? {
+                        return resolveResource(resourceUrl)
+                    }
+                }
             }
-
-            referenceUrl ?: return false
-            val requestedFile = resolveResource(referenceUrl)
-            requestedFile ?: return false
-
-            sendResponse(requestedFile.second, request, context, requestedFile.first)
-            true
-        } else if (schema) {
-            val schemaUrl = if (urlDecoder.parameters().contains("schemaUrl")) {
-                urlDecoder.parameters()["schemaUrl"]?.get(0)
-            } else {
-                null
-            }
-
-            schemaUrl ?: return false
-            val requestedFile = resolveResource(schemaUrl)
-            requestedFile ?: return false
-
-            sendResponse(requestedFile.second, request, context, requestedFile.first)
-            true
-        } else {
-            false
         }
+
+        val resourceParameterName = when (urlType) {
+            UrlProvider.UrlType.HTML_FILE, UrlProvider.UrlType.SCHEMA_FILE -> UrlProvider.SCHEMA_PARAMETER_NAME
+            UrlProvider.UrlType.REFERENCED_SCHEMA_FILE -> UrlProvider.REFERENCED_SCHEMA_PARAMETER_NAME
+        }
+
+        val resource = handleRequest(urlDecoder, resourceParameterName, resourceHandler)
+        resource?: return false
+
+        sendResponse(resource.content, request, context, resource.contentType)
+        return true
+    }
+
+    private fun handleRequest(urlDecoder: QueryStringDecoder,
+                              resource: String,
+                              resourceHandler: ResourceHandler
+    ): Resource? {
+        val resourceUrl = urlProvider.requestParameter(urlDecoder, resource)
+        resourceUrl ?: return null
+
+        return resourceHandler.handle(resourceUrl)
     }
 
     private fun sendResponse(content: ByteArray,
@@ -118,7 +92,7 @@ class StaticServer : HttpRequestHandler() {
         response.send(context.channel(), request)
     }
 
-    private fun resolveResource(resourceUrl: String): Pair<String, ByteArray>? {
+    private fun resolveResource(resourceUrl: String): Resource? {
         val requestedFile = File(resourceUrl)
         if (!requestedFile.exists()) {
             return null
@@ -138,7 +112,18 @@ class StaticServer : HttpRequestHandler() {
             "application/x-yaml"
         }
 
-        return Pair(contentType, requestedFile.readBytes())
+        return Resource(contentType, requestedFile.readBytes())
+    }
+
+    private class Resource(
+        val contentType: String,
+        val content: ByteArray
+    )
+
+    private interface ResourceHandler {
+
+        fun handle(resourceUrl: String): Resource?
+
     }
 
 }

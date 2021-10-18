@@ -10,14 +10,14 @@ import com.intellij.util.Url
 class AsyncAPIBrowserUrlProvider: WebBrowserUrlProvider() {
 
     private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
-    private val staticServer = StaticServer()
+    private val urlProvider = service<UrlProvider>()
 
     override fun canHandleElement(request: OpenInBrowserRequest): Boolean {
         return asyncAPISchemaRecognizer.isSchema(request.file)
     }
 
     override fun getUrl(request: OpenInBrowserRequest, file: VirtualFile): Url? {
-        return staticServer.getUrl(request, file)
+        return urlProvider.render(request, file)
     }
 
 }
