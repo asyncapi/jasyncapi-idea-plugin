@@ -16,9 +16,11 @@ import java.util.*
 @Service
 class UrlProvider {
 
+    private val staticServerManager = BuiltInServerManager.getInstance()
+
     private val staticServerSchema = "http"
     private val staticServerHost = "localhost"
-    private val staticServerPort = BuiltInServerManager.getInstance().port
+    private val staticServerPort = staticServerManager.port
     private val staticServerUrl = "$staticServerSchema://$staticServerHost:$staticServerPort"
 
     private val pluginSpace = "asyncapi"
@@ -49,6 +51,26 @@ class UrlProvider {
                 "&projectUrl=$projectUrl" +
                 "&projectName=$projectName" +
                 "&_ij_reload=RELOAD_ON_SAVE"
+    }
+
+    fun reference(fileUrl: String, schemaReference: String?): String {
+        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?${referenceParams(fileUrl, schemaReference)}")
+
+        return staticServerManager.addAuthToken(url!!).toExternalForm()
+    }
+
+    private fun referenceParams(fileUrl: String, schemaReference: String?): String {
+        return if (schemaReference != null) {
+            "$REFERENCED_SCHEMA_PARAMETER_NAME=$fileUrl#/$schemaReference"
+        } else {
+            "$REFERENCED_SCHEMA_PARAMETER_NAME=$fileUrl"
+        }
+    }
+
+    fun schema(schemaUrl: String): String {
+        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?$SCHEMA_PARAMETER_NAME=$schemaUrl")
+
+        return staticServerManager.addAuthToken(url!!).toExternalForm()
     }
 
     fun recognize(urlDecoder: QueryStringDecoder): UrlType? {

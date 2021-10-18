@@ -1,21 +1,21 @@
 package com.asyncapi.plugin.idea._core
 
+import com.asyncapi.plugin.idea.extensions.web.UrlProvider
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.intellij.json.JsonFileType
+import com.intellij.openapi.components.service
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.util.Urls
-import org.jetbrains.ide.BuiltInServerManager
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
 
 class SchemaHtmlRenderer {
 
+    private val urlProvider = service<UrlProvider>()
     private val schemaTemplateUrl = "/ui/index.html"
-    private val serverManager = BuiltInServerManager.getInstance()
 
     fun render(schemaUrl: String?): String {
         schemaUrl ?: return "schema: not found."
@@ -45,7 +45,7 @@ class SchemaHtmlRenderer {
 //            )
             .replace(
                 "url: '',",
-                "url: '${urlToRequestedSchema(temporalSchemaUrl)}',"
+                "url: '${urlProvider.schema(temporalSchemaUrl)}',"
             )
     }
 
@@ -76,23 +76,7 @@ class SchemaHtmlRenderer {
         val referencedFile = schemaFile.parent.findFileByRelativePath(fileReference)
         referencedFile ?: return fileReference
 
-        return urlToReferencedFile(referencedFile.path, schemaReference)
-    }
-
-    private fun urlToReferencedFile(fileUrl: String, schemaReference: String?): String {
-        val url = if (schemaReference != null) {
-            Urls.parseEncoded("http://localhost:${serverManager.port}/asyncapi/resources?referenceUrl=$fileUrl#/$schemaReference")
-        } else {
-            Urls.parseEncoded("http://localhost:${serverManager.port}/asyncapi/resources?referenceUrl=$fileUrl")
-        }
-
-        return serverManager.addAuthToken(url!!).toExternalForm()
-    }
-
-    private fun urlToRequestedSchema(schemaUrl: String): String {
-        val url = Urls.parseEncoded("http://localhost:${serverManager.port}/asyncapi/resources?schemaUrl=$schemaUrl")
-
-        return serverManager.addAuthToken(url!!).toExternalForm()
+        return urlProvider.reference(referencedFile.path, schemaReference)
     }
 
     private fun saveAsTemporalFile(schema: String, isJson: Boolean): String {
