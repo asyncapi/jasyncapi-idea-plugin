@@ -67,6 +67,12 @@ class UrlProvider {
         }
     }
 
+    fun resource(resourceName: String): String {
+        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?$RESOURCE_PARAMETER_NAME=$resourceName")
+
+        return staticServerManager.addAuthToken(url!!).toExternalForm()
+    }
+
     fun schema(schemaUrl: String): String {
         val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?$SCHEMA_PARAMETER_NAME=$schemaUrl")
 
@@ -85,6 +91,8 @@ class UrlProvider {
                 urlType = UrlType.REFERENCED_SCHEMA_FILE
             } else if (urlDecoder.parameters().contains(SCHEMA_PARAMETER_NAME)) {
                 urlType = UrlType.SCHEMA_FILE
+            } else if (urlDecoder.parameters().contains(RESOURCE_PARAMETER_NAME)) {
+                urlType = UrlType.RESOURCE_FILE
             }
 
             return urlType
@@ -105,12 +113,14 @@ class UrlProvider {
         HTML_FILE,
         SCHEMA_FILE,
         REFERENCED_SCHEMA_FILE,
+        RESOURCE_FILE
     }
 
     companion object {
 
         const val SCHEMA_PARAMETER_NAME = "schemaUrl"
         const val REFERENCED_SCHEMA_PARAMETER_NAME = "referenceUrl"
+        const val RESOURCE_PARAMETER_NAME = "resourceUrl"
 
     }
 

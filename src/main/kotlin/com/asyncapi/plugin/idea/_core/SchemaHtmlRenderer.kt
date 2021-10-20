@@ -16,6 +16,8 @@ class SchemaHtmlRenderer {
 
     private val urlProvider = service<UrlProvider>()
     private val schemaTemplateUrl = "/ui/index.html"
+    private val schemaTemplateCssUrl = "default(1.0.0-next.12).min.css"
+    private val schemaTemplateJsUrl = "index(1.0.0-next.12).js"
 
     fun render(schemaUrl: String?): String {
         schemaUrl ?: return "schema: not found."
@@ -39,13 +41,16 @@ class SchemaHtmlRenderer {
         schemaTemplate ?: return "schema template not found."
 
         return schemaTemplate.readText(Charsets.UTF_8)
-//            .replace(
-//                "schema: ``,",
-//                "schema: `${schema.removePrefix("\"").removeSuffix("\"")}`,"
-//            )
             .replace(
                 "url: '',",
                 "url: '${urlProvider.schema(temporalSchemaUrl)}',"
+            )
+            .replace(
+                "<link rel=\"stylesheet\" href=\"\">",
+                "<link rel=\"stylesheet\" href=\"${urlProvider.resource(schemaTemplateCssUrl)}\">"
+            ).replace(
+                "<script src=\"\"></script>",
+                "<script src=\"${urlProvider.resource(schemaTemplateJsUrl)}\"></script>"
             )
     }
 

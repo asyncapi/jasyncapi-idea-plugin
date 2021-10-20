@@ -48,6 +48,13 @@ class StaticServer : HttpRequestHandler() {
             UrlProvider.UrlType.SCHEMA_FILE, UrlProvider.UrlType.REFERENCED_SCHEMA_FILE -> {
                 object : ResourceHandler {
                     override fun handle(resourceUrl: String): Resource? {
+                        return resolveSchemaResource(resourceUrl)
+                    }
+                }
+            }
+            UrlProvider.UrlType.RESOURCE_FILE -> {
+                object : ResourceHandler {
+                    override fun handle(resourceUrl: String): Resource? {
                         return resolveResource(resourceUrl)
                     }
                 }
@@ -57,6 +64,7 @@ class StaticServer : HttpRequestHandler() {
         val resourceParameterName = when (urlType) {
             UrlProvider.UrlType.HTML_FILE, UrlProvider.UrlType.SCHEMA_FILE -> UrlProvider.SCHEMA_PARAMETER_NAME
             UrlProvider.UrlType.REFERENCED_SCHEMA_FILE -> UrlProvider.REFERENCED_SCHEMA_PARAMETER_NAME
+            UrlProvider.UrlType.RESOURCE_FILE -> UrlProvider.RESOURCE_PARAMETER_NAME
         }
 
         val resource = handleRequest(urlDecoder, resourceParameterName, resourceHandler)
@@ -92,7 +100,7 @@ class StaticServer : HttpRequestHandler() {
         response.send(context.channel(), request)
     }
 
-    private fun resolveResource(resourceUrl: String): Resource? {
+    private fun resolveSchemaResource(resourceUrl: String): Resource? {
         val requestedFile = File(resourceUrl)
         if (!requestedFile.exists()) {
             return null
@@ -113,6 +121,26 @@ class StaticServer : HttpRequestHandler() {
         }
 
         return Resource(contentType, requestedFile.readBytes())
+    }
+
+    private fun resolveResource(resourceName: String): Resource? {
+        val resource = try {
+            this.javaClass.getResource("/ui/$resourceName")
+        } catch (e: Exception) {
+            null
+        }
+        resource ?: return null
+
+        val contentType = if (resourceName.endsWith(".css")) {
+            "text/css; charset=utf-8"
+        } else if (resourceName.endsWith(".js")) {
+            "application/javascript; charset=utf-8"
+        } else {
+            null
+        }
+
+        contentType ?: return null
+        return Resource(contentType, resource.readBytes())
     }
 
     private class Resource(
