@@ -13,6 +13,10 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
 
+/**
+ * @author Pavel Bodiachevskii
+ * @since 1.1.0
+ */
 @Service
 class AsyncAPISchemaHtmlRenderer {
 

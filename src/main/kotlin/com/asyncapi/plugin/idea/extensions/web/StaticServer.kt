@@ -13,6 +13,10 @@ import org.jetbrains.yaml.YAMLFileType
 import java.io.File
 import java.nio.charset.StandardCharsets
 
+/**
+ * @author Pavel Bodiachevskii
+ * @since 1.1.0
+ */
 class StaticServer : HttpRequestHandler() {
 
     private val urlProvider = service<UrlProvider>()

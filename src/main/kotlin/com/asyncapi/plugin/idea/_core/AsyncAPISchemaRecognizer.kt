@@ -9,6 +9,10 @@ import com.intellij.psi.PsiFile
 import org.jetbrains.yaml.YAMLFileType
 import org.jetbrains.yaml.psi.YAMLFile
 
+/**
+ * @author Pavel Bodiachevskii
+ * @since 1.1.0
+ */
 @Service
 class AsyncAPISchemaRecognizer {
 

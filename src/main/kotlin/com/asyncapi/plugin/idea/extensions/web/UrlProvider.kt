@@ -13,6 +13,10 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
 
+/**
+ * @author Pavel Bodiachevskii
+ * @since 1.1.0
+ */
 @Service
 class UrlProvider {
 

@@ -7,6 +7,10 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.Url
 
+/**
+ * @author Pavel Bodiachevskii
+ * @since 1.1.0
+ */
 class AsyncAPIBrowserUrlProvider: WebBrowserUrlProvider() {
 
     private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()

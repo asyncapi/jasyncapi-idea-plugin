@@ -11,6 +11,7 @@ import org.jetbrains.yaml.psi.YAMLFile
 
 /**
  * @author Pavel Bodiachevskii
+ * @since 1.1.0
  */
 class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
 
