@@ -25,6 +25,10 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaHtmlRenderer"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
+
         <!-- Templates for AsyncAPI schema example -->
         <internalFileTemplate name="AsyncAPI schema (yaml)"/>
         <internalFileTemplate name="AsyncAPI schema (json)"/>
@@ -42,6 +46,10 @@
         <!-- AsyncAPI references -->
         <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISchemaReferenceContributor"/>
         <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISchemaReferenceContributor"/>
+
+        <!-- Preview in built-in/external browser -->
+        <webBrowserUrlProvider implementation="com.asyncapi.plugin.idea.extensions.web.AsyncAPIBrowserUrlProvider"/>
+        <httpRequestHandler implementation="com.asyncapi.plugin.idea.extensions.web.StaticServer"/>
     </extensions>
 
     <actions>
