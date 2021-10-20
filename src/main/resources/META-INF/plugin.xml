@@ -13,6 +13,7 @@
         <li>AsyncAPI schema inspection and validation using <a href="https://github.com/asyncapi/asyncapi/blob/master/versions/2.0.0/schema.json">AsyncAPI JSON Schema</a>.</li>
         <li>Local references resolving with auto-completion in AsyncAPI schema (.json/.yaml/.yml).</li>
         <li>File references resolving with auto-completion in AsyncAPI schema (.json/.yaml/.yml).</li>
+        <li>AsyncAPI schema preview as html in built-in/external browser.</li>
     </ul>
     ]]>
     </description>
