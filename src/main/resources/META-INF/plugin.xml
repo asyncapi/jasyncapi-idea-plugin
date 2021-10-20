@@ -26,6 +26,7 @@
         <!-- Add your extensions here -->
 
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaHtmlRenderer"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
 
         <!-- Templates for AsyncAPI schema example -->

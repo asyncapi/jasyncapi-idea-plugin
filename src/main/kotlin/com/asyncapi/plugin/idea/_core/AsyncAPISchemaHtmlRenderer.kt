@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.intellij.json.JsonFileType
+import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -12,7 +13,8 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
 
-class SchemaHtmlRenderer {
+@Service
+class AsyncAPISchemaHtmlRenderer {
 
     private val urlProvider = service<UrlProvider>()
     private val schemaTemplateUrl = "/ui/index.html"
