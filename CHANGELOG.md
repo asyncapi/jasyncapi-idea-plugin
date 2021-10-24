@@ -1,6 +1,16 @@
 # Changelog
 
 
+## 1.1.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/142249)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.1.0%2Bidea2021)
+
+### Added
+- Preview of AsyncAPI schema as html in built-in/external browser
+  - Known limitations: reload on save doesn't work
+
+
 ## 1.0.0+idea2021
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/131679)
