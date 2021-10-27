@@ -44,7 +44,7 @@ class StaticServer : HttpRequestHandler() {
                     override fun handle(resourceUrl: String): Resource {
                         return Resource(
                             "text/html",
-                            asyncAPISchemaHtmlRenderer.render(resourceUrl).toByteArray(StandardCharsets.UTF_8)
+                            asyncAPISchemaHtmlRenderer.render(request, resourceUrl).toByteArray(StandardCharsets.UTF_8)
                         )
                     }
                 }

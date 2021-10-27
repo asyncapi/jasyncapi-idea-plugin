@@ -10,8 +10,11 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import io.netty.handler.codec.http.FullHttpRequest
+import org.jetbrains.builtInWebServer.liveReload.WebServerPageConnectionService
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
+import java.util.function.Supplier
 
 /**
  * @author Pavel Bodiachevskii
@@ -20,12 +23,14 @@ import java.io.File
 @Service
 class AsyncAPISchemaHtmlRenderer {
 
+    private val webServerPageConnectionService = service<WebServerPageConnectionService>()
+
     private val urlProvider = service<UrlProvider>()
     private val schemaTemplateUrl = "/ui/index.html"
     private val schemaTemplateCssUrl = "default(1.0.0-next.12).min.css"
     private val schemaTemplateJsUrl = "index(1.0.0-next.12).js"
 
-    fun render(schemaUrl: String?): String {
+    fun render(request: FullHttpRequest, schemaUrl: String?): String {
         schemaUrl ?: return "schema: not found."
 
         val schemaFile = File(schemaUrl)
@@ -46,6 +51,8 @@ class AsyncAPISchemaHtmlRenderer {
         val schemaTemplate = this.javaClass.getResource(schemaTemplateUrl)
         schemaTemplate ?: return "schema template not found."
 
+        val webSocket = webServerPageConnectionService.fileRequested(request, Supplier<VirtualFile?> { schemaVirtualFile })
+
         return schemaTemplate.readText(Charsets.UTF_8)
             .replace(
                 "url: '',",
@@ -57,6 +64,9 @@ class AsyncAPISchemaHtmlRenderer {
             ).replace(
                 "<script src=\"\"></script>",
                 "<script src=\"${urlProvider.resource(schemaTemplateJsUrl)}\"></script>"
+            ).replace(
+                "<!-- WebSocket -->",
+                webSocket?.toString() ?: ""
             )
     }
 
