@@ -26,8 +26,22 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211.*")
     untilBuild.set("212.*")
     changeNotes.set("""
-        <b>Preview of AsyncAPI schema as html in built-in/external browser</b>
-        <p>Known limitations: reload on save doesn't work</p>
+        <b>Added</b>
+        <ul>
+          <li>Reload on save for AsyncAPI schema preview in built-in/external browser</li>
+        </ul>
+
+        <b>Changed</b>
+        <ul>
+          <li>Was changed <code>org.jetbrains.intellij</code> version</li>
+          <ul>
+            <li>1.1.4 -> 1.2.1</li>
+          </ul>
+            <li>Was changed <code>intellij-plugin-verifier</code> version</li>
+          <ul>
+            <li>1.266 -> 1.268</li>
+          </ul>
+        </ul>
     """.trimIndent())
 }
 
