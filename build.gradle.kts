@@ -23,7 +23,7 @@ intellij {
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    sinceBuild.set("211.*")
+    sinceBuild.set("211")
     untilBuild.set("212.*")
     changeNotes.set("""
         <b>Added</b>
@@ -35,7 +35,16 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVerifier") {
-    ideVersions.set(listOf("2021.1", "2021.1.1", "2021.1.2", "2021.2"))
+    ideVersions.set(listOf(
+        "2021.1",
+        "2021.1.1",
+        "2021.1.2",
+        "2021.1.3",
+        "2021.2",
+        "2021.2.1",
+        "2021.2.2",
+        "2021.2.3"
+    ))
     verifierVersion.set("1.268")
 }
 
