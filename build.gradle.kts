@@ -23,30 +23,27 @@ intellij {
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    sinceBuild.set("211.*")
+    sinceBuild.set("211")
     untilBuild.set("212.*")
     changeNotes.set("""
-        <b>Added</b>
+        <b>Fixed</b>
         <ul>
-          <li>Reload on save for AsyncAPI schema preview in built-in/external browser</li>
-        </ul>
-
-        <b>Changed</b>
-        <ul>
-          <li>Was changed <code>org.jetbrains.intellij</code> version</li>
-          <ul>
-            <li>1.1.4 -> 1.2.1</li>
-          </ul>
-            <li>Was changed <code>intellij-plugin-verifier</code> version</li>
-          <ul>
-            <li>1.266 -> 1.268</li>
-          </ul>
+          <li>Now plugin is available for IDEA <code>2021.1</code> - <code>2021.1.3</code></li>
         </ul>
     """.trimIndent())
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVerifier") {
-    ideVersions.set(listOf("2021.1", "2021.1.1", "2021.1.2", "2021.2"))
+    ideVersions.set(listOf(
+        "2021.1",
+        "2021.1.1",
+        "2021.1.2",
+        "2021.1.3",
+        "2021.2",
+        "2021.2.1",
+        "2021.2.2",
+        "2021.2.3"
+    ))
     verifierVersion.set("1.268")
 }
 
