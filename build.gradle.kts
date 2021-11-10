@@ -28,8 +28,25 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     changeNotes.set("""
         <b>Added</b>
         <ul>
-          <li><code>2021.1</code> - <code>2021.3</code> Reload on change for AsyncAPI schema preview in built-in/external browser</li>
+          <li><code>2021.1</code> - <code>2021.1.3</code> Reload on change for AsyncAPI schema preview in built-in/external browser</li>
           <li><code>2021.2</code> - <code>2021.2.3</code> Reload on save for AsyncAPI schema preview in built-in/external browser</li>
+        </ul>
+        
+        <b>Changed</b>
+        <ul>
+          <li>Was changed <code>org.jetbrains.intellij</code> version</li>
+          <ul>
+            <li>1.1.4 -> 1.2.1</li>
+            </ul>
+          <li>Was changed <code>intellij-plugin-verifier</code> version</li>
+          <ul>
+            <li>1.266 -> 1.268</li>
+          </ul>
+        </ul>
+        
+        <b>Fixed</b>
+        <ul>
+          <li>Now plugin is available for IDEA <code>2021.1</code> - <code>2021.1.3</code></li>
         </ul>
     """.trimIndent())
 }
