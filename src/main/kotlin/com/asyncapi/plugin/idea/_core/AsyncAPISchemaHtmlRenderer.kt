@@ -1,5 +1,6 @@
 package com.asyncapi.plugin.idea._core
 
+import com.asyncapi.plugin.idea._core.render.WebSocketRendererProvider
 import com.asyncapi.plugin.idea.extensions.web.UrlProvider
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -11,7 +12,6 @@ import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import io.netty.handler.codec.http.FullHttpRequest
-import org.jetbrains.builtInWebServer.liveReload.WebServerPageConnectionService
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
 import java.util.function.Supplier
@@ -23,7 +23,7 @@ import java.util.function.Supplier
 @Service
 class AsyncAPISchemaHtmlRenderer {
 
-    private val webServerPageConnectionService = service<WebServerPageConnectionService>()
+    private val webSocketRendererProvider = service<WebSocketRendererProvider>()
 
     private val urlProvider = service<UrlProvider>()
     private val schemaTemplateUrl = "/ui/index.html"
@@ -51,7 +51,10 @@ class AsyncAPISchemaHtmlRenderer {
         val schemaTemplate = this.javaClass.getResource(schemaTemplateUrl)
         schemaTemplate ?: return "schema template not found."
 
-        val webSocket = webServerPageConnectionService.fileRequested(request, Supplier<VirtualFile?> { schemaVirtualFile })
+        val webSocket = webSocketRendererProvider.provide(
+            fullHttpRequest = request,
+            supplier = Supplier<VirtualFile?> { schemaVirtualFile }
+        )
 
         return schemaTemplate.readText(Charsets.UTF_8)
             .replace(
