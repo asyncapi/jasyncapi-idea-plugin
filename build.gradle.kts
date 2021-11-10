@@ -26,9 +26,10 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("212.*")
     changeNotes.set("""
-        <b>Fixed</b>
+        <b>Added</b>
         <ul>
-          <li>Now plugin is available for IDEA <code>2021.1</code> - <code>2021.1.3</code></li>
+          <li><code>2021.1</code> - <code>2021.3</code> Reload on change for AsyncAPI schema preview in built-in/external browser</li>
+          <li><code>2021.2</code> - <code>2021.2.3</code> Reload on save for AsyncAPI schema preview in built-in/external browser</li>
         </ul>
     """.trimIndent())
 }
