@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.1.4"
+    id("org.jetbrains.intellij") version "1.2.1"
     java
     kotlin("jvm") version "1.4.21"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.1.0+idea2021"
+version = "1.2.0+idea2021"
 
 repositories {
     mavenCentral()
@@ -23,17 +23,46 @@ intellij {
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    sinceBuild.set("211.*")
+    sinceBuild.set("211")
     untilBuild.set("212.*")
     changeNotes.set("""
-        <b>Preview of AsyncAPI schema as html in built-in/external browser</b>
-        <p>Known limitations: reload on save doesn't work</p>
+        <b>Added</b>
+        <ul>
+          <li><code>2021.1</code> - <code>2021.1.3</code> Reload on change for AsyncAPI schema preview in built-in/external browser</li>
+          <li><code>2021.2</code> - <code>2021.2.3</code> Reload on save for AsyncAPI schema preview in built-in/external browser</li>
+        </ul>
+        
+        <b>Changed</b>
+        <ul>
+          <li>Was changed <code>org.jetbrains.intellij</code> version</li>
+          <ul>
+            <li>1.1.4 -> 1.2.1</li>
+            </ul>
+          <li>Was changed <code>intellij-plugin-verifier</code> version</li>
+          <ul>
+            <li>1.266 -> 1.268</li>
+          </ul>
+        </ul>
+        
+        <b>Fixed</b>
+        <ul>
+          <li>Now plugin is available for IDEA <code>2021.1</code> - <code>2021.1.3</code></li>
+        </ul>
     """.trimIndent())
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVerifier") {
-    ideVersions.set(listOf("2021.1", "2021.1.1", "2021.1.2", "2021.2"))
-    verifierVersion.set("1.266")
+    ideVersions.set(listOf(
+        "2021.1",
+        "2021.1.1",
+        "2021.1.2",
+        "2021.1.3",
+        "2021.2",
+        "2021.2.1",
+        "2021.2.2",
+        "2021.2.3"
+    ))
+    verifierVersion.set("1.268")
 }
 
 tasks {
