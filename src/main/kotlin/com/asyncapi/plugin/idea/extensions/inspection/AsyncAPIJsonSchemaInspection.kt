@@ -29,7 +29,7 @@ class AsyncAPIJsonSchemaInspection: LocalInspectionTool() {
     }
 
     private fun createVisitor(holder: ProblemsHolder, isOnTheFly: Boolean, session: LocalInspectionToolSession): PsiElementVisitor {
-        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi.schema.json")
+        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi-2.0.0.json")
         val asyncAPIJsonSchemaFile = VfsUtil.findFileByURL(asyncAPIJsonSchemaURL)
         asyncAPIJsonSchemaFile ?: return PsiElementVisitor.EMPTY_VISITOR
 

@@ -34,7 +34,7 @@ class AsyncAPIYamlSchemaInspection: LocalInspectionTool() {
         val yamlValue = (holder.file as YAMLFile).documents?.get(0)?.topLevelValue
         yamlValue ?: return PsiElementVisitor.EMPTY_VISITOR
 
-        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi.schema.json")
+        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi-2.0.0.json")
         val asyncAPIJsonSchemaFile = VfsUtil.findFileByURL(asyncAPIJsonSchemaURL)
         asyncAPIJsonSchemaFile ?: return PsiElementVisitor.EMPTY_VISITOR
 
