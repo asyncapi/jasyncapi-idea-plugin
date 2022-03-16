@@ -29,7 +29,10 @@ class AsyncAPISchemaRecognizer {
              */
             false
         } else {
-            "2.0.0" == extractAsyncAPIKey(file)
+            when (extractAsyncAPIKey(file)) {
+                "2.0.0", "2.1.0", "2.2.0", "2.3.0" -> true
+                else -> false
+            }
         }
     }
 
