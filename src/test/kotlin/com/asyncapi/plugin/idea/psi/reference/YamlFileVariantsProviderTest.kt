@@ -30,9 +30,9 @@ class YamlFileVariantsProviderTest: BasePlatformTestCase() {
 
     fun testCompletion() {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/asyncapi.yaml").readText()
+        val asyncAPISchema = this.javaClass.getResource("/asyncapi-2.0.0.yaml").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
-                "asyncapi.yaml",
+                "asyncapi-2.0.0.yaml",
                 YAMLLanguage.INSTANCE,
                 asyncAPISchema
         ) as YAMLFile

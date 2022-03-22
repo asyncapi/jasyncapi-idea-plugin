@@ -40,9 +40,9 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
             "must be true in case of non null, non empty json file with `asyncapi` key provided.",
             asyncAPISchemaRecognizer.isSchema(
                 (psiFileFactory.createFileFromText(
-                    "asyncapi.json",
+                    "asyncapi-2.0.0.json",
                     Language.findLanguageByID("JSON")!!,
-                    this.javaClass.getResource("/asyncapi.json")?.readText() ?: ""
+                    this.javaClass.getResource("/asyncapi-2.0.0.json")?.readText() ?: ""
                 ) as JsonFile)
             )
         )
@@ -50,9 +50,9 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
             "must be true in case of non null, non empty yaml file with `asyncapi` key provided.",
             asyncAPISchemaRecognizer.isSchema(
                 (psiFileFactory.createFileFromText(
-                    "asyncapi.yaml",
+                    "asyncapi-2.0.0.yaml",
                     YAMLLanguage.INSTANCE,
-                    this.javaClass.getResource("/asyncapi.yaml")?.readText() ?: ""
+                    this.javaClass.getResource("/asyncapi-2.0.0.yaml")?.readText() ?: ""
                 ) as YAMLFile)
             )
         )
@@ -66,7 +66,7 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
             "must be true in case of non null, non empty json file with `asyncapi` key provided.",
             asyncAPISchemaRecognizer.isSchema(
                 (psiFileFactory.createFileFromText(
-                    "asyncapi.json",
+                    "asyncapi-2.0.0.json",
                     Language.findLanguageByID("JSON")!!,
                     ""
                 ) as JsonFile)
@@ -76,7 +76,7 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
             "must be true in case of non null, non empty yaml file with `asyncapi` key provided.",
             asyncAPISchemaRecognizer.isSchema(
                 (psiFileFactory.createFileFromText(
-                    "asyncapi.yaml",
+                    "asyncapi-2.0.0.yaml",
                     YAMLLanguage.INSTANCE,
                     ""
                 ) as YAMLFile)
