@@ -32,7 +32,23 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
         )
     }
 
-    fun `test - isSchema(psiFile) when file is schema and not empty`() {
+    fun `test - 2_0_0 isSchema(psiFile) when file is schema and not empty`() {
+        `test - isSchema(psiFile) when file is schema and not empty`("asyncapi-2.0.0")
+    }
+
+    fun `test - 2_1_0 isSchema(psiFile) when file is schema and not empty`() {
+        `test - isSchema(psiFile) when file is schema and not empty`("asyncapi-2.1.0")
+    }
+
+    fun `test - 2_2_0 isSchema(psiFile) when file is schema and not empty`() {
+        `test - isSchema(psiFile) when file is schema and not empty`("asyncapi-2.2.0")
+    }
+
+    fun `test - 2_3_0 isSchema(psiFile) when file is schema and not empty`() {
+        `test - isSchema(psiFile) when file is schema and not empty`("asyncapi-2.3.0")
+    }
+
+    private fun `test - isSchema(psiFile) when file is schema and not empty`(asyncapi: String) {
         val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
 
         val psiFileFactory = PsiFileFactory.getInstance(project)
@@ -40,9 +56,9 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
             "must be true in case of non null, non empty json file with `asyncapi` key provided.",
             asyncAPISchemaRecognizer.isSchema(
                 (psiFileFactory.createFileFromText(
-                    "asyncapi-2.0.0.json",
+                    "$asyncapi.json",
                     Language.findLanguageByID("JSON")!!,
-                    this.javaClass.getResource("/asyncapi-2.0.0.json")?.readText() ?: ""
+                    this.javaClass.getResource("/$asyncapi.json")?.readText() ?: ""
                 ) as JsonFile)
             )
         )
@@ -50,9 +66,9 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
             "must be true in case of non null, non empty yaml file with `asyncapi` key provided.",
             asyncAPISchemaRecognizer.isSchema(
                 (psiFileFactory.createFileFromText(
-                    "asyncapi-2.0.0.yaml",
+                    "$asyncapi.yaml",
                     YAMLLanguage.INSTANCE,
-                    this.javaClass.getResource("/asyncapi-2.0.0.yaml")?.readText() ?: ""
+                    this.javaClass.getResource("/$asyncapi.yaml")?.readText() ?: ""
                 ) as YAMLFile)
             )
         )
