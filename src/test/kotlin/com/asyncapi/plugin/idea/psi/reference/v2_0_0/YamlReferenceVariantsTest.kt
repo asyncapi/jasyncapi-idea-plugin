@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.psi.reference
+package com.asyncapi.plugin.idea.psi.reference.v2_0_0
 
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -8,7 +8,7 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase
  */
 class YamlReferenceVariantsTest: BasePlatformTestCase() {
 
-    override fun getTestDataPath(): String = "src/test/testData/yaml/reference/completion"
+    override fun getTestDataPath(): String = "src/test/testData/yaml/reference/completion/2.0.0"
 
     fun `test co`() {
         myFixture.configureByFile("co.yaml")
