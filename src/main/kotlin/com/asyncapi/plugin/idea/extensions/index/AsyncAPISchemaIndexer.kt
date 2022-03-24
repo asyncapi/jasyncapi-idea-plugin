@@ -1,10 +1,9 @@
 package com.asyncapi.plugin.idea.extensions.index
 
+import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
 import com.asyncapi.plugin.idea._core.AsyncAPISchemaReferencesCollector
-import com.asyncapi.plugin.idea._core.xpath.JsonFileXPath
-import com.asyncapi.plugin.idea._core.xpath.YamlFileXPath
 import com.intellij.json.psi.JsonFile
-import com.intellij.psi.PsiFile
+import com.intellij.openapi.components.service
 import com.intellij.util.indexing.DataIndexer
 import com.intellij.util.indexing.FileContent
 import org.jetbrains.yaml.psi.YAMLFile
@@ -14,10 +13,12 @@ import org.jetbrains.yaml.psi.YAMLFile
  */
 class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
 
+    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+
     override fun map(inputData: FileContent): MutableMap<String, Set<String>> {
         val index = mutableMapOf<String, Set<String>>()
 
-        if (!isAsyncAPISchema(inputData.psiFile)) {
+        if (!asyncAPISchemaRecognizer.isSchema(inputData.psiFile)) {
             return index
         }
 
@@ -38,17 +39,6 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
         }
 
         return index
-    }
-
-    private fun isAsyncAPISchema(inputData: PsiFile): Boolean {
-        val psiXPath = "$.asyncapi"
-        val asyncapi: String? = when (inputData) {
-            is JsonFile -> JsonFileXPath.findText(inputData as? JsonFile, psiXPath).firstOrNull()
-            is YAMLFile -> YamlFileXPath.findText(inputData as? YAMLFile, psiXPath).firstOrNull()
-            else -> ""
-        }
-
-        return asyncapi == "2.0.0"
     }
 
 }

@@ -1,8 +1,10 @@
 package com.asyncapi.plugin.idea.extensions.inspection
 
+import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.openapi.components.service
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
@@ -20,21 +22,32 @@ import org.jetbrains.yaml.psi.YamlPsiElementVisitor
 class AsyncAPIYamlSchemaInspection: LocalInspectionTool() {
 
     private val asyncAPISchemaDetector = AsyncAPISchemaDetector()
+    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean, session: LocalInspectionToolSession): PsiElementVisitor {
         if (!asyncAPISchemaDetector.isAsyncAPIYamlSchema(holder.file)) {
             return PsiElementVisitor.EMPTY_VISITOR
         }
 
-        return createVisitor(holder, isOnTheFly, session)
+        val version = asyncAPISchemaRecognizer.extractAsyncAPIKey(holder.file)
+        return createVisitor(holder, isOnTheFly, session, version)
     }
 
-    private fun createVisitor(holder: ProblemsHolder, isOnTheFly: Boolean, session: LocalInspectionToolSession): PsiElementVisitor {
+    private fun createVisitor(holder: ProblemsHolder,
+                              isOnTheFly: Boolean,
+                              session: LocalInspectionToolSession,
+                              asyncApiVersion: String?
+    ): PsiElementVisitor {
         /* without this yaml inspection doesn't work correctly. TODO: to research. */
         val yamlValue = (holder.file as YAMLFile).documents?.get(0)?.topLevelValue
         yamlValue ?: return PsiElementVisitor.EMPTY_VISITOR
 
-        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi.schema.json")
+        asyncApiVersion ?: return PsiElementVisitor.EMPTY_VISITOR
+        if (!asyncAPISchemaRecognizer.isSupported(asyncApiVersion)) {
+            return PsiElementVisitor.EMPTY_VISITOR
+        }
+
+        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi-$asyncApiVersion.json")
         val asyncAPIJsonSchemaFile = VfsUtil.findFileByURL(asyncAPIJsonSchemaURL)
         asyncAPIJsonSchemaFile ?: return PsiElementVisitor.EMPTY_VISITOR
 

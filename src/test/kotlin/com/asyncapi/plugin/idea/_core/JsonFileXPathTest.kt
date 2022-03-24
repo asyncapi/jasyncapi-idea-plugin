@@ -12,17 +12,33 @@ import junit.framework.TestCase
  */
 class JsonFileXPathTest: BasePlatformTestCase() {
 
-    fun test() {
+    fun `test - 2_0_0`() {
+        test("asyncapi", "2.0.0")
+    }
+
+    fun `test - 2_1_0`() {
+        test("asyncapi", "2.1.0")
+    }
+
+    fun `test - 2_2_0`() {
+        test("asyncapi", "2.2.0")
+    }
+
+    fun `test - 2_3_0`() {
+        test("asyncapi", "2.3.0")
+    }
+
+    fun test(asyncapi: String, version: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/asyncapi.json").readText()
+        val asyncAPISchema = this.javaClass.getResource("/$asyncapi-$version.json").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
-                "asyncapi.json",
+            "$asyncapi-$version.json",
                 Language.findLanguageByID("JSON")!!,
                 asyncAPISchema
         ) as JsonFile
 
         collectReferencesToMessages(asyncAPIPSI)
-        collectAsyncAPI(asyncAPIPSI)
+        collectAsyncAPI(asyncAPIPSI, version)
     }
 
     private fun collectReferencesToMessages(asyncAPI: JsonFile) {
@@ -41,8 +57,8 @@ class JsonFileXPathTest: BasePlatformTestCase() {
         TestCase.assertEquals(userSignedOut, JsonFileXPath.findText(asyncAPI, "$.channels.user/signedout.*.message.\$ref"))
     }
 
-    private fun collectAsyncAPI(asyncAPI: JsonFile) {
-        TestCase.assertEquals(listOf("2.0.0"), JsonFileXPath.findText(asyncAPI, "$.asyncapi"))
+    private fun collectAsyncAPI(asyncAPI: JsonFile, version: String) {
+        TestCase.assertEquals(listOf(version), JsonFileXPath.findText(asyncAPI, "$.asyncapi"))
     }
 
 }
