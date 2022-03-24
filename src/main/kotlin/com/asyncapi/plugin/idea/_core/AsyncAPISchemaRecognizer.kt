@@ -29,14 +29,11 @@ class AsyncAPISchemaRecognizer {
              */
             false
         } else {
-            when (extractAsyncAPIKey(file)) {
-                "2.0.0", "2.1.0", "2.2.0", "2.3.0" -> true
-                else -> false
-            }
+            isSupported(extractAsyncAPIKey(file))
         }
     }
 
-    private fun extractAsyncAPIKey(file: PsiFile?): String? {
+    fun extractAsyncAPIKey(file: PsiFile?): String? {
         file ?: return null
 
         val psiXPath = "$.asyncapi"
@@ -44,6 +41,13 @@ class AsyncAPISchemaRecognizer {
             is JsonFile -> JsonFileXPath.findText(file as? JsonFile, psiXPath).firstOrNull()
             is YAMLFile -> YamlFileXPath.findText(file as? YAMLFile, psiXPath).firstOrNull()
             else -> null
+        }
+    }
+
+    fun isSupported(version: String?): Boolean {
+        return when (version) {
+            "2.0.0", "2.1.0", "2.2.0", "2.3.0" -> true
+            else -> false
         }
     }
 
