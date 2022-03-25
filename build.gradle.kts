@@ -26,9 +26,11 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("213.*")
     changeNotes.set("""
-        <b>IDEA compatability:</b>
+        <b>New AsyncAPI versions:</b>
         <ul>
-            <li>IDEA 2021.3</li>
+            <li>2.1.0</li>
+            <li>2.2.0</li>
+            <li>2.3.0</li>
         </ul>
     """.trimIndent())
 }
