@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/167090)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.4.0%2Bidea2021)
+
+### Added
+- Compatability with AsyncAPI 2.1.0
+- Compatability with AsyncAPI 2.2.0
+- Compatability with AsyncAPI 2.3.0
+
 
 ## 1.1.0+idea2021
 published to:

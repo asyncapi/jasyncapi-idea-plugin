@@ -27,11 +27,27 @@ class JsonFileVariantsProviderTest: BasePlatformTestCase() {
         return "src/test/testData"
     }
 
-    fun testCompletion() {
+    fun `test completion - 2_0_0`() {
+        testCompletion("asyncapi-2.0.0")
+    }
+
+    fun `test completion - 2_1_0`() {
+        testCompletion("asyncapi-2.1.0")
+    }
+
+    fun `test completion - 2_2_0`() {
+        testCompletion("asyncapi-2.2.0")
+    }
+
+    fun `test completion - 2_3_0`() {
+        testCompletion("asyncapi-2.3.0")
+    }
+
+    private fun testCompletion(asyncapi: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/asyncapi.json").readText()
+        val asyncAPISchema = this.javaClass.getResource("/$asyncapi.json").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
-                "asyncapi.json",
+                "$asyncapi.json",
                 Language.findLanguageByID("JSON")!!,
                 asyncAPISchema
         ) as JsonFile

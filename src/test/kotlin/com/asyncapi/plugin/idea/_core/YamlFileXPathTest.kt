@@ -13,17 +13,33 @@ import org.jetbrains.yaml.psi.YAMLFile
  */
 class YamlFileXPathTest: BasePlatformTestCase() {
 
-    fun test() {
+    fun `test - 2_0_0`() {
+        test("asyncapi", "2.0.0")
+    }
+
+    fun `test - 2_1_0`() {
+        test("asyncapi", "2.1.0")
+    }
+
+    fun `test - 2_2_0`() {
+        test("asyncapi", "2.2.0")
+    }
+
+    fun `test - 2_3_0`() {
+        test("asyncapi", "2.3.0")
+    }
+
+    fun test(asyncapi: String, version: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/asyncapi.yaml").readText()
+        val asyncAPISchema = this.javaClass.getResource("/$asyncapi-$version.yaml").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
-                "asyncapi.yaml",
+                "$asyncapi-$version.yaml",
                 Language.findInstance(YAMLLanguage::class.java),
                 asyncAPISchema
         ) as YAMLFile
 
         collectReferencesToMessages(asyncAPIPSI)
-        collectAsyncAPI(asyncAPIPSI)
+        collectAsyncAPI(asyncAPIPSI, version)
     }
 
     private fun collectReferencesToMessages(asyncAPI: YAMLFile) {
@@ -42,8 +58,8 @@ class YamlFileXPathTest: BasePlatformTestCase() {
         TestCase.assertEquals(userSignedOut, YamlFileXPath.findText(asyncAPI, "$.channels.user/signedout.*.message.\$ref"))
     }
 
-    private fun collectAsyncAPI(asyncAPI: YAMLFile) {
-        TestCase.assertEquals(listOf("2.0.0"), YamlFileXPath.findText(asyncAPI, "$.asyncapi"))
+    private fun collectAsyncAPI(asyncAPI: YAMLFile, version: String) {
+        TestCase.assertEquals(listOf(version), YamlFileXPath.findText(asyncAPI, "$.asyncapi"))
     }
 
 }

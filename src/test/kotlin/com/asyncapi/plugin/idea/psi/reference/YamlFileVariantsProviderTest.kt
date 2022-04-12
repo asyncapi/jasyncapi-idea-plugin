@@ -28,11 +28,27 @@ class YamlFileVariantsProviderTest: BasePlatformTestCase() {
         return "src/test/testData"
     }
 
-    fun testCompletion() {
+    fun `test completion - 2_0_0`() {
+        testCompletion("asyncapi-2.0.0")
+    }
+
+    fun `test completion - 2_1_0`() {
+        testCompletion("asyncapi-2.1.0")
+    }
+
+    fun `test completion - 2_2_0`() {
+        testCompletion("asyncapi-2.2.0")
+    }
+
+    fun `test completion - 2_3_0`() {
+        testCompletion("asyncapi-2.3.0")
+    }
+
+    fun testCompletion(asyncapi: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/asyncapi.yaml").readText()
+        val asyncAPISchema = this.javaClass.getResource("/$asyncapi.yaml").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
-                "asyncapi.yaml",
+                "$asyncapi.yaml",
                 YAMLLanguage.INSTANCE,
                 asyncAPISchema
         ) as YAMLFile
