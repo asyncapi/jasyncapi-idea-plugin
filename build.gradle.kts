@@ -13,8 +13,10 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation("junit", "junit", "4.12")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.8.2")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -59,5 +61,8 @@ tasks {
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = "11"
+    }
+    test {
+        useJUnitPlatform()
     }
 }
