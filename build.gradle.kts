@@ -1,7 +1,7 @@
 plugins {
     id("org.jetbrains.intellij") version "1.4.0"
     java
-    kotlin("jvm") version "1.4.21"
+    kotlin("jvm") version "1.6.20"
 }
 
 group "com.asyncapi.plugin.idea"
