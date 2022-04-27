@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.5.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/167090)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.4.0%2Bidea2021)
+
+### Added
+- Compatability with IDEA 2022.1
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.4.0 -> 1.5.3
+- was changed `intellij-plugin-verifier` version
+  - 1.268 -> 1.278
+- was changed `Gradle` version
+  - 6.8 -> 7.4.2
+- was changed `JUnit` version
+  - 4.12 -> 5.8.2
+
+
 ## 1.4.0+idea2021
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/167090)
