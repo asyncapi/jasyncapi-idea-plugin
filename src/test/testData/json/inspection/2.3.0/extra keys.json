@@ -1,0 +1,67 @@
+{
+  "asyncapi": "2.3.0",
+  <error descr="Property 'revision' is not allowed">"revision": "1.72.22"</error>,
+  "info": {
+    "title": "Account Service",
+    "version": "1.0.0",
+    "description": "This service is in charge of processing user signups :rocket:",
+    <error descr="Property 'website' is not allowed">"website": "https://asyncapi.com"</error>
+  },
+  "channels": {
+    "user/signedup": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/UserSignedUp"
+        }
+      },
+      "publish": {
+        "message": {
+          "$ref": "#/components/messages/UserSignedUp"
+        }
+      }
+    },
+    "user/signedout": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/UserSignedOut"
+        }
+      },
+      "publish": {
+        "message": {
+          "$ref": "#/components/messages/UserSignedOut"
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "UserSignedUp": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "Name of the user"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Email of the user"
+            }
+          }
+        }
+      },
+      "UserSignedOut": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "Name of the user"
+            }
+          }
+        }
+      }
+    }
+  }
+}
