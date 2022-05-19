@@ -1,11 +1,11 @@
 package com.asyncapi.plugin.idea.extensions.completion
 
+import com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider
 import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
-import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.completion.CompletionContributor
+import com.intellij.codeInsight.completion.CompletionParameters
+import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.openapi.components.service
-import com.intellij.openapi.vfs.VfsUtil
-import com.intellij.util.ResourceUtil
-import com.jetbrains.jsonSchema.ide.JsonSchemaService
 import com.jetbrains.jsonSchema.impl.JsonSchemaCompletionContributor
 
 /**
@@ -15,6 +15,7 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaCompletionContributor
 class AsyncAPISchemaCompletionContributor: CompletionContributor() {
 
     private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+    private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
 
     override fun fillCompletionVariants(parameters: CompletionParameters,
                                         result: CompletionResultSet) {
@@ -22,17 +23,10 @@ class AsyncAPISchemaCompletionContributor: CompletionContributor() {
             return
         }
 
-        val position = parameters.position
+        val asyncAPIJsonSchemaObject = asyncAPIJsonSchemaProvider.provide(parameters.originalFile, parameters.position.project)
+        asyncAPIJsonSchemaObject ?: return
 
-        val asyncAPIJsonSchemaURL = ResourceUtil.getResource(javaClass.classLoader, "schema", "asyncapi-2.0.0.json")
-        VfsUtil.findFileByURL(asyncAPIJsonSchemaURL)?.let { asyncAPIJsonSchemaFile ->
-            val jsonSchemaService = JsonSchemaService.Impl.get(position.project)
-            val asyncAPIJsonSchemaObject = jsonSchemaService.getSchemaObjectForSchemaFile(asyncAPIJsonSchemaFile)
-
-            asyncAPIJsonSchemaObject?.let { jsonSchemaObject ->
-                JsonSchemaCompletionContributor.doCompletion(parameters, result, jsonSchemaObject, false)
-            }
-        }
+        JsonSchemaCompletionContributor.doCompletion(parameters, result, asyncAPIJsonSchemaObject, false)
     }
 
 }

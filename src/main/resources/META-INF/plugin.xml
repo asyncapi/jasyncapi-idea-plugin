@@ -30,6 +30,7 @@
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaHtmlRenderer"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.render.WebSocketRendererProvider"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
 
         <!-- Templates for AsyncAPI schema example -->
         <internalFileTemplate name="AsyncAPI schema (yaml)"/>
