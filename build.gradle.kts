@@ -5,7 +5,7 @@ plugins {
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.5.0+idea2021"
+version = "1.6.0-SNAPSHOT+idea2021"
 
 repositories {
     mavenCentral()
@@ -28,10 +28,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("221.*")
     changeNotes.set("""
-        <b>IDEA compatability:</b>
-        <ul>
-            <li>IDEA 2022.1</li>
-        </ul>
+        <b>AsyncAPI Schema auto-completion</b>
     """.trimIndent())
 }
 

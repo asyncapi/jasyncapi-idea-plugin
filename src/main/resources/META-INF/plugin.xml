@@ -30,6 +30,7 @@
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaHtmlRenderer"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.render.WebSocketRendererProvider"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
 
         <!-- Templates for AsyncAPI schema example -->
         <internalFileTemplate name="AsyncAPI schema (yaml)"/>
@@ -48,6 +49,10 @@
         <!-- AsyncAPI references -->
         <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISchemaReferenceContributor"/>
         <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISchemaReferenceContributor"/>
+
+        <!-- AsyncAPI schema completion -->
+        <completion.contributor language="JSON" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISchemaCompletionContributor"/>
+        <completion.contributor language="yaml" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISchemaCompletionContributor"/>
 
         <!-- Preview in built-in/external browser -->
         <webBrowserUrlProvider implementation="com.asyncapi.plugin.idea.extensions.web.AsyncAPIBrowserUrlProvider"/>
