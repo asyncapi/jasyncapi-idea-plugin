@@ -28,13 +28,27 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("221.*")
     changeNotes.set("""
-        <b>AsyncAPI Schema auto-completion</b>
+        "<b>New AsyncAPI version - 2.4.0</b>"
     """.trimIndent())
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVerifier") {
     ideVersions.set(listOf(
-        "<b>New AsyncAPI version - 2.4.0</b>"
+        "2021.1",
+        "2021.1.1",
+        "2021.1.2",
+        "2021.1.3",
+        "2021.2",
+        "2021.2.1",
+        "2021.2.2",
+        "2021.2.3",
+        "2021.3",
+        "2021.3.1",
+        "2021.3.2",
+        "2021.3.3",
+        "2022.1",
+        "2022.1.1",
+        "2022.1.2",
     ))
     verifierVersion.set("1.278")
 }
