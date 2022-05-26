@@ -28,7 +28,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("221.*")
     changeNotes.set("""
-        "<b>New AsyncAPI version - 2.4.0</b>"
+        <b>AsyncAPI Schema auto-completion</b>
+        <b>New AsyncAPI version - 2.4.0</b>
     """.trimIndent())
 }
 
