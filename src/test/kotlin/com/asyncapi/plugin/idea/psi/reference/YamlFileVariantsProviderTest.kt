@@ -44,6 +44,10 @@ class YamlFileVariantsProviderTest: BasePlatformTestCase() {
         testCompletion("asyncapi-2.3.0")
     }
 
+    fun `test completion - 2_4_0`() {
+        testCompletion("asyncapi-2.4.0")
+    }
+
     fun testCompletion(asyncapi: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
         val asyncAPISchema = this.javaClass.getResource("/$asyncapi.yaml").readText()
