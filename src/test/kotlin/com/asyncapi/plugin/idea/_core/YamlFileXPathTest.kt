@@ -29,6 +29,10 @@ class YamlFileXPathTest: BasePlatformTestCase() {
         test("asyncapi", "2.3.0")
     }
 
+    fun `test - 2_4_0`() {
+        test("asyncapi", "2.4.0")
+    }
+
     fun test(asyncapi: String, version: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
         val asyncAPISchema = this.javaClass.getResource("/$asyncapi-$version.yaml").readText()

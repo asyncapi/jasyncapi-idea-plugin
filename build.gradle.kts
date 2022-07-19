@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.5.3"
+    id("org.jetbrains.intellij") version "1.7.0"
     java
     kotlin("jvm") version "1.6.20"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.5.0+idea2021"
+version = "1.6.0+idea2021"
 
 repositories {
     mavenCentral()
@@ -28,10 +28,9 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("221.*")
     changeNotes.set("""
-        <b>IDEA compatability:</b>
-        <ul>
-            <li>IDEA 2022.1</li>
-        </ul>
+        <b>AsyncAPI Schema auto-completion</b>
+        <b>New AsyncAPI version - 2.4.0</b>
+        <b>IDEA: 2022.1.3, 2022.1.4</b>
     """.trimIndent())
 }
 
@@ -49,9 +48,13 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2021.3.1",
         "2021.3.2",
         "2021.3.3",
-        "2022.1"
+        "2022.1",
+        "2022.1.1",
+        "2022.1.2",
+        "2022.1.3",
+        "2022.1.4",
     ))
-    verifierVersion.set("1.278")
+    verifierVersion.set("1.284")
 }
 
 tasks {

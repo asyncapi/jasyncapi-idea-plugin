@@ -105,6 +105,20 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
         )
     }
 
+    fun `test (json) - 2_4_0 isSchema(psiFile) when file is schema and not empty`() {
+        `test - isSchema(psiFile) when file is schema and not empty`(
+            createFile("asyncapi-2.4.0.json", Language.findLanguageByID("JSON")!!),
+            "2.4.0"
+        )
+    }
+
+    fun `test (yaml) - 2_4_0 isSchema(psiFile) when file is schema and not empty`() {
+        `test - isSchema(psiFile) when file is schema and not empty`(
+            createFile("asyncapi-2.4.0.yaml", YAMLLanguage.INSTANCE),
+            "2.4.0"
+        )
+    }
+
     private fun `test - isSchema(psiFile) when file is schema and not empty`(asyncApiFile: PsiFile, version: String) {
         val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
 
@@ -172,6 +186,18 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
     fun `test (yaml) - 2_3_0 isSchema(psiFile) when file is empty`() {
         `test - isSchema(psiFile) when file is empty`(
             createFile("asyncapi-2.3.0.yaml", YAMLLanguage.INSTANCE, true)
+        )
+    }
+
+    fun `test (json) - 2_4_0 isSchema(psiFile) when file is empty`() {
+        `test - isSchema(psiFile) when file is empty`(
+            createFile("asyncapi-2.4.0.json", Language.findLanguageByID("JSON")!!, true)
+        )
+    }
+
+    fun `test (yaml) - 2_4_0 isSchema(psiFile) when file is empty`() {
+        `test - isSchema(psiFile) when file is empty`(
+            createFile("asyncapi-2.4.0.yaml", YAMLLanguage.INSTANCE, true)
         )
     }
 
