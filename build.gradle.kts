@@ -21,7 +21,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.1")
+    version.set("2022.2.3")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
@@ -56,8 +56,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.2",
         "2022.2.1",
         "2022.2.2",
-        "2022.2.3",
-        "2022.2.4"
+        "2022.2.3"
     ))
     verifierVersion.set("1.284")
 }
