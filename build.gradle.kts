@@ -21,16 +21,16 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.1")
+    version.set("2022.2.3")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("211")
-    untilBuild.set("221.*")
+    untilBuild.set("222.*")
     changeNotes.set("""
         <b>AsyncAPI Schema auto-completion</b>
         <b>New AsyncAPI version - 2.4.0</b>
-        <b>IDEA: 2022.1.3, 2022.1.4</b>
+        <b>IDEA: 2022.2.*</b>
     """.trimIndent())
 }
 
@@ -53,6 +53,10 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.1.2",
         "2022.1.3",
         "2022.1.4",
+        "2022.2",
+        "2022.2.1",
+        "2022.2.2",
+        "2022.2.3"
     ))
     verifierVersion.set("1.284")
 }
