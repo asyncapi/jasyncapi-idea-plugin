@@ -14,15 +14,15 @@ Idea plugin for the [java-asyncapi](https://github.com/Pakisan/java-asyncapi) - 
 ## Usage
 1. clone repository
 ```sh
-git clone https://github.com/asyncapi/java-asyncapi.git
+git clone https://github.com/Pakisan/jasyncapi-idea-plugin.git
 ```
-2. move to asyncapi-plugin-idea
+2. move to jasyncapi-idea-plugin
 ```sh
-cd asyncapi-plugin/asyncapi-plugin-idea
+cd jasyncapi-idea-plugin
 ```
 3. build plugin
 ```sh
-➜  asyncapi-plugin-idea git:(feature/idea-plugin) ✗ ./gradlew buildPlugin
+➜  jasyncapi-idea-plugin git:(feature/idea-plugin) ✗ ./gradlew buildPlugin
 ...
 BUILD SUCCESSFUL in 24s
 11 actionable tasks: 11 executed
