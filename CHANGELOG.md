@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.7.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/197680)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.6.0%2Bidea2021)
+
+### Added
+- Compatability with IDEA 2022.2
+- Compatability with IDEA 2022.2.1
+- Compatability with IDEA 2022.2.2
+- Compatability with IDEA 2022.2.3
+- AsyncAPI 2.5.0
+- Reference to Avro Schemas
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.7.0 -> 1.9.0
+- was changed `org.junit.jupiter` version
+  - 5.8.2 -> 5.9.0
+
 ## 1.6.0+idea2021
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/197680)

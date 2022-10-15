@@ -27,8 +27,8 @@ class AsyncAPISchemaHtmlRenderer {
 
     private val urlProvider = service<UrlProvider>()
     private val schemaTemplateUrl = "/ui/index.html"
-    private val schemaTemplateCssUrl = "default(1.0.0-next.38).min.css"
-    private val schemaTemplateJsUrl = "index(1.0.0-next.38).js"
+    private val schemaTemplateCssUrl = "default(1.0.0-next.43).min.css"
+    private val schemaTemplateJsUrl = "index(1.0.0-next.43).js"
 
     fun render(request: FullHttpRequest, schemaUrl: String?): String {
         schemaUrl ?: return "schema: not found."

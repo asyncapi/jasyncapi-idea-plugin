@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.7.0"
+    id("org.jetbrains.intellij") version "1.9.0"
     java
     kotlin("jvm") version "1.6.20"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.6.0+idea2021"
+version = "1.7.0+idea2021"
 
 repositories {
     mavenCentral()
@@ -14,23 +14,23 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.0")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.1")
+    version.set("2022.2.3")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("211")
-    untilBuild.set("221.*")
+    untilBuild.set("222.*")
     changeNotes.set("""
-        <b>AsyncAPI Schema auto-completion</b>
-        <b>New AsyncAPI version - 2.4.0</b>
-        <b>IDEA: 2022.1.3, 2022.1.4</b>
+        <p>New AsyncAPI version - 2.5.0</p>
+        <p>IDEA: 2022.2</p>
+        <p>References to Avro Schemas</p>
     """.trimIndent())
 }
 
@@ -53,6 +53,10 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.1.2",
         "2022.1.3",
         "2022.1.4",
+        "2022.2",
+        "2022.2.1",
+        "2022.2.2",
+        "2022.2.3"
     ))
     verifierVersion.set("1.284")
 }
