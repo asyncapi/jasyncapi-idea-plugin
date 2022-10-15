@@ -113,6 +113,10 @@ class StaticServer : HttpRequestHandler() {
         val referenceVirtualFile = LocalFileSystem.getInstance().findFileByIoFile(requestedFile)
         referenceVirtualFile ?: return null
 
+        if ("avsc" == referenceVirtualFile.extension) {
+            return Resource("application/avro", requestedFile.readBytes())
+        }
+
         if (referenceVirtualFile.fileType !is YAMLFileType && referenceVirtualFile.fileType !is JsonFileType) {
             return null
         }
