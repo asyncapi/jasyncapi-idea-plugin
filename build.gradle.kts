@@ -5,7 +5,7 @@ plugins {
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.7.0+idea2021"
+version = "1.7.1+idea2021"
 
 repositories {
     mavenCentral()
@@ -28,9 +28,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("222.*")
     changeNotes.set("""
-        <p>New AsyncAPI version - 2.5.0</p>
-        <p>IDEA: 2022.2</p>
-        <p>References to Avro Schemas</p>
+        <p>Fix preview on Windows</p>
     """.trimIndent())
 }
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.1+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/240272)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.7.1%2Bidea2021)
+
+### Fixed
+- Preview in Windows
+
 ## 1.7.0+idea2021
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/197680)

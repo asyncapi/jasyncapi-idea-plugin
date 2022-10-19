@@ -9,6 +9,7 @@ import com.intellij.json.JsonFileType
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.util.io.FileUtil
+import com.intellij.openapi.util.io.systemIndependentPath
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import io.netty.handler.codec.http.FullHttpRequest
@@ -113,7 +114,7 @@ class AsyncAPISchemaHtmlRenderer {
         val tempSchema = FileUtil.createTempFile("jasyncapi-idea-plugin-${System.currentTimeMillis()}", suffix, true)
         tempSchema.writeText(schema, Charsets.UTF_8)
 
-        return tempSchema.path
+        return tempSchema.systemIndependentPath
     }
 
 }
