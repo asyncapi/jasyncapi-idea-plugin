@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.10.0"
     java
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.7.21"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.7.1+idea2021"
+version = "1.8.0+idea2022"
 
 repositories {
     mavenCentral()
@@ -54,7 +54,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.2",
         "2022.2.1",
         "2022.2.2",
-        "2022.2.3"
+        "2022.2.3",
+        "2022.3"
     ))
     verifierVersion.set("1.284")
 }
