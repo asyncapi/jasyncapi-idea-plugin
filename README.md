@@ -22,9 +22,14 @@ cd jasyncapi-idea-plugin
 ```
 3. build plugin
 ```sh
-➜  jasyncapi-idea-plugin git:(feature/idea-plugin) ✗ ./gradlew buildPlugin
-...
-BUILD SUCCESSFUL in 24s
-11 actionable tasks: 11 executed
+./gradlew :buildPlugin
 ```
-4. install plugin from disk - [JetBrains Instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)
+... should have no errors
+4. verify plugin
+
+NOTE: This will take a while the first time as it will have to download every single version of IntelliJ IDEA listed in the `runPluginVerifier` section of the `build.gradle.kts` file. 
+```sh
+./gradlew :runPluginVerifier
+```
+... should have no errors
+5. install plugin from disk - [JetBrains Instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)

@@ -13,10 +13,10 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.1")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -28,7 +28,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("211")
     untilBuild.set("222.*")
     changeNotes.set("""
-        <p>Fix preview on Windows</p>
+        <p>Update to support IntelliJ IDEA 2022.3</p>
+        <p>Update dependency & build toolchain versions</p>
     """.trimIndent())
 }
 
