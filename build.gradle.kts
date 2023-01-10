@@ -1,19 +1,17 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.11.0"
     java
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.7.22"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.7.1+idea2021"
+version = "1.7.1+idea2022"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.0")
@@ -21,12 +19,12 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.2.3")
+    version.set("2022.3.1")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    sinceBuild.set("211")
-    untilBuild.set("222.*")
+    sinceBuild.set("223")
+    untilBuild.set("223.*")
     changeNotes.set("""
         <p>Fix preview on Windows</p>
     """.trimIndent())
@@ -54,17 +52,19 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.2",
         "2022.2.1",
         "2022.2.2",
-        "2022.2.3"
+        "2022.2.3",
+        "2022.3",
+        "2022.3.1"
     ))
     verifierVersion.set("1.284")
 }
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
     test {
         useJUnitPlatform()
