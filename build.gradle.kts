@@ -53,6 +53,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.2.1",
         "2022.2.2",
         "2022.2.3",
+        "2022.2.4",
         "2022.3",
         "2022.3.1"
     ))
