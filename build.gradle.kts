@@ -13,10 +13,10 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.1")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -32,6 +32,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <p>Roll Gradle IntelliJ Plugin to current rev (1.11.0)</p>
         <p>Roll Kotlin JVM to current rev (1.7.21)</p>
         <p>Roll IntelliJ Plugin Verifier to current rev (1.289)</p>
+        <p>Roll jUnit Jupiter to current rev (5.9.1)</p>
+        <p>Roll Kotlin StdLib JDK to current rev (8)</p>
     """.trimIndent())
 }
 
