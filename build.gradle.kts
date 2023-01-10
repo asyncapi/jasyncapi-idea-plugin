@@ -5,7 +5,7 @@ plugins {
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.7.1+idea2022"
+version = "1.8.0+idea2022"
 
 repositories {
     mavenCentral()
