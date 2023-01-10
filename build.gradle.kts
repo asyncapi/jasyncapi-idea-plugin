@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.11.0"
     java
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.7.21"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.7.1+idea2021"
+version = "1.8.2+idea2022"
 
 repositories {
     mavenCentral()
@@ -21,14 +21,17 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.2.3")
+    version.set("2022.2.4")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("211")
     untilBuild.set("222.*")
     changeNotes.set("""
-        <p>Fix preview on Windows</p>
+        <p>Support IntelliJ IDEA 2022.2.4</p>
+        <p>Roll Gradle IntelliJ Plugin to current rev (1.11.0)</p>
+        <p>Roll Kotlin JVM to current rev (1.7.21)</p>
+        <p>Roll IntelliJ Plugin Verifier to current rev (1.289)</p>
     """.trimIndent())
 }
 
@@ -54,9 +57,10 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.2",
         "2022.2.1",
         "2022.2.2",
-        "2022.2.3"
+        "2022.2.3",
+        "2022.2.4"
     ))
-    verifierVersion.set("1.284")
+    verifierVersion.set("1.289")
 }
 
 tasks {
