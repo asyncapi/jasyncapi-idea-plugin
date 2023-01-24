@@ -29,11 +29,6 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     untilBuild.set("222.*")
     changeNotes.set("""
         <p>Support IntelliJ IDEA 2022.2.4</p>
-        <p>Roll Gradle IntelliJ Plugin to current rev (1.11.0)</p>
-        <p>Roll Kotlin JVM to current rev (1.7.21)</p>
-        <p>Roll IntelliJ Plugin Verifier to current rev (1.289)</p>
-        <p>Roll jUnit Jupiter to current rev (5.9.1)</p>
-        <p>Roll Kotlin StdLib JDK to current rev (8)</p>
     """.trimIndent())
 }
 
