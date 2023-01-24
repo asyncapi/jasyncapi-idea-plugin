@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.10.0"
     java
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.7.21"
 }
 
 group "com.asyncapi.plugin.idea"
-version = "1.7.1+idea2021"
+version = "1.8.0+idea2022"
 
 repositories {
     mavenCentral()
@@ -13,22 +13,23 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.1")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.2.3")
+    version.set("2022.3")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("211")
-    untilBuild.set("222.*")
+    untilBuild.set("223.*")
     changeNotes.set("""
-        <p>Fix preview on Windows</p>
+        <p>Update to support IntelliJ IDEA 2022.3</p>
+        <p>Update dependency & build toolchain versions</p>
     """.trimIndent())
 }
 
@@ -54,17 +55,18 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2022.2",
         "2022.2.1",
         "2022.2.2",
-        "2022.2.3"
+        "2022.2.3",
+        "2022.3"
     ))
-    verifierVersion.set("1.284")
+    verifierVersion.set("1.289")
 }
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
     test {
         useJUnitPlatform()
