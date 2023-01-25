@@ -26,8 +26,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("223")
     untilBuild.set("223.*")
     changeNotes.set("""
-        <p>Update to support IntelliJ IDEA 2022.3</p>
-        <p>Update dependency & build toolchain versions</p>
+        <p>Update to support IntelliJ IDEA 2022.3, 2022.3.*</p>
     """.trimIndent())
 }
 
