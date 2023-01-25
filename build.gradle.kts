@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.8.0"
 }
 
-group "com.asyncapi.plugin.idea"
+group = "com.asyncapi.plugin.idea"
 version = "1.8.1+idea2022"
 
 repositories {
