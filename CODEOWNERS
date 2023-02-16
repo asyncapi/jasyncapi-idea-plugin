@@ -6,7 +6,9 @@
 # the repo. Unless a later match takes precedence,
 # @global-owner1 and @global-owner2 will be requested for
 # review when someone opens a pull request.
-* @Pakisan @derberg
+#
+# Note: @philCryoport and @theschles are the same human being.  @philCryoport is his work Github account; @theschles is his personal Github account.
+* @Pakisan @derberg @theschles @philCryoport
 
 # Order is important; the last matching pattern takes the most
 # precedence. When someone opens a pull request that only
@@ -46,7 +48,7 @@
 
 # In this example, any change inside the `/scripts` directory
 # will require approval from @doctocat or @octocat.
-/scripts/ @doctocat @octocat
+#/scripts/ @doctocat @octocat
 
 # In this example, @octocat owns any file in the `/apps`
 # directory in the root of your repository except for the `/apps/github`
