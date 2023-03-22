@@ -8,7 +8,7 @@
 # review when someone opens a pull request.
 #
 # Note: @philCryoport and @theschles are the same human being.  @philCryoport is his work Github account; @theschles is his personal Github account.
-* @Pakisan @derberg @theschles @philCryoport
+* @Pakisan @asyncapi-bot-eve @theschles @philCryoport
 
 # Order is important; the last matching pattern takes the most
 # precedence. When someone opens a pull request that only
