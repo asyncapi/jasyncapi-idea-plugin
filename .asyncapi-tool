@@ -1,0 +1,15 @@
+{
+  "title": "jAsyncAPI - IDEA plugin",
+  "description": "Idea plugin for the java-asyncapi - Helps to edit and validate AsyncAPI schemas.",
+  "links": {
+    "websiteUrl": "https://plugins.jetbrains.com/plugin/15673-asyncapi",
+    "docsUrl": "https://github.com/asyncapi/jasyncapi-idea-plugin#usage",
+    "repoUrl": "https://github.com/asyncapi/jasyncapi-idea-plugin"
+  },
+  "filters": {
+    "language": "Kotlin",
+    "technology": ["JetBrains","IntelliJ IDEA"],
+    "categories": ["ide-extension"],
+    "hasCommercial": false
+  }
+}
