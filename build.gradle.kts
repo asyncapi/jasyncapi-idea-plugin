@@ -27,7 +27,7 @@ intellij {
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    sinceBuild.set("231")
+    sinceBuild.set("223")
     untilBuild.set("231.*")
     changeNotes.set("""
         <p>Update to support IntelliJ IDEA 2023.1*</p>
