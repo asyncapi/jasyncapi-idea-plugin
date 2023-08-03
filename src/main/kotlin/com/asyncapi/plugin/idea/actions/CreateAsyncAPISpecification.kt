@@ -10,17 +10,17 @@ import com.intellij.psi.PsiDirectory
 /**
  * @author Pavel Bodiachevskii
  */
-class CreateAsyncAPISchema: CreateFileFromTemplateAction(
-        "AsyncAPI schema",
-        "Create a AsyncAPI schema from the specified template",
+class CreateAsyncAPISpecification: CreateFileFromTemplateAction(
+        "AsyncAPI Specification",
+        "Create AsyncAPI specification from the specified template",
         Icons.ASYNCAPI_ICON
 ), DumbAware {
 
     override fun buildDialog(project: Project, directory: PsiDirectory, builder: CreateFileFromTemplateDialog.Builder) {
         builder
                 .setTitle("New API Specification")
-                .addKind("AsyncAPI schema (yaml)", Icons.ASYNCAPI_ICON, "AsyncAPI schema (yaml).yaml")
-                .addKind("AsyncAPI schema (json)", Icons.ASYNCAPI_ICON, "AsyncAPI schema (json).json")
+                .addKind("AsyncAPI 2 (.yaml)", Icons.ASYNCAPI_ICON, "AsyncAPI schema (yaml).yaml")
+                .addKind("AsyncAPI 2 (.json)", Icons.ASYNCAPI_ICON, "AsyncAPI schema (json).json")
     }
 
     override fun getActionName(directory: PsiDirectory?, newName: String, templateName: String?): String {
