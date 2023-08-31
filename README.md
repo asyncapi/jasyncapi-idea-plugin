@@ -35,3 +35,5 @@ NOTE: This will take a while the first time as it will have to download every si
 ```
 ... should have no errors
 5. install plugin from disk - [JetBrains Instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)
+## How to choose right version
+If you want to build the plugin locally and/or install it from this repo - [check the compatibility table](./COMPATIBILITY.md)
