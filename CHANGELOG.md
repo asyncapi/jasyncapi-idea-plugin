@@ -1,5 +1,47 @@
 # Changelog
 
+## 2.2.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/371376)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.2.0%2Bjre17)
+
+### Added
+- Compatibility with IDEA 2023.2*
+
+## 2.1.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/329996)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.1.0%2Bjre17)
+
+### Added
+- Compatibility with IDEA 2023.1*
+
+## 2.0.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/282568)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.0.0%2Bjre17)
+
+### Added
+- Compatibility with IDEA 2022.3, 2022.3.*
+
+## 1.8.0+jre11
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/282007)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.8.0%2Bjre11)
+
+### Added
+- Compatibility with IDEA 2022.2.4
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.9.0 -> 1.12.0
+- was changed `org.junit.jupiter` version
+  - 5.9.0 -> 5.9.1
+- was changed `intellij-plugin-verifier` version
+  - 1.284 -> 1.289
+- was changed Kotlin version
+  - 1.6.20 -> 1.8.0
+
 ## 1.7.1+idea2021
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/240272)
