@@ -5,11 +5,12 @@
 Idea plugin for the [java-asyncapi](https://github.com/Pakisan/java-asyncapi) - Helps to edit and validate AsyncAPI schemas.
 
 ## Features
-- Recognition of AsyncAPI schemas.
-- AsyncAPI schema example creation from `file` -> `new` -> `AsyncAPI schema`.
-- AsyncAPI schema inspection and validation using AsyncAPI JSON Schema.
-- Local references resolving with auto-completion in AsyncAPI schema (json).
-- File references resolving with auto-completion in AsyncAPI schema (json).
+- Recognition of AsyncAPI specifications.
+- AsyncAPI specification auto-completion.
+- AsyncAPI specification example creation from `file` -> `new` -> `AsyncAPI specification`.
+- AsyncAPI specification inspection and validation using AsyncAPI JSON Schema.
+- Local references resolving with auto-completion in AsyncAPI schema.
+- File references resolving with auto-completion in AsyncAPI schema.
 
 ## Usage
 1. clone repository
