@@ -2,7 +2,7 @@
 
 > ⚠️ This plugin doesn't support AsyncAPI 1.x
 
-Idea plugin for the [java-asyncapi](https://github.com/asyncapi/jasyncapi) - Helps to edit and validate AsyncAPI specification files.
+Idea plugin for the [java-asyncapi](https://github.com/asyncapi/jasyncapi) & [AsyncAPI](https://www.asyncapi.com) - Helps to edit and validate AsyncAPI specification files.
 
 ## Features
 - Recognition of AsyncAPI specifications.
