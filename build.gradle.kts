@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.2.0+jre17"
+version = "2.3.0+jre17"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,9 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("223")
     untilBuild.set("232.*")
     changeNotes.set("""
-        <p>Update to support IntelliJ IDEA 2023.2*</p>
+        <p>AsyncAPI 2.6.0</p>
+        <p>New icons</p>
+        <p>New plugin description</p>
     """.trimIndent())
 }
 

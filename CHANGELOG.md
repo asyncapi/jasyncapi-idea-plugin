@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.3.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/386402)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.3.0%2Bjre17)
+
+### Added
+- AsyncAPI 2.6.0
+
+### Changed
+- Plugin description
+- New icons
+
 ## 2.2.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/371376)
