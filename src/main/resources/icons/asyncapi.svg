@@ -30,7 +30,7 @@
             <stop offset="1" stop-color="#a829e2" stop-opacity="0.1"/>
         </linearGradient>
         <linearGradient id="linear-gradient-4" x1="138.74" y1="-7.39" x2="29.84" y2="101.52"
-                        gradientTransform="translate(-5 29.16)" gradientUnits="userSpaceOnxUse">
+                        gradientTransform="translate(-5 29.16)" gradientUnits="userSpaceOnUse">
             <stop offset="0" stop-color="#21d4fd"/>
             <stop offset="0.03" stop-color="#27cdfc" stop-opacity="0.96"/>
             <stop offset="0.23" stop-color="#4e9cf4" stop-opacity="0.7"/>
