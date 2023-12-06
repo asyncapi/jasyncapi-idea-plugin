@@ -8,12 +8,13 @@
     <p>Plugin to help you easily edit <a href="https://www.asyncapi.com/">AsyncAPI</a> specification files.</p>
     <h3>Features</h3>
     <ul>
-        <li>Recognition of AsyncAPI schemas (.json/.yaml/.yml).</li>
-        <li>AsyncAPI schema example creation from <code>file -> new -> AsyncAPI schema</code>.</li>
-        <li>AsyncAPI schema inspection and validation using <a href="https://github.com/asyncapi/asyncapi/blob/master/versions/2.0.0/schema.json">AsyncAPI JSON Schema</a>.</li>
-        <li>Local references resolving with auto-completion in AsyncAPI schema (.json/.yaml/.yml).</li>
-        <li>File references resolving with auto-completion in AsyncAPI schema (.json/.yaml/.yml).</li>
-        <li>AsyncAPI schema preview as html in built-in/external browser.</li>
+        <li>Recognition of AsyncAPI specifications.</li>
+        <li>AsyncAPI specification auto-completion.</li>
+        <li>AsyncAPI specification example creation from <code>file -> new -> AsyncAPI specification</code>.</li>
+        <li>AsyncAPI specification inspection and validation using <a href="https://github.com/asyncapi/spec-json-schemas">AsyncAPI JSON Schema</a>.</li>
+        <li>Local references resolving with auto-completion in AsyncAPI specification.</li>
+        <li>File references resolving with auto-completion in AsyncAPI specification.</li>
+        <li>AsyncAPI specification preview as html in built-in/external browser.</li>
     </ul>
     ]]>
     </description>
@@ -61,7 +62,7 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="asyncapi.createSchema" class="com.asyncapi.plugin.idea.actions.CreateAsyncAPISchema" text="AsyncAPI Schema" description="Create a AsyncAPI schema">
+        <action id="asyncapi.createSpecification" class="com.asyncapi.plugin.idea.actions.CreateAsyncAPISpecification" text="AsyncAPI Specification" description="Create AsyncAPI specification">
             <add-to-group group-id="NewGroup" relative-to-action="NewFromTemplate" anchor="after"/>
         </action>
     </actions>
