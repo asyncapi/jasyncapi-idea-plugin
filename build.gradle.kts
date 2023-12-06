@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.3.0+jre17"
+version = "2.3.1+jre17"
 
 repositories {
     mavenCentral()
@@ -23,16 +23,14 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2023.2")
+    version.set("2023.1.5")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("223")
     untilBuild.set("232.*")
     changeNotes.set("""
-        <p>AsyncAPI 2.6.0</p>
-        <p>New icons</p>
-        <p>New plugin description</p>
+        <p>Fixed issue with svg icon rendering, which was blocking showing of context menu with new files (right click, new)</p>
     """.trimIndent())
 }
 
