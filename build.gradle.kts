@@ -47,6 +47,11 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2023.1.4",
         "2023.1.5",
         "2023.2",
+        "2023.2.1",
+        "2023.2.2",
+        "2023.2.3",
+        "2023.2.4",
+        "2023.2.5",
     ))
     verifierVersion.set("1.307")
 }
