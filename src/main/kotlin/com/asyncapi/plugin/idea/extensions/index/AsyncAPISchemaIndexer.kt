@@ -1,6 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.index
 
-import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
+import com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer
 import com.asyncapi.plugin.idea._core.AsyncAPISchemaReferencesCollector
 import com.intellij.json.psi.JsonFile
 import com.intellij.openapi.components.service
@@ -13,12 +13,12 @@ import org.jetbrains.yaml.psi.YAMLFile
  */
 class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
 
-    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+    private val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
     override fun map(inputData: FileContent): MutableMap<String, Set<String>> {
         val index = mutableMapOf<String, Set<String>>()
 
-        if (!asyncAPISchemaRecognizer.isSchema(inputData.psiFile)) {
+        if (!asyncAPISpecificationRecognizer.isSchema(inputData.psiFile)) {
             return index
         }
 

@@ -16,13 +16,13 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaObject
 @Service
 class AsyncAPIJsonSchemaProvider {
 
-    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+    private val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
     fun provide(file: PsiFile, project: Project): JsonSchemaObject? {
-        val asyncApiVersion = asyncAPISchemaRecognizer.extractAsyncAPIKey(file)
+        val asyncApiVersion = asyncAPISpecificationRecognizer.extractAsyncAPIKey(file)
         asyncApiVersion ?: return null
 
-        if (!asyncAPISchemaRecognizer.isSupported(asyncApiVersion)) {
+        if (!asyncAPISpecificationRecognizer.isSupported(asyncApiVersion)) {
             return null
         }
 

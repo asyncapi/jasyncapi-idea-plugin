@@ -1,7 +1,7 @@
 package com.asyncapi.plugin.idea.extensions.completion
 
 import com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider
-import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
+import com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionResultSet
@@ -14,12 +14,12 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaCompletionContributor
  */
 class AsyncAPISpecificationCompletionContributor: CompletionContributor() {
 
-    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+    private val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
 
     override fun fillCompletionVariants(parameters: CompletionParameters,
                                         result: CompletionResultSet) {
-        if (!asyncAPISchemaRecognizer.isSchema(parameters.originalFile)) {
+        if (!asyncAPISpecificationRecognizer.isSchema(parameters.originalFile)) {
             return
         }
 

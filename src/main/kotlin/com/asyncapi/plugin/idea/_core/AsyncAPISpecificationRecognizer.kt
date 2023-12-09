@@ -14,7 +14,7 @@ import org.jetbrains.yaml.psi.YAMLFile
  * @since 1.1.0
  */
 @Service
-class AsyncAPISchemaRecognizer {
+class AsyncAPISpecificationRecognizer {
 
     fun isSchema(file: PsiFile?, useIndex: Boolean = false): Boolean {
         file ?: return false

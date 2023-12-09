@@ -12,40 +12,40 @@ import org.jetbrains.yaml.YAMLLanguage
  * @author Pavel Bodiachevskii
  * @since 1.1.0
  */
-class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
+class AsyncAPISpecificationRecognizerTest: BasePlatformTestCase() {
 
     override fun getTestDataPath(): String {
         return "src/test/testData"
     }
 
     fun `test - injects correctly`() {
-        TestCase.assertNotNull(service<AsyncAPISchemaRecognizer>())
+        TestCase.assertNotNull(service<AsyncAPISpecificationRecognizer>())
     }
 
     fun `test - isSchema when file is null`() {
-        val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+        val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
         TestCase.assertFalse(
             "must be false in case of null file.",
-            asyncAPISchemaRecognizer.isSchema(null)
+            asyncAPISpecificationRecognizer.isSchema(null)
         )
     }
 
     fun `test - extractAsyncAPIKey when file is null`() {
-        val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+        val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
         TestCase.assertNull(
             "must be false in case of null file.",
-            asyncAPISchemaRecognizer.extractAsyncAPIKey(null)
+            asyncAPISpecificationRecognizer.extractAsyncAPIKey(null)
         )
     }
 
     fun `test - isSupported when file is null`() {
-        val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+        val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
         TestCase.assertFalse(
             "must be false in case of null version.",
-            asyncAPISchemaRecognizer.isSupported(null)
+            asyncAPISpecificationRecognizer.isSupported(null)
         )
     }
 
@@ -148,22 +148,22 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
     }
 
     private fun `test - isSchema(psiFile) when file is schema and not empty`(asyncApiFile: PsiFile, version: String) {
-        val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+        val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
         TestCase.assertTrue(
             "$version must be supported.",
-            asyncAPISchemaRecognizer.isSupported(
-                asyncAPISchemaRecognizer.extractAsyncAPIKey(asyncApiFile)
+            asyncAPISpecificationRecognizer.isSupported(
+                asyncAPISpecificationRecognizer.extractAsyncAPIKey(asyncApiFile)
             )
         )
         TestCase.assertEquals(
             "version $version must be recognized correctly",
             version,
-            asyncAPISchemaRecognizer.extractAsyncAPIKey(asyncApiFile)
+            asyncAPISpecificationRecognizer.extractAsyncAPIKey(asyncApiFile)
         )
         TestCase.assertTrue(
             "must be true in case of non null, non empty json file with `asyncapi` key provided.",
-            asyncAPISchemaRecognizer.isSchema(
+            asyncAPISpecificationRecognizer.isSchema(
                 asyncApiFile
             )
         )
@@ -254,21 +254,21 @@ class AsyncAPISchemaRecognizerTest: BasePlatformTestCase() {
     }
 
     private fun `test - isSchema(psiFile) when file is empty`(asyncApiFile: PsiFile) {
-        val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+        val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
         TestCase.assertFalse(
             "empty file must not be supported.",
-            asyncAPISchemaRecognizer.isSupported(
-                asyncAPISchemaRecognizer.extractAsyncAPIKey(asyncApiFile)
+            asyncAPISpecificationRecognizer.isSupported(
+                asyncAPISpecificationRecognizer.extractAsyncAPIKey(asyncApiFile)
             )
         )
         TestCase.assertNull(
             "empty file must not be recognized correctly",
-            asyncAPISchemaRecognizer.extractAsyncAPIKey(asyncApiFile)
+            asyncAPISpecificationRecognizer.extractAsyncAPIKey(asyncApiFile)
         )
         TestCase.assertFalse(
             "must be false in case of empty file.",
-            asyncAPISchemaRecognizer.isSchema(asyncApiFile)
+            asyncAPISpecificationRecognizer.isSchema(asyncApiFile)
         )
     }
 
