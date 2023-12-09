@@ -48,8 +48,8 @@
         <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.AsyncAPISchemaIndex"/>
 
         <!-- AsyncAPI references -->
-        <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISchemaReferenceContributor"/>
-        <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISchemaReferenceContributor"/>
+        <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISpecificationReferenceContributor"/>
+        <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISpecificationReferenceContributor"/>
 
         <!-- AsyncAPI schema completion -->
         <completion.contributor language="JSON" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISpecificationCompletionContributor"/>

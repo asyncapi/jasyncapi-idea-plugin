@@ -14,7 +14,7 @@ import org.jetbrains.yaml.psi.YAMLValue
 /**
  * @author Pavel Bodiachevskii
  */
-class AsyncAPISchemaReferenceContributor: PsiReferenceContributor() {
+class AsyncAPISpecificationReferenceContributor: PsiReferenceContributor() {
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         registrar.registerReferenceProvider(localReferencePattern(), AsyncAPILocalReferenceProvider())
