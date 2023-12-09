@@ -12,7 +12,7 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaCompletionContributor
  * @author Pavel Bodiachevskii
  * @since 1.6.0
  */
-class AsyncAPISchemaCompletionContributor: CompletionContributor() {
+class AsyncAPISpecificationCompletionContributor: CompletionContributor() {
 
     private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()

@@ -8,7 +8,7 @@ import junit.framework.TestCase
  * @author Pavel Bodiachevskii
  * @since 1.6.0
  */
-abstract class AbstractAsyncAPISchemaCompletionContributorTest: BasePlatformTestCase() {
+abstract class AbstractAsyncAPISpecificationCompletionContributorTest: BasePlatformTestCase() {
 
     abstract fun fileExtension(): String
 

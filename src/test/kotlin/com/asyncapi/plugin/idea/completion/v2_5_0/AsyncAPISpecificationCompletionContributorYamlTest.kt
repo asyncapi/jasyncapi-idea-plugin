@@ -1,12 +1,12 @@
-package com.asyncapi.plugin.idea.completion.v2_2_0
+package com.asyncapi.plugin.idea.completion.v2_5_0
 
-import com.asyncapi.plugin.idea.completion.AbstractAsyncAPISchemaCompletionContributorTest
+import com.asyncapi.plugin.idea.completion.AbstractAsyncAPISpecificationCompletionContributorTest
 
-class AsyncAPISchemaCompletionContributorYamlTest: AbstractAsyncAPISchemaCompletionContributorTest() {
+class AsyncAPISpecificationCompletionContributorYamlTest: AbstractAsyncAPISpecificationCompletionContributorTest() {
 
     override fun fileExtension(): String = "yaml"
 
-    override fun asyncAPIVersion(): String = "2.2.0"
+    override fun asyncAPIVersion(): String = "2.5.0"
 
     override val `$ - c` = super.`$ - c`.sorted().map { it.replace("\"", "") }
 
