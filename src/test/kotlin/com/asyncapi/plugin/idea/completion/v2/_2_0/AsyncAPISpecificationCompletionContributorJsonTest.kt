@@ -1,6 +1,6 @@
-package com.asyncapi.plugin.idea.completion.v2_2_0
+package com.asyncapi.plugin.idea.completion.v2._2_0
 
-import com.asyncapi.plugin.idea.completion.AbstractAsyncAPISpecificationCompletionContributorTest
+import com.asyncapi.plugin.idea.completion.v2.AbstractAsyncAPISpecificationCompletionContributorTest
 
 class AsyncAPISpecificationCompletionContributorJsonTest: AbstractAsyncAPISpecificationCompletionContributorTest() {
 

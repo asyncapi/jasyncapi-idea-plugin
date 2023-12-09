@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.completion
+package com.asyncapi.plugin.idea.completion.v3
 
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -6,7 +6,7 @@ import junit.framework.TestCase
 
 /**
  * @author Pavel Bodiachevskii
- * @since 1.6.0
+ * @since 2.4.0
  */
 abstract class AbstractAsyncAPISpecificationCompletionContributorTest: BasePlatformTestCase() {
 
@@ -20,7 +20,6 @@ abstract class AbstractAsyncAPISpecificationCompletionContributorTest: BasePlatf
         "\"channels\"",
         "\"components\"",
         "\"defaultContentType\"",
-        "\"externalDocs\""
     )
 
     protected open val `$ - components - messages - UserSignedUp - p` = listOf(
