@@ -159,8 +159,29 @@ class AsyncAPIJsonSchemaProviderTest: BasePlatformTestCase() {
         TestCase.assertEquals("/schema/asyncapi-2.6.0.json", jsonSchemaObject!!.fileUrl!!.takeLast(27))
     }
 
-    fun `test (yaml) - provide when file is AsyncAPI schema with unknown version`() {
+    fun `test (yaml) - provide when file is 3_0_0 AsyncAPI schema`() {
+        val asyncAPIPSI = prepareFile("asyncapi-3.0.0", false)
+        TestCase.assertNotNull(asyncAPIPSI)
+
+        val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
+
+        val jsonSchemaObject = asyncAPIJsonSchemaProvider.provide(asyncAPIPSI, project)
+        TestCase.assertNotNull(jsonSchemaObject)
+        TestCase.assertEquals("/schema/asyncapi-3.0.0.json", jsonSchemaObject!!.fileUrl!!.takeLast(27))
+    }
+
+    fun `test (yaml) - v2 provide when file is AsyncAPI schema with unknown version`() {
         val asyncAPIPSI = prepareFile("asyncapi-2.99.99", false)
+        TestCase.assertNotNull(asyncAPIPSI)
+
+        val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
+
+        val jsonSchemaObject = asyncAPIJsonSchemaProvider.provide(asyncAPIPSI, project)
+        TestCase.assertNull(jsonSchemaObject)
+    }
+
+    fun `test (yaml) - v3 provide when file is AsyncAPI schema with unknown version`() {
+        val asyncAPIPSI = prepareFile("asyncapi-3.99.99", false)
         TestCase.assertNotNull(asyncAPIPSI)
 
         val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
@@ -246,8 +267,29 @@ class AsyncAPIJsonSchemaProviderTest: BasePlatformTestCase() {
         TestCase.assertEquals("/schema/asyncapi-2.6.0.json", jsonSchemaObject!!.fileUrl!!.takeLast(27))
     }
 
-    fun `test (json) - provide when file is AsyncAPI schema with unknown version`() {
+    fun `test (json) - provide when file is 3_0_0 AsyncAPI schema`() {
+        val asyncAPIPSI = prepareFile("asyncapi-3.0.0", true)
+        TestCase.assertNotNull(asyncAPIPSI)
+
+        val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
+
+        val jsonSchemaObject = asyncAPIJsonSchemaProvider.provide(asyncAPIPSI, project)
+        TestCase.assertNotNull(jsonSchemaObject)
+        TestCase.assertEquals("/schema/asyncapi-3.0.0.json", jsonSchemaObject!!.fileUrl!!.takeLast(27))
+    }
+
+    fun `test (json) - v2 provide when file is AsyncAPI schema with unknown version`() {
         val asyncAPIPSI = prepareFile("asyncapi-2.99.99", true)
+        TestCase.assertNotNull(asyncAPIPSI)
+
+        val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
+
+        val jsonSchemaObject = asyncAPIJsonSchemaProvider.provide(asyncAPIPSI, project)
+        TestCase.assertNull(jsonSchemaObject)
+    }
+
+    fun `test (json) - v3 provide when file is AsyncAPI schema with unknown version`() {
+        val asyncAPIPSI = prepareFile("asyncapi-3.99.99", true)
         TestCase.assertNotNull(asyncAPIPSI)
 
         val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
