@@ -1,6 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.web
 
-import com.asyncapi.plugin.idea._core.AsyncAPISchemaHtmlRenderer
+import com.asyncapi.plugin.idea._core.AsyncAPISpecificationHtmlRenderer
 import com.intellij.json.JsonFileType
 import com.intellij.openapi.components.service
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets
 class StaticServer : HttpRequestHandler() {
 
     private val urlProvider = service<UrlProvider>()
-    private val asyncAPISchemaHtmlRenderer = service<AsyncAPISchemaHtmlRenderer>()
+    private val asyncAPISpecificationHtmlRenderer = service<AsyncAPISpecificationHtmlRenderer>()
 
     override fun isAccessible(request: HttpRequest): Boolean {
         return urlProvider.isPlugin(request) && super.isAccessible(request)
@@ -44,7 +44,7 @@ class StaticServer : HttpRequestHandler() {
                     override fun handle(resourceUrl: String): Resource {
                         return Resource(
                             "text/html",
-                            asyncAPISchemaHtmlRenderer.render(request, resourceUrl).toByteArray(StandardCharsets.UTF_8)
+                            asyncAPISpecificationHtmlRenderer.render(request, resourceUrl).toByteArray(StandardCharsets.UTF_8)
                         )
                     }
                 }
