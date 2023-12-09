@@ -147,6 +147,20 @@ class AsyncAPISpecificationRecognizerTest: BasePlatformTestCase() {
         )
     }
 
+    fun `test (json) - 3_0_0 isSpecification(psiFile) when file is schema and not empty`() {
+        `test - isSpecification(psiFile) when file is schema and not empty`(
+            createFile("asyncapi-3.0.0.json", Language.findLanguageByID("JSON")!!),
+            "3.0.0"
+        )
+    }
+
+    fun `test (yaml) - 3_0_0 isSpecification(psiFile) when file is schema and not empty`() {
+        `test - isSpecification(psiFile) when file is schema and not empty`(
+            createFile("asyncapi-3.0.0.yaml", YAMLLanguage.INSTANCE),
+            "3.0.0"
+        )
+    }
+
     private fun `test - isSpecification(psiFile) when file is schema and not empty`(asyncApiFile: PsiFile, version: String) {
         val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
@@ -250,6 +264,18 @@ class AsyncAPISpecificationRecognizerTest: BasePlatformTestCase() {
     fun `test (yaml) - 2_6_0 isSpecification(psiFile) when file is empty`() {
         `test - isSpecification(psiFile) when file is empty`(
             createFile("asyncapi-2.6.0.yaml", YAMLLanguage.INSTANCE, true)
+        )
+    }
+
+    fun `test (json) - 3_0_0 isSpecification(psiFile) when file is empty`() {
+        `test - isSpecification(psiFile) when file is empty`(
+            createFile("asyncapi-3.0.0.json", Language.findLanguageByID("JSON")!!, true)
+        )
+    }
+
+    fun `test (yaml) - 3_0_0 isSpecification(psiFile) when file is empty`() {
+        `test - isSpecification(psiFile) when file is empty`(
+            createFile("asyncapi-3.0.0.yaml", YAMLLanguage.INSTANCE, true)
         )
     }
 
