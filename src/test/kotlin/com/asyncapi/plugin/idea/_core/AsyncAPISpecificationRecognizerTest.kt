@@ -49,119 +49,119 @@ class AsyncAPISpecificationRecognizerTest: BasePlatformTestCase() {
         )
     }
 
-    fun `test (json) - 2_0_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_0_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.0.0.json", Language.findLanguageByID("JSON")!!),
             "2.0.0"
         )
     }
 
-    fun `test (yaml) - 2_0_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_0_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.0.0.yaml", YAMLLanguage.INSTANCE),
             "2.0.0"
         )
     }
 
-    fun `test (json) - 2_1_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_1_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.1.0.json", Language.findLanguageByID("JSON")!!),
             "2.1.0"
         )
     }
 
-    fun `test (yaml) - 2_1_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_1_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.1.0.yaml", YAMLLanguage.INSTANCE),
             "2.1.0"
         )
     }
 
-    fun `test (json) - 2_2_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_2_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.2.0.json", Language.findLanguageByID("JSON")!!),
             "2.2.0"
         )
     }
 
-    fun `test (yaml) - 2_2_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_2_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.2.0.yaml", YAMLLanguage.INSTANCE),
             "2.2.0"
         )
     }
 
-    fun `test (json) - 2_3_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_3_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.3.0.json", Language.findLanguageByID("JSON")!!),
             "2.3.0"
         )
     }
 
-    fun `test (yaml) - 2_3_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_3_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.3.0.yaml", YAMLLanguage.INSTANCE),
             "2.3.0"
         )
     }
 
-    fun `test (json) - 2_4_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_4_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.4.0.json", Language.findLanguageByID("JSON")!!),
             "2.4.0"
         )
     }
 
-    fun `test (yaml) - 2_4_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_4_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.4.0.yaml", YAMLLanguage.INSTANCE),
             "2.4.0"
         )
     }
 
-    fun `test (json) - 2_5_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_5_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.5.0.json", Language.findLanguageByID("JSON")!!),
             "2.5.0"
         )
     }
 
-    fun `test (yaml) - 2_5_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_5_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.5.0.yaml", YAMLLanguage.INSTANCE),
             "2.5.0"
         )
     }
 
-    fun `test (json) - 2_6_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 2_6_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.6.0.json", Language.findLanguageByID("JSON")!!),
             "2.6.0"
         )
     }
 
-    fun `test (yaml) - 2_6_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 2_6_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-2.6.0.yaml", YAMLLanguage.INSTANCE),
             "2.6.0"
         )
     }
 
-    fun `test (json) - 3_0_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (json) - 3_0_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-3.0.0.json", Language.findLanguageByID("JSON")!!),
             "3.0.0"
         )
     }
 
-    fun `test (yaml) - 3_0_0 isSpecification(psiFile) when file is schema and not empty`() {
-        `test - isSpecification(psiFile) when file is schema and not empty`(
+    fun `test (yaml) - 3_0_0 isSpecification(psiFile) when file is specification and not empty`() {
+        `test - isSpecification(psiFile) when file is specification and not empty`(
             createFile("asyncapi-3.0.0.yaml", YAMLLanguage.INSTANCE),
             "3.0.0"
         )
     }
 
-    private fun `test - isSpecification(psiFile) when file is schema and not empty`(asyncApiFile: PsiFile, version: String) {
+    private fun `test - isSpecification(psiFile) when file is specification and not empty`(asyncApiFile: PsiFile, version: String) {
         val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
         TestCase.assertTrue(
