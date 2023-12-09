@@ -16,7 +16,7 @@ import org.jetbrains.yaml.psi.YAMLFile
 @Service
 class AsyncAPISpecificationRecognizer {
 
-    fun isSchema(file: PsiFile?, useIndex: Boolean = false): Boolean {
+    fun isSpecification(file: PsiFile?, useIndex: Boolean = false): Boolean {
         file ?: return false
 
         if (file.fileType !is YAMLFileType && file.fileType !is JsonFileType) {

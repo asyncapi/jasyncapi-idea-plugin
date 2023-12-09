@@ -18,7 +18,7 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
     override fun map(inputData: FileContent): MutableMap<String, Set<String>> {
         val index = mutableMapOf<String, Set<String>>()
 
-        if (!asyncAPISpecificationRecognizer.isSchema(inputData.psiFile)) {
+        if (!asyncAPISpecificationRecognizer.isSpecification(inputData.psiFile)) {
             return index
         }
 

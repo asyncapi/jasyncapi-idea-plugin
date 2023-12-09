@@ -17,7 +17,7 @@ class AsyncAPIBrowserUrlProvider: WebBrowserUrlProvider() {
     private val urlProvider = service<UrlProvider>()
 
     override fun canHandleElement(request: OpenInBrowserRequest): Boolean {
-        return asyncAPISpecificationRecognizer.isSchema(request.file)
+        return asyncAPISpecificationRecognizer.isSpecification(request.file)
     }
 
     override fun getUrl(request: OpenInBrowserRequest, file: VirtualFile): Url? {

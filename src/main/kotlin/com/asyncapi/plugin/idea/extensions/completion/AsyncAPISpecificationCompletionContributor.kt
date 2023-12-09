@@ -19,7 +19,7 @@ class AsyncAPISpecificationCompletionContributor: CompletionContributor() {
 
     override fun fillCompletionVariants(parameters: CompletionParameters,
                                         result: CompletionResultSet) {
-        if (!asyncAPISpecificationRecognizer.isSchema(parameters.originalFile)) {
+        if (!asyncAPISpecificationRecognizer.isSpecification(parameters.originalFile)) {
             return
         }
 
