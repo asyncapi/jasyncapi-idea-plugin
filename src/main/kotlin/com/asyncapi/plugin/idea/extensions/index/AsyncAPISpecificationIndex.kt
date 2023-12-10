@@ -14,7 +14,7 @@ import java.io.DataOutput
  * I use [Set] because of cases when schema has multiple references to schemas.
  * @author Pavel Bodiachevskii
  */
-class AsyncAPISchemaIndex: FileBasedIndexExtension<String, Set<String>>() {
+class AsyncAPISpecificationIndex: FileBasedIndexExtension<String, Set<String>>() {
 
     override fun getName(): ID<String, Set<String>> = asyncapiIndexId
 

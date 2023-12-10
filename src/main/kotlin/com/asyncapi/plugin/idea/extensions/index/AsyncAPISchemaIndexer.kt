@@ -28,13 +28,13 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
         }
         asyncapiSchema ?: return index
 
-        index[AsyncAPISchemaIndex.asyncapi] = setOf(inputData.file.path)
+        index[AsyncAPISpecificationIndex.asyncapi] = setOf(inputData.file.path)
         var foundReferences = emptySet<String>()
         AsyncAPISpecificationReferencesCollector(asyncapiSchema, inputData.file.parent).collectFiles().forEach { (referenceType, references) ->
             index[referenceType] = references
 
             foundReferences = foundReferences.plus(references)
-            index[AsyncAPISchemaIndex.references] = foundReferences
+            index[AsyncAPISpecificationIndex.references] = foundReferences
         }
 
         return index

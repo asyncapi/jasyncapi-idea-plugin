@@ -1,6 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.inspection
 
-import com.asyncapi.plugin.idea.extensions.index.AsyncAPISchemaIndex
+import com.asyncapi.plugin.idea.extensions.index.AsyncAPISpecificationIndex
 import com.intellij.json.psi.JsonFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope
@@ -68,16 +68,16 @@ class AsyncAPISchemaDetector {
 
     private fun indexedAsyncAPISchemas(asyncapiSchema: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
-                AsyncAPISchemaIndex.asyncapiIndexId,
-                AsyncAPISchemaIndex.asyncapi,
+                AsyncAPISpecificationIndex.asyncapiIndexId,
+                AsyncAPISpecificationIndex.asyncapi,
                 GlobalSearchScope.allScope(asyncapiSchema.project)
         ).flatten()
     }
 
     private fun indexedReferencedAsyncAPISchemas(asyncapiSchema: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
-                AsyncAPISchemaIndex.asyncapiIndexId,
-                AsyncAPISchemaIndex.references,
+                AsyncAPISpecificationIndex.asyncapiIndexId,
+                AsyncAPISpecificationIndex.references,
                 GlobalSearchScope.allScope(asyncapiSchema.project)
         ).flatten()
     }

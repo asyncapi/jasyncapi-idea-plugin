@@ -54,28 +54,28 @@ class AsyncAPISpecificationReferencesCollector(
 
     companion object {
         val possibleReferencesLocation = mapOf(
-                AsyncAPISchemaIndex.channels to setOf("\$.channels.*.\$ref"),
-                AsyncAPISchemaIndex.parameters to setOf(
+                AsyncAPISpecificationIndex.channels to setOf("\$.channels.*.\$ref"),
+                AsyncAPISpecificationIndex.parameters to setOf(
                         "\$.channels.*.parameters.*.\$ref",
                         "\$.components.parameters.*.\$ref"
                 ),
-                AsyncAPISchemaIndex.traits to setOf(
+                AsyncAPISpecificationIndex.traits to setOf(
                         "\$.channels.*.subscribe.traits.*.\$ref",
                         "\$.channels.*.publish.traits.*.\$ref",
                         "\$.components.messages.*.traits.*.\$ref"
                 ),
-                AsyncAPISchemaIndex.messages to setOf(
+                AsyncAPISpecificationIndex.messages to setOf(
                         "\$.channels.*.subscribe.message.\$ref",
                         "\$.channels.*.publish.message.\$ref",
                         "\$.components.messages.*.\$ref"
                 ),
-                AsyncAPISchemaIndex.schemas to setOf("\$.components.schemas.*.\$ref"),
-                AsyncAPISchemaIndex.securitySchemes to setOf("\$.components.securitySchemes.*.\$ref"),
-                AsyncAPISchemaIndex.correlationIds to setOf(
+                AsyncAPISpecificationIndex.schemas to setOf("\$.components.schemas.*.\$ref"),
+                AsyncAPISpecificationIndex.securitySchemes to setOf("\$.components.securitySchemes.*.\$ref"),
+                AsyncAPISpecificationIndex.correlationIds to setOf(
                         "\$.components.messages.*.correlationId.\$ref",
                         "\$.components.messages.*.traits.*.correlationId.\$ref"
                 ),
-                AsyncAPISchemaIndex.headers to setOf(
+                AsyncAPISpecificationIndex.headers to setOf(
                         "\$.components.messages.*.headers.\$ref",
                         "\$.components.messages.*.traits.*.headers.\$ref"
                 )
