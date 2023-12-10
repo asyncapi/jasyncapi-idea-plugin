@@ -1,8 +1,7 @@
-package com.asyncapi.plugin.idea._core
+package com.asyncapi.plugin.idea.extensions.index
 
 import com.asyncapi.plugin.idea._core.xpath.JsonFileXPath
 import com.asyncapi.plugin.idea._core.xpath.YamlFileXPath
-import com.asyncapi.plugin.idea.extensions.index.AsyncAPISchemaIndex
 import com.intellij.json.psi.JsonFile
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile

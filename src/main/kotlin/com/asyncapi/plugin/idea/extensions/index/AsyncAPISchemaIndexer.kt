@@ -1,7 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.index
 
 import com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer
-import com.asyncapi.plugin.idea._core.AsyncAPISpecificationReferencesCollector
 import com.intellij.json.psi.JsonFile
 import com.intellij.openapi.components.service
 import com.intellij.util.indexing.DataIndexer
