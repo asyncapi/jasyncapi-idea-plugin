@@ -17,11 +17,11 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaComplianceChecker
  */
 class AsyncAPIJsonSchemaInspection: LocalInspectionTool() {
 
-    private val asyncAPISchemaDetector = AsyncAPISchemaDetector()
+    private val asyncAPISpecificationDetector = AsyncAPISpecificationDetector()
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean, session: LocalInspectionToolSession): PsiElementVisitor {
-        if (!asyncAPISchemaDetector.isAsyncAPIJsonSchema(holder.file)) {
+        if (!asyncAPISpecificationDetector.isAsyncAPIJsonSchema(holder.file)) {
             return PsiElementVisitor.EMPTY_VISITOR
         }
 

@@ -10,7 +10,7 @@ import org.jetbrains.yaml.psi.YAMLFile
 /**
  * @author Pavel Bodiachevskii
  */
-class AsyncAPISchemaDetector {
+class AsyncAPISpecificationDetector {
 
     fun isAsyncAPIJsonSchema(psiFile: PsiFile?): Boolean {
         psiFile ?: return false

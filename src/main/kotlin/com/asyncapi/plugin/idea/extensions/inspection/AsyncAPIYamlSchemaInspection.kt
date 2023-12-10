@@ -18,11 +18,11 @@ import org.jetbrains.yaml.psi.YamlPsiElementVisitor
  */
 class AsyncAPIYamlSchemaInspection: LocalInspectionTool() {
 
-    private val asyncAPISchemaDetector = AsyncAPISchemaDetector()
+    private val asyncAPISpecificationDetector = AsyncAPISpecificationDetector()
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean, session: LocalInspectionToolSession): PsiElementVisitor {
-        if (!asyncAPISchemaDetector.isAsyncAPIYamlSchema(holder.file)) {
+        if (!asyncAPISpecificationDetector.isAsyncAPIYamlSchema(holder.file)) {
             return PsiElementVisitor.EMPTY_VISITOR
         }
 

@@ -1,6 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.icon
 
-import com.asyncapi.plugin.idea.extensions.inspection.AsyncAPISchemaDetector
+import com.asyncapi.plugin.idea.extensions.inspection.AsyncAPISpecificationDetector
 import com.intellij.ide.IconProvider
 import com.intellij.json.psi.JsonFile
 import com.intellij.psi.PsiElement
@@ -13,12 +13,12 @@ import javax.swing.Icon
  */
 class AsyncAPIIconProvider: IconProvider() {
 
-    private val asyncApiSchemaDetector = AsyncAPISchemaDetector()
+    private val asyncApiSpecificationDetector = AsyncAPISpecificationDetector()
 
     override fun getIcon(element: PsiElement, flags: Int): Icon? {
         if (element is JsonFile || element is YAMLFile) {
-            if (asyncApiSchemaDetector.isAsyncAPISchema(element as? PsiFile) ||
-                asyncApiSchemaDetector.isReferencedAsyncAPISchema(element as? PsiFile)
+            if (asyncApiSpecificationDetector.isAsyncAPISchema(element as? PsiFile) ||
+                asyncApiSpecificationDetector.isReferencedAsyncAPISchema(element as? PsiFile)
             ) {
                 return Icons.ASYNCAPI_ICON
             }
