@@ -18,7 +18,7 @@ class AsyncAPISpecificationIndex: FileBasedIndexExtension<String, Set<String>>()
 
     override fun getName(): ID<String, Set<String>> = asyncapiIndexId
 
-    override fun getIndexer(): DataIndexer<String, Set<String>, FileContent> = AsyncAPISchemaIndexer()
+    override fun getIndexer(): DataIndexer<String, Set<String>, FileContent> = AsyncAPISpecificationIndexer()
 
     override fun getKeyDescriptor(): KeyDescriptor<String> = EnumeratorStringDescriptor.INSTANCE
 

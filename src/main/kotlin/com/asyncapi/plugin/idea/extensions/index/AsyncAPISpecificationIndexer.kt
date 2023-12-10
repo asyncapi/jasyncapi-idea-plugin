@@ -10,7 +10,7 @@ import org.jetbrains.yaml.psi.YAMLFile
 /**
  * @author Pavel Bodiachevskii
  */
-class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
+class AsyncAPISpecificationIndexer: DataIndexer<String, Set<String>, FileContent> {
 
     private val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
 
@@ -21,16 +21,16 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
             return index
         }
 
-        val asyncapiSchema = when(inputData.psiFile) {
+        val asyncapiSpecification = when(inputData.psiFile) {
             is JsonFile -> inputData.psiFile as JsonFile
             is YAMLFile -> inputData.psiFile as YAMLFile
             else -> null
         }
-        asyncapiSchema ?: return index
+        asyncapiSpecification ?: return index
 
         index[AsyncAPISpecificationIndex.asyncapi] = setOf(inputData.file.path)
         var foundReferences = emptySet<String>()
-        AsyncAPISpecificationReferencesCollector(asyncapiSchema, inputData.file.parent).collectFiles().forEach { (referenceType, references) ->
+        AsyncAPISpecificationReferencesCollector(asyncapiSpecification, inputData.file.parent).collectFiles().forEach { (referenceType, references) ->
             index[referenceType] = references
 
             foundReferences = foundReferences.plus(references)
