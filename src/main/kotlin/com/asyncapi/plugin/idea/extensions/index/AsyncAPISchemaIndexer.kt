@@ -1,7 +1,7 @@
 package com.asyncapi.plugin.idea.extensions.index
 
 import com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer
-import com.asyncapi.plugin.idea._core.AsyncAPISchemaReferencesCollector
+import com.asyncapi.plugin.idea._core.AsyncAPISpecificationReferencesCollector
 import com.intellij.json.psi.JsonFile
 import com.intellij.openapi.components.service
 import com.intellij.util.indexing.DataIndexer
@@ -31,7 +31,7 @@ class AsyncAPISchemaIndexer: DataIndexer<String, Set<String>, FileContent> {
 
         index[AsyncAPISchemaIndex.asyncapi] = setOf(inputData.file.path)
         var foundReferences = emptySet<String>()
-        AsyncAPISchemaReferencesCollector(asyncapiSchema, inputData.file.parent).collectFiles().forEach { (referenceType, references) ->
+        AsyncAPISpecificationReferencesCollector(asyncapiSchema, inputData.file.parent).collectFiles().forEach { (referenceType, references) ->
             index[referenceType] = references
 
             foundReferences = foundReferences.plus(references)

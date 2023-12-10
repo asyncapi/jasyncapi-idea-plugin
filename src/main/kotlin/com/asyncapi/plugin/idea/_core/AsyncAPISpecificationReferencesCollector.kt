@@ -11,9 +11,9 @@ import org.jetbrains.yaml.psi.YAMLFile
 /**
  * @author Pavel Bodiachevskii
  */
-class AsyncAPISchemaReferencesCollector(
-        private val asyncAPISchema: PsiFile,
-        private val asyncAPISchemaDir: VirtualFile,
+class AsyncAPISpecificationReferencesCollector(
+        private val asyncAPISpecification: PsiFile,
+        private val asyncAPISpecificationDir: VirtualFile,
 ) {
 
     fun collectFiles(): Map<String, Set<String>> {
@@ -24,7 +24,7 @@ class AsyncAPISchemaReferencesCollector(
                     .filter { isFileReference(it) }
                     .map { cutReferenceToPropertyIfExists(it) }
                     .filter { isJsonOrYaml(it) }
-                    .mapNotNull { asyncAPISchemaDir.findFileByRelativePath(it)?.path }
+                    .mapNotNull { asyncAPISpecificationDir.findFileByRelativePath(it)?.path }
                     .toSet()
         }
 
@@ -32,9 +32,9 @@ class AsyncAPISchemaReferencesCollector(
     }
 
     private fun collect(xpath: String): List<String> {
-        return when (asyncAPISchema) {
-            is JsonFile -> return JsonFileXPath.findText(asyncAPISchema, xpath)
-            is YAMLFile -> return YamlFileXPath.findText(asyncAPISchema, xpath)
+        return when (asyncAPISpecification) {
+            is JsonFile -> return JsonFileXPath.findText(asyncAPISpecification, xpath)
+            is YAMLFile -> return YamlFileXPath.findText(asyncAPISpecification, xpath)
             else -> emptyList()
         }
     }
