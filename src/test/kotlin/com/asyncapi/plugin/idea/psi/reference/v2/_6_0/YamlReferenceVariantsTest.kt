@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.psi.reference.v2_0_0
+package com.asyncapi.plugin.idea.psi.reference.v2._6_0
 
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -6,12 +6,12 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase
 /**
  * @author Pavel Bodiachevskii
  */
-class JsonReferenceVariantsTest: BasePlatformTestCase() {
+class YamlReferenceVariantsTest: BasePlatformTestCase() {
 
-    override fun getTestDataPath(): String = "src/test/testData/json/reference/completion/2.0.0"
+    override fun getTestDataPath(): String = "src/test/testData/yaml/reference/completion/2.6.0"
 
     fun `test co`() {
-        myFixture.configureByFile("co.json")
+        myFixture.configureByFile("co.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -19,7 +19,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test comp`() {
-        myFixture.configureByFile("comp.json")
+        myFixture.configureByFile("comp.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -27,7 +27,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test components`() {
-        myFixture.configureByFile("components.json")
+        myFixture.configureByFile("components.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -35,7 +35,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test components_m`() {
-        myFixture.configureByFile("components_m.json")
+        myFixture.configureByFile("components_m.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -49,7 +49,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test components_messages_u`() {
-        myFixture.configureByFile("components_messages_u.json")
+        myFixture.configureByFile("components_messages_u.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -64,7 +64,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test i`() {
-        myFixture.configureByFile("i.json")
+        myFixture.configureByFile("i.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -80,7 +80,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test in`() {
-        myFixture.configureByFile("in.json")
+        myFixture.configureByFile("in.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -95,7 +95,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test inf`() {
-        myFixture.configureByFile("inf.json")
+        myFixture.configureByFile("inf.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -110,7 +110,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test `() {
-        myFixture.configureByFile("_.json")
+        myFixture.configureByFile("_.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -131,7 +131,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test qwerty`() {
-        myFixture.configureByFile("qwerty.json")
+        myFixture.configureByFile("qwerty.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -139,7 +139,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test 123`() {
-        myFixture.configureByFile("123.json")
+        myFixture.configureByFile("123.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -147,7 +147,7 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test $^^`() {
-        myFixture.configureByFile("\$^^.json")
+        myFixture.configureByFile("\$^^.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
@@ -155,11 +155,11 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test referenced file`() {
-        myFixture.configureByFiles("reference.json", "ref.json")
+        myFixture.configureByFiles("reference.yaml", "ref.yaml")
         myFixture.complete(CompletionType.BASIC, 1)
         val variants = myFixture.lookupElementStrings ?: emptyList()
 
-        assertEquals(listOf("./ref.json#/reference"), variants)
+        assertEquals(listOf("./ref.yaml#/reference"), variants)
     }
 
 }

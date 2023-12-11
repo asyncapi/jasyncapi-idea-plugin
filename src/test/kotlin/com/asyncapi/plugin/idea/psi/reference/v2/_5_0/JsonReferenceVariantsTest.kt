@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.psi.reference.v2_2_0
+package com.asyncapi.plugin.idea.psi.reference.v2._5_0
 
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -8,7 +8,7 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase
  */
 class JsonReferenceVariantsTest: BasePlatformTestCase() {
 
-    override fun getTestDataPath(): String = "src/test/testData/json/reference/completion/2.1.0"
+    override fun getTestDataPath(): String = "src/test/testData/json/reference/completion/2.5.0"
 
     fun `test co`() {
         myFixture.configureByFile("co.json")

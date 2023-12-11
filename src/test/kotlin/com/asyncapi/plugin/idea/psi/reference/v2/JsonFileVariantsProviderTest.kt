@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.psi.reference
+package com.asyncapi.plugin.idea.psi.reference.v2
 
 import com.asyncapi.plugin.idea._core.xpath.JsonFileXPath
 import com.asyncapi.plugin.idea.extensions.psi.reference.JsonFileVariantsProvider

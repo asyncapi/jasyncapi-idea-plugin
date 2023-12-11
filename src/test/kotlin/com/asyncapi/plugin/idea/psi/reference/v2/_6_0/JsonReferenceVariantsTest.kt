@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.psi.reference.v2_6_0
+package com.asyncapi.plugin.idea.psi.reference.v2._6_0
 
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
