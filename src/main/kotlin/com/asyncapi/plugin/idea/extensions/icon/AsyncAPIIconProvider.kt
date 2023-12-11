@@ -17,7 +17,7 @@ class AsyncAPIIconProvider: IconProvider() {
 
     override fun getIcon(element: PsiElement, flags: Int): Icon? {
         if (element is JsonFile || element is YAMLFile) {
-            if (asyncApiSpecificationDetector.isAsyncAPISchema(element as? PsiFile) ||
+            if (asyncApiSpecificationDetector.isAsyncAPISpecification(element as? PsiFile) ||
                 asyncApiSpecificationDetector.isReferencedAsyncAPISchema(element as? PsiFile)
             ) {
                 return Icons.ASYNCAPI_ICON

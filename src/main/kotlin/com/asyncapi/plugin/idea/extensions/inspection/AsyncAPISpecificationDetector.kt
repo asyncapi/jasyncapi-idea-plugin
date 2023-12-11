@@ -30,7 +30,7 @@ class AsyncAPISpecificationDetector {
         return indexedAsyncAPISchemas(psiFile).contains(psiFile.virtualFile?.path)
     }
 
-    fun isAsyncAPISchema(psiFile: PsiFile?): Boolean {
+    fun isAsyncAPISpecification(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         return when (psiFile) {
             is JsonFile -> return isAsyncAPIJsonSchema(psiFile)
