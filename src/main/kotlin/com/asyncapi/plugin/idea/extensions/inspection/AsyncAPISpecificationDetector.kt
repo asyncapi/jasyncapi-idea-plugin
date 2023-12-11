@@ -18,7 +18,7 @@ class AsyncAPISpecificationDetector {
             return false
         }
 
-        return indexedAsyncAPISchemas(psiFile).contains(psiFile.virtualFile?.path)
+        return indexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
     }
 
     fun isAsyncAPIYamlSchema(psiFile: PsiFile?): Boolean {
@@ -27,7 +27,7 @@ class AsyncAPISpecificationDetector {
             return false
         }
 
-        return indexedAsyncAPISchemas(psiFile).contains(psiFile.virtualFile?.path)
+        return indexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
     }
 
     fun isAsyncAPISpecification(psiFile: PsiFile?): Boolean {
@@ -66,7 +66,7 @@ class AsyncAPISpecificationDetector {
         }
     }
 
-    private fun indexedAsyncAPISchemas(asyncapiSchema: PsiFile): List<String> {
+    private fun indexedAsyncAPISpecifications(asyncapiSchema: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
                 AsyncAPISpecificationIndex.asyncapiIndexId,
                 AsyncAPISpecificationIndex.asyncapi,
