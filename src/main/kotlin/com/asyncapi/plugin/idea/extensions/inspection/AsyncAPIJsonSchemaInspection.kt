@@ -21,7 +21,7 @@ class AsyncAPIJsonSchemaInspection: LocalInspectionTool() {
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean, session: LocalInspectionToolSession): PsiElementVisitor {
-        if (!asyncAPISpecificationDetector.isAsyncAPIJsonSchema(holder.file)) {
+        if (!asyncAPISpecificationDetector.isAsyncAPIJsonSpecification(holder.file)) {
             return PsiElementVisitor.EMPTY_VISITOR
         }
 

@@ -12,7 +12,7 @@ import org.jetbrains.yaml.psi.YAMLFile
  */
 class AsyncAPISpecificationDetector {
 
-    fun isAsyncAPIJsonSchema(psiFile: PsiFile?): Boolean {
+    fun isAsyncAPIJsonSpecification(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         if (psiFile !is JsonFile) {
             return false
@@ -21,7 +21,7 @@ class AsyncAPISpecificationDetector {
         return indexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
     }
 
-    fun isAsyncAPIYamlSchema(psiFile: PsiFile?): Boolean {
+    fun isAsyncAPIYamlSpecification(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         if (psiFile !is YAMLFile) {
             return false
@@ -33,8 +33,8 @@ class AsyncAPISpecificationDetector {
     fun isAsyncAPISpecification(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         return when (psiFile) {
-            is JsonFile -> return isAsyncAPIJsonSchema(psiFile)
-            is YAMLFile -> return isAsyncAPIYamlSchema(psiFile)
+            is JsonFile -> return isAsyncAPIJsonSpecification(psiFile)
+            is YAMLFile -> return isAsyncAPIYamlSpecification(psiFile)
             else -> false
         }
     }
@@ -66,19 +66,19 @@ class AsyncAPISpecificationDetector {
         }
     }
 
-    private fun indexedAsyncAPISpecifications(asyncapiSchema: PsiFile): List<String> {
+    private fun indexedAsyncAPISpecifications(asyncapiSpecification: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
                 AsyncAPISpecificationIndex.asyncapiIndexId,
                 AsyncAPISpecificationIndex.asyncapi,
-                GlobalSearchScope.allScope(asyncapiSchema.project)
+                GlobalSearchScope.allScope(asyncapiSpecification.project)
         ).flatten()
     }
 
-    private fun indexedAsyncAPISpecificationReferences(asyncapiSchema: PsiFile): List<String> {
+    private fun indexedAsyncAPISpecificationReferences(asyncapiSpecification: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
                 AsyncAPISpecificationIndex.asyncapiIndexId,
                 AsyncAPISpecificationIndex.references,
-                GlobalSearchScope.allScope(asyncapiSchema.project)
+                GlobalSearchScope.allScope(asyncapiSpecification.project)
         ).flatten()
     }
 
