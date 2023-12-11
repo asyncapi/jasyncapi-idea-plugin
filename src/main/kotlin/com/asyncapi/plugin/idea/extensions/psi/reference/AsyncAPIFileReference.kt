@@ -15,7 +15,7 @@ import org.jetbrains.yaml.psi.YAMLFile
 import org.jetbrains.yaml.psi.YAMLPsiElement
 
 /**
- * Reference to schema located in file.
+ * Reference to specification component located in external file.
  *
  * @author Pavel Bodiachevskii
  */
