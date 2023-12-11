@@ -1,6 +1,7 @@
 package com.asyncapi.plugin.idea.extensions.inspection
 
-import com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex
+import com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex as AsyncAPISpecificationIndexV2
+import com.asyncapi.plugin.idea.extensions.index.v3.AsyncAPISpecificationIndex as AsyncAPISpecificationIndexV3
 import com.intellij.json.psi.JsonFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope
@@ -18,7 +19,8 @@ class AsyncAPISpecificationDetector {
             return false
         }
 
-        return indexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
+        return v2IndexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
+                || v3IndexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
     }
 
     fun isAsyncAPIYamlSpecification(psiFile: PsiFile?): Boolean {
@@ -27,7 +29,8 @@ class AsyncAPISpecificationDetector {
             return false
         }
 
-        return indexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
+        return v2IndexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
+                || v3IndexedAsyncAPISpecifications(psiFile).contains(psiFile.virtualFile?.path)
     }
 
     fun isAsyncAPISpecification(psiFile: PsiFile?): Boolean {
@@ -45,7 +48,8 @@ class AsyncAPISpecificationDetector {
             return false
         }
 
-        return indexedAsyncAPISpecificationReferences(psiFile).contains(psiFile.virtualFile?.path)
+        return v2IndexedAsyncAPISpecificationReferences(psiFile).contains(psiFile.virtualFile?.path)
+                || v3IndexedAsyncAPISpecificationReferences(psiFile).contains(psiFile.virtualFile?.path)
     }
 
     private fun isAsyncAPISpecificationYamlComponent(psiFile: PsiFile?): Boolean {
@@ -54,7 +58,8 @@ class AsyncAPISpecificationDetector {
             return false
         }
 
-        return indexedAsyncAPISpecificationReferences(psiFile).contains(psiFile.virtualFile?.path)
+        return v2IndexedAsyncAPISpecificationReferences(psiFile).contains(psiFile.virtualFile?.path)
+                || v3IndexedAsyncAPISpecificationReferences(psiFile).contains(psiFile.virtualFile?.path)
     }
 
     fun isAsyncAPISpecificationComponent(psiFile: PsiFile?): Boolean {
@@ -66,19 +71,35 @@ class AsyncAPISpecificationDetector {
         }
     }
 
-    private fun indexedAsyncAPISpecifications(asyncapiSpecification: PsiFile): List<String> {
+    private fun v2IndexedAsyncAPISpecifications(asyncapiSpecification: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
-                AsyncAPISpecificationIndex.asyncapiIndexId,
-                AsyncAPISpecificationIndex.asyncapi,
+                AsyncAPISpecificationIndexV2.asyncapiIndexId,
+                AsyncAPISpecificationIndexV2.asyncapi,
                 GlobalSearchScope.allScope(asyncapiSpecification.project)
         ).flatten()
     }
 
-    private fun indexedAsyncAPISpecificationReferences(asyncapiSpecification: PsiFile): List<String> {
+    private fun v3IndexedAsyncAPISpecifications(asyncapiSpecification: PsiFile): List<String> {
         return FileBasedIndex.getInstance().getValues(
-                AsyncAPISpecificationIndex.asyncapiIndexId,
-                AsyncAPISpecificationIndex.references,
+            AsyncAPISpecificationIndexV3.asyncapiIndexId,
+            AsyncAPISpecificationIndexV3.asyncapi,
+            GlobalSearchScope.allScope(asyncapiSpecification.project)
+        ).flatten()
+    }
+
+    private fun v2IndexedAsyncAPISpecificationReferences(asyncapiSpecification: PsiFile): List<String> {
+        return FileBasedIndex.getInstance().getValues(
+                AsyncAPISpecificationIndexV2.asyncapiIndexId,
+                AsyncAPISpecificationIndexV2.references,
                 GlobalSearchScope.allScope(asyncapiSpecification.project)
+        ).flatten()
+    }
+
+    private fun v3IndexedAsyncAPISpecificationReferences(asyncapiSpecification: PsiFile): List<String> {
+        return FileBasedIndex.getInstance().getValues(
+            AsyncAPISpecificationIndexV3.asyncapiIndexId,
+            AsyncAPISpecificationIndexV3.references,
+            GlobalSearchScope.allScope(asyncapiSpecification.project)
         ).flatten()
     }
 
