@@ -1,0 +1,34 @@
+{
+  <error descr="Missing required property 'info'">"asyncapi": "3.0.0"</error>,
+  "components": {
+    "messages": {
+      "UserSignedUp": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "Name of the user"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Email of the user"
+            }
+          }
+        }
+      },
+      "UserSignedOut": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "Name of the user"
+            }
+          }
+        }
+      }
+    }
+  }
+}

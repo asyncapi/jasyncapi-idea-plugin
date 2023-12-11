@@ -11,6 +11,8 @@ abstract class AbstractAsyncAPIJsonSpecificationInspectionTest: BasePlatformTest
 
     override fun getTestDataPath(): String = "src/test/testData/json/inspection/2.0.0"
 
+    abstract fun specificationWithoutRequiredProperty(): String
+
     fun `test - with extra keys`() {
         myFixture.configureByFile("extra keys.json")
         myFixture.enableInspections(AsyncAPIJsonSpecificationInspection::class.java)
@@ -18,8 +20,8 @@ abstract class AbstractAsyncAPIJsonSpecificationInspectionTest: BasePlatformTest
         myFixture.checkHighlighting()
     }
 
-    fun `test - without channels`() {
-        myFixture.configureByFile("without channels.json")
+    fun `test - without required property`() {
+        myFixture.configureByFile(specificationWithoutRequiredProperty())
         myFixture.enableInspections(AsyncAPIJsonSpecificationInspection::class.java)
 
         myFixture.checkHighlighting()

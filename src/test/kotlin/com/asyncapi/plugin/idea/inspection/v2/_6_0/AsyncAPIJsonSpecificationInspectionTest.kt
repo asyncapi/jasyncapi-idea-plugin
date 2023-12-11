@@ -10,4 +10,6 @@ class AsyncAPIJsonSpecificationInspectionTest: AbstractAsyncAPIJsonSpecification
 
     override fun getTestDataPath(): String = "src/test/testData/json/inspection/2.6.0"
 
+    override fun specificationWithoutRequiredProperty(): String = "without channels.json"
+
 }

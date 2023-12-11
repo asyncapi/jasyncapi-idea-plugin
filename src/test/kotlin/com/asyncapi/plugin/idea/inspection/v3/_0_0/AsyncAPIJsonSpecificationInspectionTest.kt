@@ -8,6 +8,8 @@ import com.asyncapi.plugin.idea.inspection.AbstractAsyncAPIJsonSpecificationInsp
  */
 class AsyncAPIJsonSpecificationInspectionTest: AbstractAsyncAPIJsonSpecificationInspectionTest() {
 
-    override fun getTestDataPath(): String = "src/test/testData/json/inspection/2.0.0"
+    override fun getTestDataPath(): String = "src/test/testData/json/inspection/3.0.0"
+
+    override fun specificationWithoutRequiredProperty(): String = "without info.json"
 
 }
