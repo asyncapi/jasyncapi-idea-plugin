@@ -8,10 +8,10 @@ import com.intellij.psi.PsiFile
  *
  * @author Pavel Bodiachevskii
  */
-abstract class PsiFileXPath<AsyncAPISchema: PsiFile> {
+abstract class PsiFileXPath<AsyncAPISpecification: PsiFile> {
 
     /**
-     * Converts schema reference to PSI XPath.
+     * Converts specification reference to PSI XPath.
      * For example: #/components/messages will be compiled as $.components.messages
      *
      * @param specificationReference to compile as PSI xpath.
@@ -28,24 +28,24 @@ abstract class PsiFileXPath<AsyncAPISchema: PsiFile> {
     /**
      * Search for [PsiElement] by given xpath.
      *
-     * @param asyncAPISchema [PsiFile] to inspect.
+     * @param asyncAPISpecification [PsiFile] to inspect.
      * @param psiXPath PSI XPath to execute.
      * @param partialMatch is partial match allowed.
      *
      * @return list of [PsiElement.getText] for each found [PsiElement] or empty.
      */
-    abstract fun findText(asyncAPISpecification: AsyncAPISchema?, psiXPath: String, partialMatch: Boolean = false): List<String>
+    abstract fun findText(asyncAPISpecification: AsyncAPISpecification?, psiXPath: String, partialMatch: Boolean = false): List<String>
 
     /**
      * Search for [PsiElement] text by given xpath.
      *
-     * @param asyncAPISchema [PsiFile] to inspect.
+     * @param asyncAPISpecification [PsiFile] to inspect.
      * @param psiXPath PSI XPath to execute.
      * @param partialMatch is partial match allowed.
      *
      * @return list of found [PsiElement] or empty.
      */
-    abstract fun findPsi(asyncAPISpecification: AsyncAPISchema?, psiXPath: String, partialMatch: Boolean = false): List<PsiElement>
+    abstract fun findPsi(asyncAPISpecification: AsyncAPISpecification?, psiXPath: String, partialMatch: Boolean = false): List<PsiElement>
 
     /**
      * Split psiXPath to tokens.
