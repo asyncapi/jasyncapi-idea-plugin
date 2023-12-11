@@ -45,7 +45,7 @@
         <localInspection language="JSON" displayName="AsyncAPI schema inspection (json)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIJsonSchemaInspection"/>
 
         <!-- AsyncAPI schema indexing -->
-        <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.AsyncAPISpecificationIndex"/>
+        <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex"/>
 
         <!-- AsyncAPI references -->
         <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISpecificationReferenceContributor"/>

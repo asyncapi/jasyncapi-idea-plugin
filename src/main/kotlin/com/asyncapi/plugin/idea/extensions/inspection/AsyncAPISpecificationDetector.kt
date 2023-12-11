@@ -1,6 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.inspection
 
-import com.asyncapi.plugin.idea.extensions.index.AsyncAPISpecificationIndex
+import com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex
 import com.intellij.json.psi.JsonFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope

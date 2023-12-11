@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.extensions.index
+package com.asyncapi.plugin.idea.extensions.index.v2
 
 import com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer
 import com.intellij.json.psi.JsonFile

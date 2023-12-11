@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.extensions.index
+package com.asyncapi.plugin.idea.extensions.index.v2
 
 import com.asyncapi.plugin.idea._core.xpath.JsonFileXPath
 import com.asyncapi.plugin.idea._core.xpath.YamlFileXPath
