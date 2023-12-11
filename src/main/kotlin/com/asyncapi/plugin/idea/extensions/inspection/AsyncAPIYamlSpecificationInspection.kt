@@ -16,7 +16,7 @@ import org.jetbrains.yaml.psi.YamlPsiElementVisitor
 /**
  * @author Pavel Bodiachevskii
  */
-class AsyncAPIYamlSchemaInspection: LocalInspectionTool() {
+class AsyncAPIYamlSpecificationInspection: LocalInspectionTool() {
 
     private val asyncAPISpecificationDetector = AsyncAPISpecificationDetector()
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()

@@ -15,7 +15,7 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaComplianceChecker
 /**
  * @author Pavel Bodiachevskii
  */
-class AsyncAPIJsonSchemaInspection: LocalInspectionTool() {
+class AsyncAPIJsonSpecificationInspection: LocalInspectionTool() {
 
     private val asyncAPISpecificationDetector = AsyncAPISpecificationDetector()
     private val asyncAPIJsonSchemaProvider = service<AsyncAPIJsonSchemaProvider>()

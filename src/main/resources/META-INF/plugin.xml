@@ -42,9 +42,9 @@
         <!-- Icons to render when working with AsyncAPI files -->
         <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" />
 
-        <!-- AsyncAPI schema inspection -->
-        <localInspection language="yaml" displayName="AsyncAPI schema inspection (yaml)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSchemaInspection"/>
-        <localInspection language="JSON" displayName="AsyncAPI schema inspection (json)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIJsonSchemaInspection"/>
+        <!-- AsyncAPI specification inspection -->
+        <localInspection language="yaml" displayName="AsyncAPI specification inspection (yaml)" groupName="AsyncAPI specification inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSpecificationInspection"/>
+        <localInspection language="JSON" displayName="AsyncAPI specification inspection (json)" groupName="AsyncAPI specification inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIJsonSpecificationInspection"/>
 
         <!-- AsyncAPI specification indexing -->
         <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex"/>
