@@ -57,7 +57,7 @@ class AsyncAPISpecificationDetector {
         return indexedReferencedAsyncAPISchemas(psiFile).contains(psiFile.virtualFile?.path)
     }
 
-    fun isReferencedAsyncAPISchema(psiFile: PsiFile?): Boolean {
+    fun isAsyncAPISpecificationComponent(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         return when (psiFile) {
             is JsonFile -> return isReferencedAsyncAPIJsonSchema(psiFile)
