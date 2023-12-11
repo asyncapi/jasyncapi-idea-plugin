@@ -48,7 +48,7 @@ class AsyncAPISpecificationDetector {
         return indexedReferencedAsyncAPISchemas(psiFile).contains(psiFile.virtualFile?.path)
     }
 
-    fun isReferencedAsyncAPIYamlSchema(psiFile: PsiFile?): Boolean {
+    private fun isAsyncAPISpecificationYamlComponent(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         if (psiFile !is YAMLFile) {
             return false
@@ -61,7 +61,7 @@ class AsyncAPISpecificationDetector {
         psiFile ?: return false
         return when (psiFile) {
             is JsonFile -> return isAsyncAPISpecificationJsonComponent(psiFile)
-            is YAMLFile -> return isReferencedAsyncAPIYamlSchema(psiFile)
+            is YAMLFile -> return isAsyncAPISpecificationYamlComponent(psiFile)
             else -> false
         }
     }
