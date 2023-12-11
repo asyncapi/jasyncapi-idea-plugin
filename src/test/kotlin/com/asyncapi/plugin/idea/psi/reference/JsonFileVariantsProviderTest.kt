@@ -53,11 +53,11 @@ class JsonFileVariantsProviderTest: BasePlatformTestCase() {
 
     private fun testCompletion(asyncapi: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/$asyncapi.json").readText()
+        val asyncAPISpecification = this.javaClass.getResource("/$asyncapi.json").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
                 "$asyncapi.json",
                 Language.findLanguageByID("JSON")!!,
-                asyncAPISchema
+            asyncAPISpecification
         ) as JsonFile
 
         TestCase.assertEquals(listOf("#/components", "#/components/messages"), collectVariants("#/co", asyncAPIPSI))
@@ -131,13 +131,13 @@ class JsonFileVariantsProviderTest: BasePlatformTestCase() {
         TestCase.assertTrue("In case of wrong property name variants must be empty", collectVariants("#/$%^^", asyncAPIPSI).isEmpty())
     }
 
-    private fun collectVariants(xpath: String, schema: JsonFile): List<String> {
+    private fun collectVariants(xpath: String, specification: JsonFile): List<String> {
         val psiPath = JsonFileXPath.compileXPath(xpath)
-        val foundPsiElements = JsonFileXPath.findPsi(schema, psiPath, true)
+        val foundPsiElements = JsonFileXPath.findPsi(specification, psiPath, true)
 
         return JsonFileVariantsProvider(
                 foundPsiElements.filterIsInstance<JsonElement>(),
-                schema.name,
+                specification.name,
                 psiPath
         ).variants().map { it.lookupString }
     }

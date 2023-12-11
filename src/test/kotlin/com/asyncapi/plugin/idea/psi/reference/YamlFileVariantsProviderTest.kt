@@ -54,11 +54,11 @@ class YamlFileVariantsProviderTest: BasePlatformTestCase() {
 
     fun testCompletion(asyncapi: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/$asyncapi.yaml").readText()
+        val asyncAPISpecification = this.javaClass.getResource("/$asyncapi.yaml").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
                 "$asyncapi.yaml",
                 YAMLLanguage.INSTANCE,
-                asyncAPISchema
+                asyncAPISpecification
         ) as YAMLFile
 
         TestCase.assertEquals(listOf("#/components", "#/components/messages"), collectVariants("#/co", asyncAPIPSI))
@@ -132,13 +132,13 @@ class YamlFileVariantsProviderTest: BasePlatformTestCase() {
         TestCase.assertTrue("In case of wrong property name variants must be empty", collectVariants("#/$%^^", asyncAPIPSI).isEmpty())
     }
 
-    private fun collectVariants(xpath: String, schema: YAMLFile): List<String> {
+    private fun collectVariants(xpath: String, specification: YAMLFile): List<String> {
         val psiPath = JsonFileXPath.compileXPath(xpath)
-        val foundPsiElements = YamlFileXPath.findPsi(schema, psiPath, true)
+        val foundPsiElements = YamlFileXPath.findPsi(specification, psiPath, true)
 
         return YamlFileVariantsProvider(
                 foundPsiElements.filterIsInstance<YAMLPsiElement>(),
-                schema.name,
+                specification.name,
                 psiPath
         ).variants().map { it.lookupString }
     }
