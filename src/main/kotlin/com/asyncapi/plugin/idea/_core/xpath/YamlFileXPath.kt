@@ -12,21 +12,21 @@ import org.jetbrains.yaml.psi.YAMLMapping
  */
 object YamlFileXPath: PsiFileXPath<YAMLFile>() {
 
-    override fun findText(asyncAPISchema: YAMLFile?, psiXPath: String, partialMatch: Boolean): List<String> {
-        return findPsi(asyncAPISchema, psiXPath, partialMatch).map {
+    override fun findText(asyncAPISpecification: YAMLFile?, psiXPath: String, partialMatch: Boolean): List<String> {
+        return findPsi(asyncAPISpecification, psiXPath, partialMatch).map {
             it.text.removePrefix("\"").removeSuffix("\"")
         }
     }
 
-    override fun findPsi(asyncAPISchema: YAMLFile?, psiXPath: String, partialMatch: Boolean): List<PsiElement> {
-        asyncAPISchema ?: return emptyList()
+    override fun findPsi(asyncAPISpecification: YAMLFile?, psiXPath: String, partialMatch: Boolean): List<PsiElement> {
+        asyncAPISpecification ?: return emptyList()
 
         val tokens = tokenize(psiXPath)
         if (tokens.isEmpty()) {
             return emptyList()
         }
 
-        var elements: List<PsiElement> = asyncAPISchema.documents.flatMap { it.yamlElements }
+        var elements: List<PsiElement> = asyncAPISpecification.documents.flatMap { it.yamlElements }
 
         tokens.forEach { token ->
             elements = exploreNodes(elements, token, partialMatch)

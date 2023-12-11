@@ -14,10 +14,10 @@ abstract class PsiFileXPath<AsyncAPISchema: PsiFile> {
      * Converts schema reference to PSI XPath.
      * For example: #/components/messages will be compiled as $.components.messages
      *
-     * @param schemaReference to compile as PSI xpath.
+     * @param specificationReference to compile as PSI xpath.
      */
-    fun compileXPath(schemaReference: String): String {
-        return schemaReference
+    fun compileXPath(specificationReference: String): String {
+        return specificationReference
                 .removePrefix("\"")
                 .removeSuffix("\"")
                 .replace("#/", "")
@@ -34,7 +34,7 @@ abstract class PsiFileXPath<AsyncAPISchema: PsiFile> {
      *
      * @return list of [PsiElement.getText] for each found [PsiElement] or empty.
      */
-    abstract fun findText(asyncAPISchema: AsyncAPISchema?, psiXPath: String, partialMatch: Boolean = false): List<String>
+    abstract fun findText(asyncAPISpecification: AsyncAPISchema?, psiXPath: String, partialMatch: Boolean = false): List<String>
 
     /**
      * Search for [PsiElement] text by given xpath.
@@ -45,7 +45,7 @@ abstract class PsiFileXPath<AsyncAPISchema: PsiFile> {
      *
      * @return list of found [PsiElement] or empty.
      */
-    abstract fun findPsi(asyncAPISchema: AsyncAPISchema?, psiXPath: String, partialMatch: Boolean = false): List<PsiElement>
+    abstract fun findPsi(asyncAPISpecification: AsyncAPISchema?, psiXPath: String, partialMatch: Boolean = false): List<PsiElement>
 
     /**
      * Split psiXPath to tokens.

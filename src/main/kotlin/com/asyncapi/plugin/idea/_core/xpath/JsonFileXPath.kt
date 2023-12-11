@@ -12,15 +12,15 @@ import com.intellij.psi.PsiElement
  */
 object JsonFileXPath: PsiFileXPath<JsonFile>() {
 
-    override fun findPsi(asyncAPISchema: JsonFile?, psiXPath: String, partialMatch: Boolean): List<PsiElement> {
-        asyncAPISchema ?: return emptyList()
+    override fun findPsi(asyncAPISpecification: JsonFile?, psiXPath: String, partialMatch: Boolean): List<PsiElement> {
+        asyncAPISpecification ?: return emptyList()
 
         val tokens = tokenize(psiXPath)
         if (tokens.isEmpty()) {
             return emptyList()
         }
 
-        var elements: List<PsiElement> = asyncAPISchema.children.filterIsInstance(JsonObject::class.java).flatMap {
+        var elements: List<PsiElement> = asyncAPISpecification.children.filterIsInstance(JsonObject::class.java).flatMap {
             it.propertyList
         }
 
@@ -31,8 +31,8 @@ object JsonFileXPath: PsiFileXPath<JsonFile>() {
         return elements
     }
 
-    override fun findText(asyncAPISchema: JsonFile?, psiXPath: String, partialMatch: Boolean): List<String> {
-        return findPsi(asyncAPISchema, psiXPath, partialMatch).map {
+    override fun findText(asyncAPISpecification: JsonFile?, psiXPath: String, partialMatch: Boolean): List<String> {
+        return findPsi(asyncAPISpecification, psiXPath, partialMatch).map {
             it.text.removePrefix("\"").removeSuffix("\"")
         }
     }
