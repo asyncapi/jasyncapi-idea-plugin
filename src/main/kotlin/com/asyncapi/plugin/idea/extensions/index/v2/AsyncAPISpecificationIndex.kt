@@ -11,7 +11,7 @@ import java.io.DataInput
 import java.io.DataOutput
 
 /**
- * I use [Set] because of cases when schema has multiple references to schemas.
+ * I use [Set] because of cases when specification has multiple references to components.
  * @author Pavel Bodiachevskii
  */
 class AsyncAPISpecificationIndex: FileBasedIndexExtension<String, Set<String>>() {
@@ -36,14 +36,14 @@ class AsyncAPISpecificationIndex: FileBasedIndexExtension<String, Set<String>>()
         }
 
         override fun read(`in`: DataInput): Set<String> {
-            val indexedAsyncAPISchemas = mutableSetOf<String>()
+            val indexedAsyncAPISpecifications = mutableSetOf<String>()
 
             val size = DataInputOutputUtil.readINT(`in`)
             for (i in 0 until size) {
-                indexedAsyncAPISchemas.add(`in`.readUTF())
+                indexedAsyncAPISpecifications.add(`in`.readUTF())
             }
 
-            return indexedAsyncAPISchemas
+            return indexedAsyncAPISpecifications
         }
 
     }
