@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.inspection.v2_4_0
+package com.asyncapi.plugin.idea.inspection.v2._2_0
 
 import com.asyncapi.plugin.idea.inspection.AbstractAsyncAPIJsonSpecificationInspectionTest
 
@@ -8,6 +8,6 @@ import com.asyncapi.plugin.idea.inspection.AbstractAsyncAPIJsonSpecificationInsp
  */
 class AsyncAPIJsonSpecificationInspectionTest: AbstractAsyncAPIJsonSpecificationInspectionTest() {
 
-    override fun getTestDataPath(): String = "src/test/testData/json/inspection/2.4.0"
+    override fun getTestDataPath(): String = "src/test/testData/json/inspection/2.2.0"
 
 }

@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.inspection.v2_1_0
+package com.asyncapi.plugin.idea.inspection.v2._1_0
 
 import com.asyncapi.plugin.idea.inspection.AbstractAsyncAPIJsonSpecificationInspectionTest
 
