@@ -39,7 +39,7 @@ class AsyncAPISpecificationDetector {
         }
     }
 
-    fun isReferencedAsyncAPIJsonSchema(psiFile: PsiFile?): Boolean {
+    private fun isAsyncAPISpecificationJsonComponent(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         if (psiFile !is JsonFile) {
             return false
@@ -60,7 +60,7 @@ class AsyncAPISpecificationDetector {
     fun isAsyncAPISpecificationComponent(psiFile: PsiFile?): Boolean {
         psiFile ?: return false
         return when (psiFile) {
-            is JsonFile -> return isReferencedAsyncAPIJsonSchema(psiFile)
+            is JsonFile -> return isAsyncAPISpecificationJsonComponent(psiFile)
             is YAMLFile -> return isReferencedAsyncAPIYamlSchema(psiFile)
             else -> false
         }
