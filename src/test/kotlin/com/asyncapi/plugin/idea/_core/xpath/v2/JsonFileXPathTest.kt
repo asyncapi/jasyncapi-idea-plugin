@@ -1,5 +1,6 @@
-package com.asyncapi.plugin.idea._core.xpath
+package com.asyncapi.plugin.idea._core.xpath.v2
 
+import com.asyncapi.plugin.idea._core.xpath.JsonFileXPath
 import com.intellij.json.psi.JsonFile
 import com.intellij.lang.Language
 import com.intellij.psi.PsiFileFactory
@@ -12,40 +13,40 @@ import junit.framework.TestCase
 class JsonFileXPathTest: BasePlatformTestCase() {
 
     fun `test - 2_0_0`() {
-        test("asyncapi", "2.0.0")
+        run("asyncapi", "2.0.0")
     }
 
     fun `test - 2_1_0`() {
-        test("asyncapi", "2.1.0")
+        run("asyncapi", "2.1.0")
     }
 
     fun `test - 2_2_0`() {
-        test("asyncapi", "2.2.0")
+        run("asyncapi", "2.2.0")
     }
 
     fun `test - 2_3_0`() {
-        test("asyncapi", "2.3.0")
+        run("asyncapi", "2.3.0")
     }
 
     fun `test - 2_4_0`() {
-        test("asyncapi", "2.4.0")
+        run("asyncapi", "2.4.0")
     }
 
     fun `test - 2_5_0`() {
-        test("asyncapi", "2.5.0")
+        run("asyncapi", "2.5.0")
     }
 
     fun `test - 2_6_0`() {
-        test("asyncapi", "2.6.0")
+        run("asyncapi", "2.6.0")
     }
 
-    fun test(asyncapi: String, version: String) {
+    private fun run(asyncapi: String, version: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
-        val asyncAPISchema = this.javaClass.getResource("/$asyncapi-$version.json").readText()
+        val asyncAPISpecification = this.javaClass.getResource("/$asyncapi-$version.json").readText()
         val asyncAPIPSI = psiFileFactory.createFileFromText(
             "$asyncapi-$version.json",
                 Language.findLanguageByID("JSON")!!,
-                asyncAPISchema
+            asyncAPISpecification
         ) as JsonFile
 
         collectReferencesToMessages(asyncAPIPSI)
