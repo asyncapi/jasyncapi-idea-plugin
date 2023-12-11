@@ -33,7 +33,7 @@
         <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
 
-        <!-- Templates for AsyncAPI schema example -->
+        <!-- Templates for AsyncAPI specification example -->
         <internalFileTemplate name="AsyncAPI specification 2 (yaml)"/>
         <internalFileTemplate name="AsyncAPI specification 2 (json)"/>
         <internalFileTemplate name="AsyncAPI specification 3 (yaml)"/>
@@ -54,7 +54,7 @@
         <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISpecificationReferenceContributor"/>
         <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISpecificationReferenceContributor"/>
 
-        <!-- AsyncAPI schema completion -->
+        <!-- AsyncAPI specification completion -->
         <completion.contributor language="JSON" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISpecificationCompletionContributor"/>
         <completion.contributor language="yaml" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISpecificationCompletionContributor"/>
 
