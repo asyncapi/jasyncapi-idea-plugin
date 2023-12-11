@@ -34,8 +34,10 @@
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
 
         <!-- Templates for AsyncAPI schema example -->
-        <internalFileTemplate name="AsyncAPI schema (yaml)"/>
-        <internalFileTemplate name="AsyncAPI schema (json)"/>
+        <internalFileTemplate name="AsyncAPI specification 2 (yaml)"/>
+        <internalFileTemplate name="AsyncAPI specification 2 (json)"/>
+        <internalFileTemplate name="AsyncAPI specification 3 (yaml)"/>
+        <internalFileTemplate name="AsyncAPI specification 3 (json)"/>
 
         <!-- Icons to render when working with AsyncAPI files -->
         <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" />

@@ -19,10 +19,10 @@ class CreateAsyncAPISpecification: CreateFileFromTemplateAction(
     override fun buildDialog(project: Project, directory: PsiDirectory, builder: CreateFileFromTemplateDialog.Builder) {
         builder
                 .setTitle("New API Specification")
-                .addKind("AsyncAPI 2 (.yaml)", Icons.ASYNCAPI_ICON, "AsyncAPI schema (yaml).yaml")
-                .addKind("AsyncAPI 2 (.json)", Icons.ASYNCAPI_ICON, "AsyncAPI schema (json).json")
-                .addKind("AsyncAPI 3 (.yaml)", Icons.ASYNCAPI_ICON, "AsyncAPI schema 3 (yaml).yaml")
-                .addKind("AsyncAPI 3 (.json)", Icons.ASYNCAPI_ICON, "AsyncAPI schema 3 (json).json")
+                .addKind("AsyncAPI 2 (.yaml)", Icons.ASYNCAPI_ICON, "AsyncAPI specification 2 (yaml).yaml")
+                .addKind("AsyncAPI 2 (.json)", Icons.ASYNCAPI_ICON, "AsyncAPI specification 2 (json).json")
+                .addKind("AsyncAPI 3 (.yaml)", Icons.ASYNCAPI_ICON, "AsyncAPI specification 3 (yaml).yaml")
+                .addKind("AsyncAPI 3 (.json)", Icons.ASYNCAPI_ICON, "AsyncAPI specification 3 (json).json")
     }
 
     override fun getActionName(directory: PsiDirectory?, newName: String, templateName: String?): String {
