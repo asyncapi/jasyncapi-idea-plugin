@@ -1,4 +1,4 @@
-package com.asyncapi.plugin.idea.extensions.index.v2
+package com.asyncapi.plugin.idea.extensions.index.v3
 
 import com.asyncapi.plugin.idea.extensions.index.AbstractAsyncAPISpecificationIndexer
 import com.asyncapi.plugin.idea.extensions.index.AbstractAsyncAPISpecificationReferencesCollector

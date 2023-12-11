@@ -44,8 +44,9 @@
         <localInspection language="yaml" displayName="AsyncAPI schema inspection (yaml)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSchemaInspection"/>
         <localInspection language="JSON" displayName="AsyncAPI schema inspection (json)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIJsonSchemaInspection"/>
 
-        <!-- AsyncAPI schema indexing -->
+        <!-- AsyncAPI specification indexing -->
         <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex"/>
+        <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.v3.AsyncAPISpecificationIndex"/>
 
         <!-- AsyncAPI references -->
         <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISpecificationReferenceContributor"/>
