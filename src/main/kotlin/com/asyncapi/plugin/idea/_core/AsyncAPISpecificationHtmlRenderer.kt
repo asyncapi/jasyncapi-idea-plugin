@@ -60,7 +60,7 @@ class AsyncAPISpecificationHtmlRenderer {
         return specificationTemplate.readText(Charsets.UTF_8)
             .replace(
                 "url: '',",
-                "url: '${urlProvider.schema(temporalSpecificationUrl)}',"
+                "url: '${urlProvider.specification(temporalSpecificationUrl)}',"
             )
             .replace(
                 "<link rel=\"stylesheet\" href=\"\">",
@@ -95,13 +95,13 @@ class AsyncAPISpecificationHtmlRenderer {
     private fun localReferenceToFileUrl(localReference: String, specificationFile: VirtualFile): String {
         val rawFileReference = localReference.removePrefix("\"").removeSuffix("\"")
         val fileReference = rawFileReference.split("#/").getOrNull(0)
-        val schemaReference = rawFileReference.split("#/").getOrNull(1)
+        val specificationComponentReference = rawFileReference.split("#/").getOrNull(1)
         fileReference ?: return rawFileReference
 
         val referencedFile = specificationFile.parent.findFileByRelativePath(fileReference)
         referencedFile ?: return fileReference
 
-        return urlProvider.reference(referencedFile.path, schemaReference)
+        return urlProvider.reference(referencedFile.path, specificationComponentReference)
     }
 
     private fun saveAsTemporalFile(specification: String, isJson: Boolean): String {

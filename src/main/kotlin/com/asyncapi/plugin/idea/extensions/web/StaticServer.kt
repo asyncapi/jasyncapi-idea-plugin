@@ -49,10 +49,10 @@ class StaticServer : HttpRequestHandler() {
                     }
                 }
             }
-            UrlProvider.UrlType.SCHEMA_FILE, UrlProvider.UrlType.REFERENCED_SCHEMA_FILE -> {
+            UrlProvider.UrlType.SPECIFICATION_FILE, UrlProvider.UrlType.REFERENCED_SPECIFICATION_COMPONENT_FILE -> {
                 object : ResourceHandler {
                     override fun handle(resourceUrl: String): Resource? {
-                        return resolveSchemaResource(resourceUrl)
+                        return resolveSpecificationComponent(resourceUrl)
                     }
                 }
             }
@@ -66,8 +66,8 @@ class StaticServer : HttpRequestHandler() {
         }
 
         val resourceParameterName = when (urlType) {
-            UrlProvider.UrlType.HTML_FILE, UrlProvider.UrlType.SCHEMA_FILE -> UrlProvider.SCHEMA_PARAMETER_NAME
-            UrlProvider.UrlType.REFERENCED_SCHEMA_FILE -> UrlProvider.REFERENCED_SCHEMA_PARAMETER_NAME
+            UrlProvider.UrlType.HTML_FILE, UrlProvider.UrlType.SPECIFICATION_FILE -> UrlProvider.SPECIFICATION_PARAMETER_NAME
+            UrlProvider.UrlType.REFERENCED_SPECIFICATION_COMPONENT_FILE -> UrlProvider.REFERENCED_SPECIFICATION_COMPONENT_PARAMETER_NAME
             UrlProvider.UrlType.RESOURCE_FILE -> UrlProvider.RESOURCE_PARAMETER_NAME
         }
 
@@ -104,8 +104,8 @@ class StaticServer : HttpRequestHandler() {
         response.send(context.channel(), request)
     }
 
-    private fun resolveSchemaResource(resourceUrl: String): Resource? {
-        val requestedFile = File(resourceUrl)
+    private fun resolveSpecificationComponent(specificationComponentUrl: String): Resource? {
+        val requestedFile = File(specificationComponentUrl)
         if (!requestedFile.exists()) {
             return null
         }

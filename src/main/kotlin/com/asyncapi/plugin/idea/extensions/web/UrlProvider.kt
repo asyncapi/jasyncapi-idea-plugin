@@ -47,27 +47,27 @@ class UrlProvider {
     }
 
     private fun renderParams(request: OpenInBrowserRequest, file: VirtualFile): String {
-        val schemaUrl = URLEncoder.encode(file.path, StandardCharsets.UTF_8.toString())
+        val specificationUrl = URLEncoder.encode(file.path, StandardCharsets.UTF_8.toString())
         val projectUrl = URLEncoder.encode(request.project.presentableUrl, StandardCharsets.UTF_8.toString())
         val projectName = URLEncoder.encode(request.project.name, StandardCharsets.UTF_8.toString())
 
-        return "$SCHEMA_PARAMETER_NAME=$schemaUrl" +
+        return "$SPECIFICATION_PARAMETER_NAME=$specificationUrl" +
                 "&projectUrl=$projectUrl" +
                 "&projectName=$projectName" +
                 "&_ij_reload=RELOAD_ON_SAVE"
     }
 
-    fun reference(fileUrl: String, schemaReference: String?): String {
-        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?${referenceParams(fileUrl, schemaReference)}")
+    fun reference(fileUrl: String, specificationComponentReference: String?): String {
+        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?${referenceParams(fileUrl, specificationComponentReference)}")
 
         return staticServerManager.addAuthToken(url!!).toExternalForm()
     }
 
-    private fun referenceParams(fileUrl: String, schemaReference: String?): String {
-        return if (schemaReference != null) {
-            "$REFERENCED_SCHEMA_PARAMETER_NAME=$fileUrl#/$schemaReference"
+    private fun referenceParams(fileUrl: String, specificationComponentReference: String?): String {
+        return if (specificationComponentReference != null) {
+            "$REFERENCED_SPECIFICATION_COMPONENT_PARAMETER_NAME=$fileUrl#/$specificationComponentReference"
         } else {
-            "$REFERENCED_SCHEMA_PARAMETER_NAME=$fileUrl"
+            "$REFERENCED_SPECIFICATION_COMPONENT_PARAMETER_NAME=$fileUrl"
         }
     }
 
@@ -77,8 +77,8 @@ class UrlProvider {
         return staticServerManager.addAuthToken(url!!).toExternalForm()
     }
 
-    fun schema(schemaUrl: String): String {
-        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?$SCHEMA_PARAMETER_NAME=$schemaUrl")
+    fun specification(specificationUrl: String): String {
+        val url = Urls.parseEncoded("$staticServerUrl/$resourcesRequest?$SPECIFICATION_PARAMETER_NAME=$specificationUrl")
 
         return staticServerManager.addAuthToken(url!!).toExternalForm()
     }
@@ -91,10 +91,10 @@ class UrlProvider {
         if (urlDecoder.path().startsWith("/$resourcesRequest")) {
             var urlType: UrlType? = null
 
-            if (urlDecoder.parameters().contains(REFERENCED_SCHEMA_PARAMETER_NAME)) {
-                urlType = UrlType.REFERENCED_SCHEMA_FILE
-            } else if (urlDecoder.parameters().contains(SCHEMA_PARAMETER_NAME)) {
-                urlType = UrlType.SCHEMA_FILE
+            if (urlDecoder.parameters().contains(REFERENCED_SPECIFICATION_COMPONENT_PARAMETER_NAME)) {
+                urlType = UrlType.REFERENCED_SPECIFICATION_COMPONENT_FILE
+            } else if (urlDecoder.parameters().contains(SPECIFICATION_PARAMETER_NAME)) {
+                urlType = UrlType.SPECIFICATION_FILE
             } else if (urlDecoder.parameters().contains(RESOURCE_PARAMETER_NAME)) {
                 urlType = UrlType.RESOURCE_FILE
             }
@@ -115,15 +115,15 @@ class UrlProvider {
 
     enum class UrlType {
         HTML_FILE,
-        SCHEMA_FILE,
-        REFERENCED_SCHEMA_FILE,
+        SPECIFICATION_FILE,
+        REFERENCED_SPECIFICATION_COMPONENT_FILE,
         RESOURCE_FILE
     }
 
     companion object {
 
-        const val SCHEMA_PARAMETER_NAME = "schemaUrl"
-        const val REFERENCED_SCHEMA_PARAMETER_NAME = "referenceUrl"
+        const val SPECIFICATION_PARAMETER_NAME = "specificationUrl"
+        const val REFERENCED_SPECIFICATION_COMPONENT_PARAMETER_NAME = "specificationComponentReferenceUrl"
         const val RESOURCE_PARAMETER_NAME = "resourceUrl"
 
     }
