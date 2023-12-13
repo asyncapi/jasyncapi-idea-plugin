@@ -5,7 +5,7 @@ import com.intellij.psi.PsiFile
 
 /**
  * Dummy implementation of XPath for [PsiFile].
- *
+ * // TODO: Support collections
  * @author Pavel Bodiachevskii
  */
 abstract class PsiFileXPath<AsyncAPISpecification: PsiFile> {

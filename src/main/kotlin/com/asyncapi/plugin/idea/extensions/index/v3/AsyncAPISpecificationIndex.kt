@@ -59,6 +59,69 @@ class AsyncAPISpecificationIndex: FileBasedIndexExtension<String, Set<String>>()
         @JvmStatic
         val references = "references"
 
+        @JvmStatic
+        val tags = "tags"
+
+        @JvmStatic
+        val externalDocs = "externalDocs"
+
+        @JvmStatic
+        val servers = "servers"
+
+        @JvmStatic
+        val serverVariables = "serverVariables"
+
+        @JvmStatic
+        val serverBindings = "serverBindings"
+
+        @JvmStatic
+        val channels = "channels"
+
+        @JvmStatic
+        val channelParameters = "channelParameters"
+
+        @JvmStatic
+        val channelBindings = "channelBindings"
+
+        @JvmStatic
+        val operations = "operations"
+
+        @JvmStatic
+        val operationBindings = "operationBindings"
+
+        @JvmStatic
+        val operationTraits = "operationTraits"
+
+        @JvmStatic
+        val operationReplies = "operationReplies"
+
+        @JvmStatic
+        val operationReplyAddresses = "operationReplyAddresses"
+
+        @JvmStatic
+        val messages = "messages"
+
+        @JvmStatic
+        val messageHeaders = "messageHeaders"
+
+        @JvmStatic
+        val messagePayloads = "messagePayloads"
+
+        @JvmStatic
+        val messageCorrelationIds = "messageCorrelationIds"
+
+        @JvmStatic
+        val messageBindings = "messageBindings"
+
+        @JvmStatic
+        val messageTraits = "messageTraits"
+
+        @JvmStatic
+        val schemas = "schemas"
+
+        @JvmStatic
+        val securitySchemes = "securitySchemes"
+
     }
 
 }
