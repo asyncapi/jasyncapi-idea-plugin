@@ -14,7 +14,7 @@ import org.jetbrains.yaml.psi.YAMLScalar
 // JsonReferenceVariantsProvider
 class YamlFileVariantsProvider(
         private val foundYamlElements: List<YAMLPsiElement>,
-        private val asyncAPISchemaName: String,
+        private val asyncAPISpecificationName: String,
         private val psiXPath: String,
         private val referencedFileLocation: String? = null
 ) {
@@ -34,7 +34,7 @@ class YamlFileVariantsProvider(
 
         yamlScalars.forEach { yamlScalar ->
             val parentName = resolveParentName(yamlScalar)
-            var restoredPath = convertToSchemaReferenceAndActualize(psiXPath)
+            var restoredPath = convertToSpecificationReferenceAndActualize(psiXPath)
 
             if (parentName.isNotBlank()) {
                 restoredPath = restoredPath.plus("/$parentName")
@@ -51,7 +51,7 @@ class YamlFileVariantsProvider(
 
         yamlMappings.forEach { foundYamlMapping ->
             val parentName = resolveParentName(foundYamlMapping)
-            var restoredPath = convertToSchemaReferenceAndActualize(psiXPath)
+            var restoredPath = convertToSpecificationReferenceAndActualize(psiXPath)
 
             if (parentName.isNotBlank()) {
                 restoredPath = restoredPath.plus("/$parentName")
@@ -72,7 +72,7 @@ class YamlFileVariantsProvider(
 
         yamlKeyValues.forEach { yamlKeyValue ->
             val parentName = resolveParentName(yamlKeyValue)
-            var restoredPath = convertToSchemaReferenceAndActualize(psiXPath)
+            var restoredPath = convertToSpecificationReferenceAndActualize(psiXPath)
 
             if (parentName.isNotBlank()) {
                 restoredPath = restoredPath.plus("/$parentName")
@@ -88,8 +88,8 @@ class YamlFileVariantsProvider(
         return (yamlPsiElement.parent as? YAMLPsiElement)?.name ?: ""
     }
 
-    private fun convertToSchemaReferenceAndActualize(psiXPath: String): String {
-        val schemaReference = psiXPath.replace("$", "#")
+    private fun convertToSpecificationReferenceAndActualize(psiXPath: String): String {
+        val specificationReference = psiXPath.replace("$", "#")
                 .split(".")
                 /*
                     Last element if it exists must be deleted.
@@ -98,13 +98,13 @@ class YamlFileVariantsProvider(
                 .dropLast(1)
                 .joinToString("/")
 
-        return referencedFileLocation?.plus(schemaReference) ?: schemaReference
+        return referencedFileLocation?.plus(specificationReference) ?: specificationReference
     }
 
     private fun buildVariant(variant: String): LookupElement {
         return LookupElementBuilder.create(variant)
                 .withCaseSensitivity(false)
-                .withTypeText(asyncAPISchemaName)
+                .withTypeText(asyncAPISpecificationName)
                 .withIcon(Icons.ASYNCAPI_ICON)
     }
 

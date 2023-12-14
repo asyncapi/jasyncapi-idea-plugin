@@ -1,6 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.web
 
-import com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer
+import com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer
 import com.intellij.ide.browsers.OpenInBrowserRequest
 import com.intellij.ide.browsers.WebBrowserUrlProvider
 import com.intellij.openapi.components.service
@@ -13,11 +13,11 @@ import com.intellij.util.Url
  */
 class AsyncAPIBrowserUrlProvider: WebBrowserUrlProvider() {
 
-    private val asyncAPISchemaRecognizer = service<AsyncAPISchemaRecognizer>()
+    private val asyncAPISpecificationRecognizer = service<AsyncAPISpecificationRecognizer>()
     private val urlProvider = service<UrlProvider>()
 
     override fun canHandleElement(request: OpenInBrowserRequest): Boolean {
-        return asyncAPISchemaRecognizer.isSchema(request.file)
+        return asyncAPISpecificationRecognizer.isSpecification(request.file)
     }
 
     override fun getUrl(request: OpenInBrowserRequest, file: VirtualFile): Url? {

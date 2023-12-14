@@ -27,33 +27,36 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaRecognizer"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISchemaHtmlRenderer"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer"/>
+        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISpecificationHtmlRenderer"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.render.WebSocketRendererProvider"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
         <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
 
-        <!-- Templates for AsyncAPI schema example -->
-        <internalFileTemplate name="AsyncAPI schema (yaml)"/>
-        <internalFileTemplate name="AsyncAPI schema (json)"/>
+        <!-- Templates for AsyncAPI specification example -->
+        <internalFileTemplate name="AsyncAPI specification 2 (yaml)"/>
+        <internalFileTemplate name="AsyncAPI specification 2 (json)"/>
+        <internalFileTemplate name="AsyncAPI specification 3 (yaml)"/>
+        <internalFileTemplate name="AsyncAPI specification 3 (json)"/>
 
         <!-- Icons to render when working with AsyncAPI files -->
         <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" />
 
-        <!-- AsyncAPI schema inspection -->
-        <localInspection language="yaml" displayName="AsyncAPI schema inspection (yaml)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSchemaInspection"/>
-        <localInspection language="JSON" displayName="AsyncAPI schema inspection (json)" groupName="AsyncAPI schema inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIJsonSchemaInspection"/>
+        <!-- AsyncAPI specification inspection -->
+        <localInspection language="yaml" displayName="AsyncAPI specification inspection (yaml)" groupName="AsyncAPI specification inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSpecificationInspection"/>
+        <localInspection language="JSON" displayName="AsyncAPI specification inspection (json)" groupName="AsyncAPI specification inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIJsonSpecificationInspection"/>
 
-        <!-- AsyncAPI schema indexing -->
-        <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.AsyncAPISchemaIndex"/>
+        <!-- AsyncAPI specification indexing -->
+        <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.v2.AsyncAPISpecificationIndex"/>
+        <fileBasedIndex implementation="com.asyncapi.plugin.idea.extensions.index.v3.AsyncAPISpecificationIndex"/>
 
         <!-- AsyncAPI references -->
-        <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISchemaReferenceContributor"/>
-        <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISchemaReferenceContributor"/>
+        <psi.referenceContributor language="JSON" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.json.AsyncAPISpecificationReferenceContributor"/>
+        <psi.referenceContributor language="yaml" implementation="com.asyncapi.plugin.idea.extensions.psi.reference.contributor.yaml.AsyncAPISpecificationReferenceContributor"/>
 
-        <!-- AsyncAPI schema completion -->
-        <completion.contributor language="JSON" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISchemaCompletionContributor"/>
-        <completion.contributor language="yaml" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISchemaCompletionContributor"/>
+        <!-- AsyncAPI specification completion -->
+        <completion.contributor language="JSON" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISpecificationCompletionContributor"/>
+        <completion.contributor language="yaml" implementationClass="com.asyncapi.plugin.idea.extensions.completion.AsyncAPISpecificationCompletionContributor"/>
 
         <!-- Preview in built-in/external browser -->
         <webBrowserUrlProvider implementation="com.asyncapi.plugin.idea.extensions.web.AsyncAPIBrowserUrlProvider"/>

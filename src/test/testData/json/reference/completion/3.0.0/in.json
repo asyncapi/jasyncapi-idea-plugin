@@ -1,0 +1,46 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "Account Service",
+    "version": "1.0.0",
+    "description": "This service is in charge of processing user signups :rocket:"
+  },
+  "channels": {
+    "userSignedup": {
+      "address": "user/signedup",
+      "messages": {
+        "userSignedupMessage": {
+          "$ref": "#/in<caret>"
+        }
+      }
+    }
+  },
+  "operations": {
+    "processUserSignups": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/userSignedup"
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "UserSignedUp": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "Name of the user"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Email of the user"
+            }
+          }
+        }
+      }
+    }
+  }
+}
