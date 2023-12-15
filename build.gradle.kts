@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.3.1+jre17"
+version = "2.4.0+jre17"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("223")
     untilBuild.set("233.*")
     changeNotes.set("""
-        <p>Fixed issue with svg icon rendering, which was blocking showing of context menu with new files (right click, new)</p>
+        <p>AsyncAPI 3.0.0</p>
+        <p>IDEA 2023.3</p>
     """.trimIndent())
 }
 
