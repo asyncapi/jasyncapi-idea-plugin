@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.4.0+jre17"
+version = "2.5.0+jre17"
 
 repositories {
     mavenCentral()
@@ -30,8 +30,62 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("223")
     untilBuild.set("233.*")
     changeNotes.set("""
-        <p>AsyncAPI 3.0.0</p>
-        <p>IDEA 2023.3</p>
+        <h3>Changed</h3>
+        <ul>
+            <li>2.0.0 schema validation and completion:<ul>
+                <li>Updated allowed extension name: <code>^x-[\w\d\-\_]+${'$'}</code> was changed to <code>^x-[\w\d\.\x2d_]+${'$'}</code></li>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.1.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.2.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.3.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.4.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.5.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>3.0.0 schema validation and completion:<ul>
+                <li>Bindings:<ul>
+                    <li>Solace:<ul>
+                        <li>server binding 0.4.0</li>
+                        <li>operation binding 0.4.0</li>
+                    </ul>
+                    </li>
+                    <li>HTTP:<ul>
+                        <li>message binding 0.3.0</li>
+                        <li>operation binding 0.3.0</li>
+                    </ul>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
     """.trimIndent())
 }
 

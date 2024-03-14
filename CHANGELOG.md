@@ -1,5 +1,45 @@
 # Changelog
 
+## 2.5.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/454611)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.4.0%2Bjre17)
+
+### Changed
+- 2.0.0 schema validation and completion:
+  - Updated allowed extension name: `^x-[\w\d\-\_]+$` was changed to `^x-[\w\d\.\x2d_]+$`
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.1.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.2.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.3.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.4.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.5.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 3.0.0 schema validation and completion:
+  - Bindings:
+    - Solace:
+      - server binding 0.4.0
+      - operation binding 0.4.0
+    - HTTP:
+      - message binding 0.3.0
+      - operation binding 0.3.0
+
 ## 2.4.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/454611)
