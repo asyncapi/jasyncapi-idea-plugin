@@ -3,7 +3,7 @@
 ## 2.5.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)
-- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.4.0%2Bjre17)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.5.0%2Bjre17)
 
 ### Added
 
