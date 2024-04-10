@@ -5,6 +5,10 @@ published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/454611)
 - [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.4.0%2Bjre17)
 
+### Fixed
+
+- Incorrect validation of Multi Format Schema and bindings
+
 ### Changed
 - 2.0.0 schema validation and completion:
   - Updated allowed extension name: `^x-[\w\d\-\_]+$` was changed to `^x-[\w\d\.\x2d_]+$`

@@ -1227,7 +1227,22 @@
                 }
               },
               "then": {
-                "$ref": "#/definitions/bindings-kafka-0.4.0-server"
+                "$ref": "#/definitions/bindings-kafka-0.5.0-server"
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "bindingVersion"
+                ],
+                "properties": {
+                  "bindingVersion": {
+                    "const": "0.5.0"
+                  }
+                }
+              },
+              "then": {
+                "$ref": "#/definitions/bindings-kafka-0.5.0-server"
               }
             },
             {
@@ -1913,6 +1928,41 @@
         }
       },
       "default": true
+    },
+    "bindings-kafka-0.5.0-server": {
+      "title": "Server Schema",
+      "description": "This object contains server connection information to a Kafka broker. This object contains additional information not possible to represent within the core AsyncAPI specification.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
+      },
+      "properties": {
+        "schemaRegistryUrl": {
+          "type": "string",
+          "description": "API URL for the Schema Registry used when producing Kafka messages (if a Schema Registry was used)."
+        },
+        "schemaRegistryVendor": {
+          "type": "string",
+          "description": "The vendor of the Schema Registry and Kafka serdes library that should be used."
+        },
+        "bindingVersion": {
+          "type": "string",
+          "enum": [
+            "0.5.0"
+          ],
+          "description": "The version of this binding."
+        }
+      },
+      "examples": [
+        {
+          "schemaRegistryUrl": "https://my-schema-registry.com",
+          "schemaRegistryVendor": "confluent",
+          "bindingVersion": "0.5.0"
+        }
+      ]
     },
     "bindings-kafka-0.4.0-server": {
       "title": "Server Schema",
@@ -2636,240 +2686,615 @@
       ]
     },
     "anySchema": {
-      "if": {
-        "required": [
-          "schema"
-        ]
-      },
-      "then": {
-        "$ref": "#/definitions/multiFormatSchema"
-      },
-      "else": {
-        "$ref": "#/definitions/schema"
-      },
-      "description": "An object representing either a schema or a multiFormatSchema based on the existence of the 'schema' property. If the property 'schema' is present, use the multi-format schema. Use the default AsyncAPI Schema otherwise."
-    },
-    "multiFormatSchema": {
-      "description": "The Multi Format Schema Object represents a schema definition. It differs from the Schema Object in that it supports multiple schema formats or languages (e.g., JSON Schema, Avro, etc.).",
-      "if": {
-        "not": {
-          "type": "object"
+      "type": "object",
+      "description": "An object representing either a Reference, a Schema or a Multi Format Schema",
+      "properties": {
+        "schemaFormat": {
+          "type": "string",
+          "description": "Supported Schema format"
+        },
+        "schema": {
+          "type": "object",
+          "description": "Schema definition"
+        },
+        "$ref": {
+          "type": "string",
+          "description": "Reference to schema"
         }
       },
-      "then": {
-        "$ref": "#/definitions/schema"
+      "oneOf": [
+        {
+          "description": "Because of $ref collision in Reference and AsyncAPI Schema(includes $ref from Json Schema)",
+          "not": {
+            "required": [
+              "schemaFormat",
+              "schema"
+            ]
+          },
+          "$ref": "#/definitions/schema"
+        },
+        {
+          "type": "object",
+          "required": [
+            "schemaFormat",
+            "schema"
+          ],
+          "not": {
+            "required": [
+              "$ref"
+            ]
+          },
+          "minProperties": 2,
+          "maxProperties": 2,
+          "$ref": "#/definitions/multiFormatSchema"
+        }
+      ]
+    },
+    "multiFormatSchema": {
+      "description": "An object representing Multi Format Schema. You can use it to attach Schemas different to AsyncAPI, like Avro or OpenAPI",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
       },
-      "else": {
-        "type": "object",
-        "additionalProperties": false,
-        "patternProperties": {
-          "^x-[\\w\\d\\.\\x2d_]+$": {
-            "$ref": "#/definitions/specificationExtension"
+      "required": [
+        "schemaFormat",
+        "schema"
+      ],
+      "properties": {
+        "schemaFormat": {
+          "type": "string",
+          "description": "Supported Schema formats"
+        },
+        "schema": {
+          "type": "object",
+          "description": "Schema definition"
+        }
+      },
+      "minProperties": 2,
+      "maxProperties": 2,
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Multi Format Schema: Avro Schema or Reference",
+          "properties": {
+            "schemaFormat": {
+              "type": "string",
+              "enum": [
+                "application/vnd.apache.avro;version=1.9.0",
+                "application/vnd.apache.avro+json;version=1.9.0",
+                "application/vnd.apache.avro+yaml;version=1.9.0"
+              ]
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "Avro Schema",
+                  "not": {
+                    "required": [
+                      "$ref"
+                    ]
+                  },
+                  "$ref": "#/definitions/avroSchema_v1"
+                },
+                {
+                  "type": "object",
+                  "description": "Reference to Avro Schema",
+                  "required": [
+                    "$ref"
+                  ],
+                  "$ref": "#/definitions/Reference"
+                }
+              ]
+            }
           }
         },
-        "properties": {
-          "schemaFormat": {
-            "description": "A string containing the name of the schema format that is used to define the information. If schemaFormat is missing, it MUST default to application/vnd.aai.asyncapi+json;version={{asyncapi}} where {{asyncapi}} matches the AsyncAPI Version String. In such a case, this would make the Multi Format Schema Object equivalent to the Schema Object. When using Reference Object within the schema, the schemaFormat of the resource being referenced MUST match the schemaFormat of the schema that contains the initial reference. For example, if you reference Avro schema, then schemaFormat of referencing resource and the resource being reference MUST match.",
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "description": "All the schema formats tooling MUST support",
+        {
+          "type": "object",
+          "description": "Multi Format Schema: OpenAPI Schema or Reference",
+          "properties": {
+            "schemaFormat": {
+              "type": "string",
+              "enum": [
+                "application/vnd.oai.openapi;version=3.0.0",
+                "application/vnd.oai.openapi+json;version=3.0.0",
+                "application/vnd.oai.openapi+yaml;version=3.0.0"
+              ]
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "OpenAPI Schema",
+                  "not": {
+                    "required": [
+                      "$ref"
+                    ]
+                  },
+                  "$ref": "#/definitions/openapiSchema_3_0"
+                },
+                {
+                  "type": "object",
+                  "description": "Reference to OpenAPI Schema",
+                  "required": [
+                    "$ref"
+                  ],
+                  "$ref": "#/definitions/Reference"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Multi Format Schema: Json Schema or Reference",
+          "properties": {
+            "schemaFormat": {
+              "type": "string",
+              "enum": [
+                "application/schema+json;version=draft-07",
+                "application/schema+yaml;version=draft-07"
+              ]
+            },
+            "schema": {
+              "description": "Because of $ref collision in Reference and Json Schema",
+              "anyOf": [
+                {
+                  "type": "object",
+                  "description": "Json Schema",
+                  "not": {
+                    "required": [
+                      "$ref"
+                    ]
+                  },
+                  "$ref": "#/definitions/json-schema-draft-07-schema"
+                },
+                {
+                  "type": "object",
+                  "description": "Reference to Json Schema",
+                  "required": [
+                    "$ref"
+                  ],
+                  "$ref": "#/definitions/Reference"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Multi Format Schema: AsyncAPI Schema or Reference",
+          "properties": {
+            "schemaFormat": {
+              "type": "string",
+              "enum": [
+                "application/vnd.aai.asyncapi;version=2.0.0",
+                "application/vnd.aai.asyncapi+json;version=2.0.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.0.0",
+                "application/vnd.aai.asyncapi;version=2.1.0",
+                "application/vnd.aai.asyncapi+json;version=2.1.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.1.0",
+                "application/vnd.aai.asyncapi;version=2.2.0",
+                "application/vnd.aai.asyncapi+json;version=2.2.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.2.0",
+                "application/vnd.aai.asyncapi;version=2.3.0",
+                "application/vnd.aai.asyncapi+json;version=2.3.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.3.0",
+                "application/vnd.aai.asyncapi;version=2.4.0",
+                "application/vnd.aai.asyncapi+json;version=2.4.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.4.0",
+                "application/vnd.aai.asyncapi;version=2.5.0",
+                "application/vnd.aai.asyncapi+json;version=2.5.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.5.0",
+                "application/vnd.aai.asyncapi;version=2.6.0",
+                "application/vnd.aai.asyncapi+json;version=2.6.0",
+                "application/vnd.aai.asyncapi+yaml;version=2.6.0",
+                "application/vnd.aai.asyncapi;version=3.0.0",
+                "application/vnd.aai.asyncapi+json;version=3.0.0",
+                "application/vnd.aai.asyncapi+yaml;version=3.0.0"
+              ]
+            },
+            "schema": {
+              "description": "Because of $ref collision in Reference and AsyncAPI Schema",
+              "anyOf": [
+                {
+                  "type": "object",
+                  "description": "AsyncAPI Schema",
+                  "not": {
+                    "required": [
+                      "$ref"
+                    ]
+                  },
+                  "$ref": "#/definitions/schema"
+                },
+                {
+                  "type": "object",
+                  "description": "Reference to AsyncAPI Schema",
+                  "required": [
+                    "$ref"
+                  ],
+                  "$ref": "#/definitions/Reference"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Multi Format Schema: Unknown Schema is AsyncAPI Schema",
+          "properties": {
+            "schemaFormat": {
+              "type": "string",
+              "not": {
                 "enum": [
-                  "application/schema+json;version=draft-07",
-                  "application/schema+yaml;version=draft-07",
+                  "application/vnd.aai.asyncapi;version=2.0.0",
+                  "application/vnd.aai.asyncapi+json;version=2.0.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.0.0",
+                  "application/vnd.aai.asyncapi;version=2.1.0",
+                  "application/vnd.aai.asyncapi+json;version=2.1.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.1.0",
+                  "application/vnd.aai.asyncapi;version=2.2.0",
+                  "application/vnd.aai.asyncapi+json;version=2.2.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.2.0",
+                  "application/vnd.aai.asyncapi;version=2.3.0",
+                  "application/vnd.aai.asyncapi+json;version=2.3.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.3.0",
+                  "application/vnd.aai.asyncapi;version=2.4.0",
+                  "application/vnd.aai.asyncapi+json;version=2.4.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.4.0",
+                  "application/vnd.aai.asyncapi;version=2.5.0",
+                  "application/vnd.aai.asyncapi+json;version=2.5.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.5.0",
+                  "application/vnd.aai.asyncapi;version=2.6.0",
+                  "application/vnd.aai.asyncapi+json;version=2.6.0",
+                  "application/vnd.aai.asyncapi+yaml;version=2.6.0",
                   "application/vnd.aai.asyncapi;version=3.0.0",
                   "application/vnd.aai.asyncapi+json;version=3.0.0",
-                  "application/vnd.aai.asyncapi+yaml;version=3.0.0"
-                ]
-              },
-              {
-                "description": "All the schema formats tools are RECOMMENDED to support",
-                "enum": [
+                  "application/vnd.aai.asyncapi+yaml;version=3.0.0",
                   "application/vnd.oai.openapi;version=3.0.0",
                   "application/vnd.oai.openapi+json;version=3.0.0",
                   "application/vnd.oai.openapi+yaml;version=3.0.0",
                   "application/vnd.apache.avro;version=1.9.0",
                   "application/vnd.apache.avro+json;version=1.9.0",
                   "application/vnd.apache.avro+yaml;version=1.9.0",
-                  "application/raml+yaml;version=1.0"
+                  "application/schema+json;version=draft-07",
+                  "application/schema+yaml;version=draft-07"
                 ]
               }
-            ]
-          },
-          "schema": {
-            "description": "Definition of the message payload. It can be of any type but defaults to Schema Object. It MUST match the schema format defined in schemaFormat, including the encoding type. E.g., Avro should be inlined as either a YAML or JSON object instead of as a string to be parsed as YAML or JSON. Non-JSON-based schemas (e.g., Protobuf or XSD) MUST be inlined as a string."
+            },
+            "schema": {
+              "type": "object",
+              "description": "AsyncAPI Schema",
+              "$ref": "#/definitions/schema"
+            }
           }
+        }
+      ]
+    },
+    "avroSchema_v1": {
+      "definitions": {
+        "avroSchema": {
+          "title": "Avro Schema",
+          "description": "Root Schema",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/types"
+            }
+          ]
         },
-        "anyOf": [
-          {
-            "if": {
-              "not": {
-                "description": "If no schemaFormat has been defined, default to schema or reference",
-                "required": [
-                  "schemaFormat"
-                ]
-              }
+        "types": {
+          "title": "Avro Types",
+          "description": "Allowed Avro types",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
             },
-            "then": {
-              "properties": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/Reference"
-                    },
-                    {
-                      "$ref": "#/definitions/schema"
-                    }
-                  ]
-                }
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/primitiveTypeWithMetadata"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/customTypeReference"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/avroRecord"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/avroEnum"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/avroArray"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/avroMap"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/avroFixed"
+            },
+            {
+              "$ref": "#/definitions/avroSchema_v1/definitions/avroUnion"
+            }
+          ]
+        },
+        "primitiveType": {
+          "title": "Primitive Type",
+          "description": "Basic type primitives.",
+          "type": "string",
+          "enum": [
+            "null",
+            "boolean",
+            "int",
+            "long",
+            "float",
+            "double",
+            "bytes",
+            "string"
+          ]
+        },
+        "primitiveTypeWithMetadata": {
+          "title": "Primitive Type With Metadata",
+          "description": "A primitive type with metadata attached.",
+          "type": "object",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        "customTypeReference": {
+          "title": "Custom Type",
+          "description": "Reference to a ComplexType",
+          "not": {
+            "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
+          },
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*$"
+        },
+        "avroUnion": {
+          "title": "Union",
+          "description": "A Union of types",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/avroSchema_v1/definitions/avroSchema"
+          },
+          "minItems": 1
+        },
+        "avroField": {
+          "title": "Field",
+          "description": "A field within a Record",
+          "type": "object",
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/name"
+            },
+            "type": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/types"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "default": true,
+            "order": {
+              "enum": [
+                "ascending",
+                "descending",
+                "ignore"
+              ]
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             }
           },
-          {
-            "if": {
-              "description": "If schemaFormat has been defined check if it's one of the AsyncAPI Schema Object formats",
-              "required": [
-                "schemaFormat"
-              ],
-              "properties": {
-                "schemaFormat": {
-                  "enum": [
-                    "application/vnd.aai.asyncapi;version=2.0.0",
-                    "application/vnd.aai.asyncapi+json;version=2.0.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.0.0",
-                    "application/vnd.aai.asyncapi;version=2.1.0",
-                    "application/vnd.aai.asyncapi+json;version=2.1.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.1.0",
-                    "application/vnd.aai.asyncapi;version=2.2.0",
-                    "application/vnd.aai.asyncapi+json;version=2.2.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.2.0",
-                    "application/vnd.aai.asyncapi;version=2.3.0",
-                    "application/vnd.aai.asyncapi+json;version=2.3.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.3.0",
-                    "application/vnd.aai.asyncapi;version=2.4.0",
-                    "application/vnd.aai.asyncapi+json;version=2.4.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.4.0",
-                    "application/vnd.aai.asyncapi;version=2.5.0",
-                    "application/vnd.aai.asyncapi+json;version=2.5.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.5.0",
-                    "application/vnd.aai.asyncapi;version=2.6.0",
-                    "application/vnd.aai.asyncapi+json;version=2.6.0",
-                    "application/vnd.aai.asyncapi+yaml;version=2.6.0",
-                    "application/vnd.aai.asyncapi;version=3.0.0",
-                    "application/vnd.aai.asyncapi+json;version=3.0.0",
-                    "application/vnd.aai.asyncapi+yaml;version=3.0.0"
-                  ]
-                }
+          "required": [
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        "avroRecord": {
+          "title": "Record",
+          "description": "A Record",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "record"
+            },
+            "name": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/name"
+            },
+            "namespace": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             },
-            "then": {
-              "properties": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/Reference"
-                    },
-                    {
-                      "$ref": "#/definitions/schema"
-                    }
-                  ]
-                }
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/avroField"
               }
             }
           },
-          {
-            "if": {
-              "required": [
-                "schemaFormat"
-              ],
-              "properties": {
-                "schemaFormat": {
-                  "enum": [
-                    "application/schema+json;version=draft-07",
-                    "application/schema+yaml;version=draft-07"
-                  ]
-                }
+          "required": [
+            "type",
+            "name",
+            "fields"
+          ],
+          "additionalProperties": false
+        },
+        "avroEnum": {
+          "title": "Enum",
+          "description": "An enumeration",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "enum"
+            },
+            "name": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/name"
+            },
+            "namespace": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             },
-            "then": {
-              "properties": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/Reference"
-                    },
-                    {
-                      "$ref": "#/definitions/json-schema-draft-07-schema"
-                    }
-                  ]
-                }
+            "symbols": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             }
           },
-          {
-            "if": {
-              "required": [
-                "schemaFormat"
-              ],
-              "properties": {
-                "schemaFormat": {
-                  "enum": [
-                    "application/vnd.oai.openapi;version=3.0.0",
-                    "application/vnd.oai.openapi+json;version=3.0.0",
-                    "application/vnd.oai.openapi+yaml;version=3.0.0"
-                  ]
-                }
+          "required": [
+            "type",
+            "name",
+            "symbols"
+          ],
+          "additionalProperties": false
+        },
+        "avroArray": {
+          "title": "Array",
+          "description": "An array",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "array"
+            },
+            "name": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/name"
+            },
+            "namespace": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             },
-            "then": {
-              "properties": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/Reference"
-                    },
-                    {
-                      "$ref": "#/definitions/openapiSchema_3_0"
-                    }
-                  ]
-                }
-              }
+            "items": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/types"
             }
           },
-          {
-            "if": {
-              "required": [
-                "schemaFormat"
-              ],
-              "properties": {
-                "schemaFormat": {
-                  "enum": [
-                    "application/vnd.apache.avro;version=1.9.0",
-                    "application/vnd.apache.avro+json;version=1.9.0",
-                    "application/vnd.apache.avro+yaml;version=1.9.0"
-                  ]
-                }
+          "required": [
+            "type",
+            "items"
+          ],
+          "additionalProperties": false
+        },
+        "avroMap": {
+          "title": "Map",
+          "description": "A map of values",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "map"
+            },
+            "name": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/name"
+            },
+            "namespace": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             },
-            "then": {
-              "properties": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/Reference"
-                    },
-                    {
-                      "$ref": "#/definitions/avroSchema_v1"
-                    }
-                  ]
-                }
-              }
+            "values": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/types"
             }
-          }
-        ]
-      }
+          },
+          "required": [
+            "type",
+            "values"
+          ],
+          "additionalProperties": false
+        },
+        "avroFixed": {
+          "title": "Fixed",
+          "description": "A fixed sized array of bytes",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "fixed"
+            },
+            "name": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/name"
+            },
+            "namespace": {
+              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/avroSchema_v1/definitions/name"
+              }
+            },
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "type",
+            "name",
+            "size"
+          ],
+          "additionalProperties": false
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+        },
+        "namespace": {
+          "type": "string",
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*)*$"
+        }
+      },
+      "description": "Json-Schema definition for Avro AVSC files.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/avroSchema_v1/definitions/avroSchema"
+        }
+      ],
+      "title": "Avro Schema Definition"
     },
     "openapiSchema_3_0": {
       "type": "object",
@@ -3157,321 +3582,6 @@
       },
       "additionalProperties": false
     },
-    "avroSchema_v1": {
-      "definitions": {
-        "avroSchema": {
-          "title": "Avro Schema",
-          "description": "Root Schema",
-          "oneOf": [
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/types"
-            }
-          ]
-        },
-        "types": {
-          "title": "Avro Types",
-          "description": "Allowed Avro types",
-          "oneOf": [
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/primitiveTypeWithMetadata"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/customTypeReference"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/avroRecord"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/avroEnum"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/avroArray"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/avroMap"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/avroFixed"
-            },
-            {
-              "$ref": "#/definitions/avroSchema_v1/definitions/avroUnion"
-            }
-          ]
-        },
-        "primitiveType": {
-          "title": "Primitive Type",
-          "description": "Basic type primitives.",
-          "type": "string",
-          "enum": [
-            "null",
-            "boolean",
-            "int",
-            "long",
-            "float",
-            "double",
-            "bytes",
-            "string"
-          ]
-        },
-        "primitiveTypeWithMetadata": {
-          "title": "Primitive Type With Metadata",
-          "description": "A primitive type with metadata attached.",
-          "type": "object",
-          "properties": {
-            "type": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
-            }
-          },
-          "required": [
-            "type"
-          ]
-        },
-        "customTypeReference": {
-          "title": "Custom Type",
-          "description": "Reference to a ComplexType",
-          "not": {
-            "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
-          },
-          "type": "string",
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*$"
-        },
-        "avroUnion": {
-          "title": "Union",
-          "description": "A Union of types",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/avroSchema_v1/definitions/avroSchema"
-          },
-          "minItems": 1
-        },
-        "avroField": {
-          "title": "Field",
-          "description": "A field within a Record",
-          "type": "object",
-          "properties": {
-            "name": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/name"
-            },
-            "type": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/types"
-            },
-            "doc": {
-              "type": "string"
-            },
-            "default": true,
-            "order": {
-              "enum": [
-                "ascending",
-                "descending",
-                "ignore"
-              ]
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            }
-          },
-          "required": [
-            "name",
-            "type"
-          ]
-        },
-        "avroRecord": {
-          "title": "Record",
-          "description": "A Record",
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "const": "record"
-            },
-            "name": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/name"
-            },
-            "namespace": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
-            },
-            "doc": {
-              "type": "string"
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            },
-            "fields": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/avroField"
-              }
-            }
-          },
-          "required": [
-            "type",
-            "name",
-            "fields"
-          ]
-        },
-        "avroEnum": {
-          "title": "Enum",
-          "description": "An enumeration",
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "const": "enum"
-            },
-            "name": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/name"
-            },
-            "namespace": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
-            },
-            "doc": {
-              "type": "string"
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            },
-            "symbols": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            }
-          },
-          "required": [
-            "type",
-            "name",
-            "symbols"
-          ]
-        },
-        "avroArray": {
-          "title": "Array",
-          "description": "An array",
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "const": "array"
-            },
-            "name": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/name"
-            },
-            "namespace": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
-            },
-            "doc": {
-              "type": "string"
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            },
-            "items": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/types"
-            }
-          },
-          "required": [
-            "type",
-            "items"
-          ]
-        },
-        "avroMap": {
-          "title": "Map",
-          "description": "A map of values",
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "const": "map"
-            },
-            "name": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/name"
-            },
-            "namespace": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
-            },
-            "doc": {
-              "type": "string"
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            },
-            "values": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/types"
-            }
-          },
-          "required": [
-            "type",
-            "values"
-          ]
-        },
-        "avroFixed": {
-          "title": "Fixed",
-          "description": "A fixed sized array of bytes",
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "const": "fixed"
-            },
-            "name": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/name"
-            },
-            "namespace": {
-              "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
-            },
-            "doc": {
-              "type": "string"
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/avroSchema_v1/definitions/name"
-              }
-            },
-            "size": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "type",
-            "name",
-            "size"
-          ]
-        },
-        "name": {
-          "type": "string",
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
-        },
-        "namespace": {
-          "type": "string",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*)*$"
-        }
-      },
-      "description": "Json-Schema definition for Avro AVSC files.",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/avroSchema_v1/definitions/avroSchema"
-        }
-      ],
-      "title": "Avro Schema Definition"
-    },
     "correlationId": {
       "type": "object",
       "description": "An object that specifies an identifier at design time that can used for message tracing and correlation.",
@@ -3532,7 +3642,7 @@
                 }
               },
               "then": {
-                "$ref": "#/definitions/bindings-http-0.2.0-message"
+                "$ref": "#/definitions/bindings-http-0.3.0-message"
               }
             },
             {
@@ -3651,6 +3761,7 @@
           "properties": {
             "bindingVersion": {
               "enum": [
+                "0.5.0",
                 "0.4.0",
                 "0.3.0"
               ]
@@ -3667,7 +3778,22 @@
                 }
               },
               "then": {
-                "$ref": "#/definitions/bindings-kafka-0.4.0-message"
+                "$ref": "#/definitions/bindings-kafka-0.5.0-message"
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "bindingVersion"
+                ],
+                "properties": {
+                  "bindingVersion": {
+                    "const": "0.5.0"
+                  }
+                }
+              },
+              "then": {
+                "$ref": "#/definitions/bindings-kafka-0.5.0-message"
               }
             },
             {
@@ -3866,46 +3992,6 @@
         }
       }
     },
-    "bindings-http-0.2.0-message": {
-      "title": "HTTP message bindings object",
-      "description": "This object contains information about the message representation in HTTP.",
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^x-[\\w\\d\\.\\x2d_]+$": {
-          "$ref": "#/definitions/specificationExtension"
-        }
-      },
-      "properties": {
-        "headers": {
-          "$ref": "#/definitions/schema",
-          "description": "\tA Schema object containing the definitions for HTTP-specific headers. This schema MUST be of type 'object' and have a 'properties' key."
-        },
-        "bindingVersion": {
-          "type": "string",
-          "enum": [
-            "0.2.0"
-          ],
-          "description": "The version of this binding. If omitted, \"latest\" MUST be assumed."
-        }
-      },
-      "examples": [
-        {
-          "headers": {
-            "type": "object",
-            "properties": {
-              "Content-Type": {
-                "type": "string",
-                "enum": [
-                  "application/json"
-                ]
-              }
-            }
-          },
-          "bindingVersion": "0.2.0"
-        }
-      ]
-    },
     "bindings-http-0.3.0-message": {
       "title": "HTTP message bindings object",
       "description": "This object contains information about the message representation in HTTP.",
@@ -3947,6 +4033,46 @@
             }
           },
           "bindingVersion": "0.3.0"
+        }
+      ]
+    },
+    "bindings-http-0.2.0-message": {
+      "title": "HTTP message bindings object",
+      "description": "This object contains information about the message representation in HTTP.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
+      },
+      "properties": {
+        "headers": {
+          "$ref": "#/definitions/schema",
+          "description": "\tA Schema object containing the definitions for HTTP-specific headers. This schema MUST be of type 'object' and have a 'properties' key."
+        },
+        "bindingVersion": {
+          "type": "string",
+          "enum": [
+            "0.2.0"
+          ],
+          "description": "The version of this binding. If omitted, \"latest\" MUST be assumed."
+        }
+      },
+      "examples": [
+        {
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string",
+                "enum": [
+                  "application/json"
+                ]
+              }
+            }
+          },
+          "bindingVersion": "0.2.0"
         }
       ]
     },
@@ -4056,6 +4182,74 @@
           },
           "responseTopic": "application/responses",
           "bindingVersion": "0.2.0"
+        }
+      ]
+    },
+    "bindings-kafka-0.5.0-message": {
+      "title": "Message Schema",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
+      },
+      "properties": {
+        "key": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Reference"
+            },
+            {
+              "$ref": "#/definitions/schema"
+            }
+          ],
+          "description": "The message key."
+        },
+        "schemaIdLocation": {
+          "type": "string",
+          "description": "If a Schema Registry is used when performing this operation, tells where the id of schema is stored.",
+          "enum": [
+            "header",
+            "payload"
+          ]
+        },
+        "schemaIdPayloadEncoding": {
+          "type": "string",
+          "description": "Number of bytes or vendor specific values when schema id is encoded in payload."
+        },
+        "schemaLookupStrategy": {
+          "type": "string",
+          "description": "Freeform string for any naming strategy class to use. Clients should default to the vendor default if not supplied."
+        },
+        "bindingVersion": {
+          "type": "string",
+          "enum": [
+            "0.5.0"
+          ],
+          "description": "The version of this binding. If omitted, 'latest' MUST be assumed."
+        }
+      },
+      "examples": [
+        {
+          "key": {
+            "type": "string",
+            "enum": [
+              "myKey"
+            ]
+          },
+          "schemaIdLocation": "payload",
+          "schemaIdPayloadEncoding": "apicurio-new",
+          "schemaLookupStrategy": "TopicIdStrategy",
+          "bindingVersion": "0.5.0"
+        },
+        {
+          "key": {
+            "$ref": "path/to/user-create.avsc#/UserCreate"
+          },
+          "schemaIdLocation": "payload",
+          "schemaIdPayloadEncoding": "4",
+          "bindingVersion": "0.5.0"
         }
       ]
     },
@@ -4720,6 +4914,7 @@
           "properties": {
             "bindingVersion": {
               "enum": [
+                "0.5.0",
                 "0.4.0",
                 "0.3.0"
               ]
@@ -4736,7 +4931,22 @@
                 }
               },
               "then": {
-                "$ref": "#/definitions/bindings-kafka-0.4.0-channel"
+                "$ref": "#/definitions/bindings-kafka-0.5.0-channel"
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "bindingVersion"
+                ],
+                "properties": {
+                  "bindingVersion": {
+                    "const": "0.5.0"
+                  }
+                }
+              },
+              "then": {
+                "$ref": "#/definitions/bindings-kafka-0.5.0-channel"
               }
             },
             {
@@ -5250,6 +5460,102 @@
             "vhost": "/"
           },
           "bindingVersion": "0.3.0"
+        }
+      ]
+    },
+    "bindings-kafka-0.5.0-channel": {
+      "title": "Channel Schema",
+      "description": "This object contains information about the channel representation in Kafka.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
+      },
+      "properties": {
+        "topic": {
+          "type": "string",
+          "description": "Kafka topic name if different from channel name."
+        },
+        "partitions": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of partitions configured on this topic."
+        },
+        "replicas": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of replicas configured on this topic."
+        },
+        "topicConfiguration": {
+          "description": "Topic configuration properties that are relevant for the API.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "cleanup.policy": {
+              "description": "The [`cleanup.policy`](https://kafka.apache.org/documentation/#topicconfigs_cleanup.policy) configuration option.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "compact",
+                  "delete"
+                ]
+              }
+            },
+            "retention.ms": {
+              "description": "The [`retention.ms`](https://kafka.apache.org/documentation/#topicconfigs_retention.ms) configuration option.",
+              "type": "integer",
+              "minimum": -1
+            },
+            "retention.bytes": {
+              "description": "The [`retention.bytes`](https://kafka.apache.org/documentation/#topicconfigs_retention.bytes) configuration option.",
+              "type": "integer",
+              "minimum": -1
+            },
+            "delete.retention.ms": {
+              "description": "The [`delete.retention.ms`](https://kafka.apache.org/documentation/#topicconfigs_delete.retention.ms) configuration option.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "max.message.bytes": {
+              "description": "The [`max.message.bytes`](https://kafka.apache.org/documentation/#topicconfigs_max.message.bytes) configuration option.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "confluent.key.schema.validation": {
+              "description": "It shows whether the schema validation for the message key is enabled. Vendor specific config. For more details: (https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html#confluent-key-schema-validation)",
+              "type": "boolean"
+            },
+            "confluent.key.subject.name.strategy": {
+              "description": "The name of the schema lookup strategy for the message key. Vendor specific config. For more details: (https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html#confluent-key-subject-name-strategy)",
+              "type": "string"
+            },
+            "confluent.value.schema.validation": {
+              "description": "It shows whether the schema validation for the message value is enabled. Vendor specific config. For more details: (https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html#confluent-value-schema-validation)",
+              "type": "boolean"
+            },
+            "confluent.value.subject.name.strategy": {
+              "description": "The name of the schema lookup strategy for the message value. Vendor specific config. For more details: (https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html#confluent-value-subject-name-strategy)",
+              "type": "string"
+            }
+          }
+        },
+        "bindingVersion": {
+          "type": "string",
+          "enum": [
+            "0.5.0"
+          ],
+          "description": "The version of this binding. If omitted, 'latest' MUST be assumed."
+        }
+      },
+      "examples": [
+        {
+          "topic": "my-specific-topic",
+          "partitions": 20,
+          "replicas": 3,
+          "bindingVersion": "0.5.0"
         }
       ]
     },
@@ -6537,7 +6843,7 @@
                 }
               },
               "then": {
-                "$ref": "#/definitions/bindings-http-0.2.0-operation"
+                "$ref": "#/definitions/bindings-http-0.3.0-operation"
               }
             },
             {
@@ -6672,7 +6978,22 @@
                 }
               },
               "then": {
-                "$ref": "#/definitions/bindings-kafka-0.4.0-operation"
+                "$ref": "#/definitions/bindings-kafka-0.5.0-operation"
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "bindingVersion"
+                ],
+                "properties": {
+                  "bindingVersion": {
+                    "const": "0.5.0"
+                  }
+                }
+              },
+              "then": {
+                "$ref": "#/definitions/bindings-kafka-0.5.0-operation"
               }
             },
             {
@@ -6903,82 +7224,6 @@
         "googlepubsub": {}
       }
     },
-    "bindings-http-0.2.0-operation": {
-      "title": "HTTP operation bindings object",
-      "description": "This object contains information about the operation representation in HTTP.",
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^x-[\\w\\d\\.\\x2d_]+$": {
-          "$ref": "#/definitions/specificationExtension"
-        }
-      },
-      "properties": {
-        "method": {
-          "type": "string",
-          "enum": [
-            "GET",
-            "PUT",
-            "POST",
-            "PATCH",
-            "DELETE",
-            "HEAD",
-            "OPTIONS",
-            "CONNECT",
-            "TRACE"
-          ],
-          "description": "When 'type' is 'request', this is the HTTP method, otherwise it MUST be ignored. Its value MUST be one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'CONNECT', and 'TRACE'."
-        },
-        "query": {
-          "$ref": "#/definitions/schema",
-          "description": "A Schema object containing the definitions for each query parameter. This schema MUST be of type 'object' and have a properties key."
-        },
-        "bindingVersion": {
-          "type": "string",
-          "enum": [
-            "0.2.0"
-          ],
-          "description": "The version of this binding. If omitted, 'latest' MUST be assumed."
-        }
-      },
-      "examples": [
-        {
-          "query": {
-            "type": "object",
-            "required": [
-              "companyId"
-            ],
-            "properties": {
-              "companyId": {
-                "type": "number",
-                "minimum": 1,
-                "description": "The Id of the company."
-              }
-            },
-            "additionalProperties": false
-          },
-          "bindingVersion": "0.2.0"
-        },
-        {
-          "method": "GET",
-          "query": {
-            "type": "object",
-            "required": [
-              "companyId"
-            ],
-            "properties": {
-              "companyId": {
-                "type": "number",
-                "minimum": 1,
-                "description": "The Id of the company."
-              }
-            },
-            "additionalProperties": false
-          },
-          "bindingVersion": "0.2.0"
-        }
-      ]
-    },
     "bindings-http-0.3.0-operation": {
       "title": "HTTP operation bindings object",
       "description": "This object contains information about the operation representation in HTTP.",
@@ -7052,6 +7297,82 @@
             "additionalProperties": false
           },
           "bindingVersion": "0.3.0"
+        }
+      ]
+    },
+    "bindings-http-0.2.0-operation": {
+      "title": "HTTP operation bindings object",
+      "description": "This object contains information about the operation representation in HTTP.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
+      },
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "PUT",
+            "POST",
+            "PATCH",
+            "DELETE",
+            "HEAD",
+            "OPTIONS",
+            "CONNECT",
+            "TRACE"
+          ],
+          "description": "When 'type' is 'request', this is the HTTP method, otherwise it MUST be ignored. Its value MUST be one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'CONNECT', and 'TRACE'."
+        },
+        "query": {
+          "$ref": "#/definitions/schema",
+          "description": "A Schema object containing the definitions for each query parameter. This schema MUST be of type 'object' and have a properties key."
+        },
+        "bindingVersion": {
+          "type": "string",
+          "enum": [
+            "0.2.0"
+          ],
+          "description": "The version of this binding. If omitted, 'latest' MUST be assumed."
+        }
+      },
+      "examples": [
+        {
+          "query": {
+            "type": "object",
+            "required": [
+              "companyId"
+            ],
+            "properties": {
+              "companyId": {
+                "type": "number",
+                "minimum": 1,
+                "description": "The Id of the company."
+              }
+            },
+            "additionalProperties": false
+          },
+          "bindingVersion": "0.2.0"
+        },
+        {
+          "method": "GET",
+          "query": {
+            "type": "object",
+            "required": [
+              "companyId"
+            ],
+            "properties": {
+              "companyId": {
+                "type": "number",
+                "minimum": 1,
+                "description": "The Id of the company."
+              }
+            },
+            "additionalProperties": false
+          },
+          "bindingVersion": "0.2.0"
         }
       ]
     },
@@ -7194,6 +7515,51 @@
           "retain": true,
           "messageExpiryInterval": 60,
           "bindingVersion": "0.2.0"
+        }
+      ]
+    },
+    "bindings-kafka-0.5.0-operation": {
+      "title": "Operation Schema",
+      "description": "This object contains information about the operation representation in Kafka.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-[\\w\\d\\.\\x2d_]+$": {
+          "$ref": "#/definitions/specificationExtension"
+        }
+      },
+      "properties": {
+        "groupId": {
+          "$ref": "#/definitions/schema",
+          "description": "Id of the consumer group."
+        },
+        "clientId": {
+          "$ref": "#/definitions/schema",
+          "description": "Id of the consumer inside a consumer group."
+        },
+        "bindingVersion": {
+          "type": "string",
+          "enum": [
+            "0.5.0"
+          ],
+          "description": "The version of this binding. If omitted, 'latest' MUST be assumed."
+        }
+      },
+      "examples": [
+        {
+          "groupId": {
+            "type": "string",
+            "enum": [
+              "myGroupId"
+            ]
+          },
+          "clientId": {
+            "type": "string",
+            "enum": [
+              "myClientId"
+            ]
+          },
+          "bindingVersion": "0.5.0"
         }
       ]
     },
@@ -8208,14 +8574,7 @@
           "description": "An object to hold reusable Schema Object. If this is a Schema Object, then the schemaFormat will be assumed to be 'application/vnd.aai.asyncapi+json;version=asyncapi' where the version is equal to the AsyncAPI Version String.",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/anySchema"
-                }
-              ]
+              "$ref": "#/definitions/anySchema"
             }
           }
         },
