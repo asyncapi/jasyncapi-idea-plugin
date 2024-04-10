@@ -23,12 +23,12 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2023.3.5")
+    version.set("2024.1")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("223")
-    untilBuild.set("233.*")
+    untilBuild.set("241.*")
     changeNotes.set("""
         <h3>Changed</h3>
         <ul>
@@ -113,6 +113,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2023.3.3",
         "2023.3.4",
         "2023.3.5",
+        "2023.3.6",
+        "2024.1"
     ))
     verifierVersion.set("1.365")
 }
