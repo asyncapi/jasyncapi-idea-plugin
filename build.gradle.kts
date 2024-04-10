@@ -30,6 +30,14 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     sinceBuild.set("223")
     untilBuild.set("241.*")
     changeNotes.set("""
+        <h3>Added</h3>
+        <ul>
+            <li>IDEA 2024.1</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+            <li>Incorrect validation of Multi Format Schema and bindings</li>
+        </ul>
         <h3>Changed</h3>
         <ul>
             <li>2.0.0 schema validation and completion:<ul>
