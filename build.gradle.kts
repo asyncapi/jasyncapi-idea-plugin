@@ -17,7 +17,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.10.2")
 }
 
