@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.16.1"
+    id("org.jetbrains.intellij") version "1.17.3"
     java
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version "1.9.23"
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.4.0+jre17"
+version = "2.5.0+jre17"
 
 repositories {
     mavenCentral()
@@ -23,15 +23,77 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2023.3.1")
+    version.set("2024.1")
     plugins.set(listOf("yaml"))
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     sinceBuild.set("223")
-    untilBuild.set("233.*")
+    untilBuild.set("241.*")
     changeNotes.set("""
-        <p>AsyncAPI 3.0.0</p>
-        <p>IDEA 2023.3</p>
+        <h3>Added</h3>
+        <ul>
+            <li>IDEA 2024.1</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+            <li>Incorrect validation of Multi Format Schema and bindings</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+            <li>2.0.0 schema validation and completion:<ul>
+                <li>Updated allowed extension name: <code>^x-[\w\d\-\_]+${'$'}</code> was changed to <code>^x-[\w\d\.\x2d_]+${'$'}</code></li>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.1.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.2.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.3.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.4.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>2.5.0 schema validation and completion:<ul>
+                <li>OpenAPI schema v3</li>
+                <li>Added <code>schemaFormat</code> to messages to recognize properly non AsyncAPI Schemas</li>
+                <li>Was updated <code>JsonSchema</code> Draft 07</li>
+            </ul>
+            </li>
+            <li>3.0.0 schema validation and completion:<ul>
+                <li>Bindings:<ul>
+                    <li>Solace:<ul>
+                        <li>server binding 0.4.0</li>
+                        <li>operation binding 0.4.0</li>
+                    </ul>
+                    </li>
+                    <li>HTTP:<ul>
+                        <li>message binding 0.3.0</li>
+                        <li>operation binding 0.3.0</li>
+                    </ul>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
     """.trimIndent())
 }
 
@@ -55,8 +117,14 @@ tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVe
         "2023.2.5",
         "2023.3",
         "2023.3.1",
+        "2023.3.2",
+        "2023.3.3",
+        "2023.3.4",
+        "2023.3.5",
+        "2023.3.6",
+        "2024.1"
     ))
-    verifierVersion.set("1.307")
+    verifierVersion.set("1.365")
 }
 
 tasks {
