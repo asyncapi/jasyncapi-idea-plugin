@@ -14,7 +14,7 @@ jobs:
     steps:
       # Since this workflow is REQUIRED for a PR to be mergable, we have to have this 'if' statement in step level instead of job level.
       - if: ${{ !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors[bot]"]'), github.actor) }}
-        uses: amannn/action-semantic-pull-request@c24d6dd07c69e0826c52021944f216b2e3192535 #version 5.5.0 https://github.com/amannn/action-semantic-pull-request/releases/tag/v5.5.0
+        uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e #version 5.5.2 https://github.com/amannn/action-semantic-pull-request/releases/tag/v5.5.2
         id: lint_pr_title
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
