@@ -1,5 +1,37 @@
 # Changelog
 
+## 2.6.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.5.0%2Bjre17)
+
+### Added
+
+- IDEA 2024.2
+
+### Fixed
+
+- No fixes included
+
+### Changed
+
+- bump actions/checkout from 3 to 4
+- bump actions/setup-node from 3 to 4
+- bump actions/stale from 5.2.0 to 9.0.0
+- bump amannn/action-semantic-pull-request from 5.2.0 to 5.5.3
+- bump com.fasterxml.jackson.core:jackson-core from 2.15.0 to 2.17.2
+- bump com.fasterxml.jackson.dataformat:jackson-dataformat-yaml from 2.15.0 to 2.17.2
+- bump com.fasterxml.jackson.module:jackson-module-kotlin from 2.15.0 to 2.17.2
+- bump hmarr/auto-approve-action from 3.2.1 to 4.0.0
+- bump jvm from 1.9.23 to 2.0.20
+- bump marocchino/sticky-pull-request-comment from 2.5.0 to 2.9.0
+- bump org.jetbrains.intellij from 1.17.3 to 1.17.4
+- bump org.junit.jupiter:junit-jupiter-api from 5.9.2 to 5.11.0
+- bump org.junit.jupiter:junit-jupiter-engine from 5.9.2 to 5.11.0
+- bump org.junit.vintage:junit-vintage-engine from 5.9.2 to 5.11.0
+- bump pascalgn/automerge-action from 0.15.6 to 0.16.3
+
+
 ## 2.5.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)
