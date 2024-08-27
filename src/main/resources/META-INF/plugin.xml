@@ -27,12 +27,6 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISpecificationHtmlRenderer"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.render.WebSocketRendererProvider"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
-
         <!-- Templates for AsyncAPI specification example -->
         <internalFileTemplate name="AsyncAPI specification 2 (yaml)"/>
         <internalFileTemplate name="AsyncAPI specification 2 (json)"/>
