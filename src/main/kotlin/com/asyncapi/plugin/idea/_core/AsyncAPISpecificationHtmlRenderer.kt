@@ -28,8 +28,8 @@ class AsyncAPISpecificationHtmlRenderer {
 
     private val urlProvider = service<UrlProvider>()
     private val specificationTemplateUrl = "/ui/index.html"
-    private val specificationTemplateCssUrl = "default(1.2.9).min.css"
-    private val specificationTemplateJsUrl = "index(1.2.9).js"
+    private val specificationTemplateCssUrl = "default.min.css"
+    private val specificationTemplateJsUrl = "index.js"
 
     fun render(request: FullHttpRequest, specificationUrl: String?): String {
         specificationUrl ?: return "specification: not found."
