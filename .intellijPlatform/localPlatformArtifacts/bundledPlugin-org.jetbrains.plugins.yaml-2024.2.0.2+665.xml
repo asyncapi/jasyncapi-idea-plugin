@@ -1,0 +1,10 @@
+<ivy-module version="2.0">
+  <info organisation="bundledPlugin" module="org.jetbrains.plugins.yaml" revision="2024.2.0.2+665"/>
+  <configurations>
+    <conf name="default" visibility="public"/>
+  </configurations>
+  <publications>
+    <artifact name="/Users/pavelbodyachevskiy/.gradle/caches/8.10/transforms/44bd0f87823f31d8ddf00a60fee2320c/transformed/ideaIC-2024.2.0.2/plugins/yaml" type="directory" conf="default"/>
+  </publications>
+  <dependencies/>
+</ivy-module>

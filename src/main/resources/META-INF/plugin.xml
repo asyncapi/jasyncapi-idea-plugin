@@ -3,22 +3,6 @@
     <name>AsyncAPI</name>
     <vendor email="pavelbodyachevskiy@gmail.com" url="https://www.asyncapi.com">AsyncAPI</vendor>
 
-    <description><![CDATA[
-    <h2>⚠️ This plugin doesn't support AsyncAPI 1.x</h2>
-    <p>Plugin to help you easily edit <a href="https://www.asyncapi.com/">AsyncAPI</a> specification files.</p>
-    <h3>Features</h3>
-    <ul>
-        <li>Recognition of AsyncAPI specifications.</li>
-        <li>AsyncAPI specification auto-completion.</li>
-        <li>AsyncAPI specification example creation from <code>file -> new -> AsyncAPI specification</code>.</li>
-        <li>AsyncAPI specification inspection and validation using <a href="https://github.com/asyncapi/spec-json-schemas">AsyncAPI JSON Schema</a>.</li>
-        <li>Local references resolving with auto-completion in AsyncAPI specification.</li>
-        <li>File references resolving with auto-completion in AsyncAPI specification.</li>
-        <li>AsyncAPI specification preview as html in built-in/external browser.</li>
-    </ul>
-    ]]>
-    </description>
-
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
@@ -26,12 +10,6 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISpecificationRecognizer"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPISpecificationHtmlRenderer"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.render.WebSocketRendererProvider"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea.extensions.web.UrlProvider"/>
-        <applicationService serviceImplementation="com.asyncapi.plugin.idea._core.AsyncAPIJsonSchemaProvider"/>
 
         <!-- Templates for AsyncAPI specification example -->
         <internalFileTemplate name="AsyncAPI specification 2 (yaml)"/>
