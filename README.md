@@ -31,7 +31,7 @@ cd jasyncapi-idea-plugin
 
 NOTE: This will take a while the first time as it will have to download every single version of IntelliJ IDEA listed in the `runPluginVerifier` section of the `build.gradle.kts` file. 
 ```sh
-./gradlew :runPluginVerifier
+./gradlew :verifyPlugin
 ```
 ... should have no errors
 5. install plugin from disk - [JetBrains Instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk)

@@ -1,8 +1,8 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 
 plugins {
     id("org.jetbrains.intellij.platform") version "2.0.1"
-    id("org.jetbrains.intellij.platform.migration") version "2.0.1"
     java
     kotlin("jvm") version "2.0.20"
 }
@@ -56,6 +56,53 @@ intellijPlatform {
             </ul>
         """.trimIndent()
     }
+
+    pluginVerification {
+        failureLevel = listOf(
+            VerifyPluginTask.FailureLevel.INVALID_PLUGIN,
+            VerifyPluginTask.FailureLevel.COMPATIBILITY_PROBLEMS,
+            VerifyPluginTask.FailureLevel.NOT_DYNAMIC
+        )
+
+        ides {
+            ides(listOf(
+                "2022.3",
+                "2022.3.1",
+                "2022.3.2",
+                "2022.3.3",
+                "2023.1",
+                "2023.1.1",
+                "2023.1.2",
+                "2023.1.3",
+                "2023.1.4",
+                "2023.1.5",
+                "2023.2",
+                "2023.2.1",
+                "2023.2.2",
+                "2023.2.3",
+                "2023.2.4",
+                "2023.2.5",
+                "2023.3",
+                "2023.3.1",
+                "2023.3.2",
+                "2023.3.3",
+                "2023.3.4",
+                "2023.3.5",
+                "2023.3.6",
+                "2023.3.7",
+                "2024.1",
+                "2024.1.1",
+                "2024.1.2",
+                "2024.1.3",
+                "2024.1.4",
+                "2024.1.5",
+                "2024.1.6",
+                "2024.2",
+                "2024.2.0.1",
+                "2024.2.0.2"
+            ))
+        }
+    }
 }
 
 tasks {
@@ -64,39 +111,6 @@ tasks {
         untilBuild = "242.*"
     }
 }
-
-//tasks.getByName<org.jetbrains.intellij.tasks.RunPluginVerifierTask>("runPluginVerifier") {
-//    ideVersions.set(
-//        listOf(
-//            "2022.3",
-//            "2022.3.1",
-//            "2022.3.2",
-//            "2022.3.3",
-//            "2023.1",
-//            "2023.1.1",
-//            "2023.1.2",
-//            "2023.1.3",
-//            "2023.1.4",
-//            "2023.1.5",
-//            "2023.2",
-//            "2023.2.1",
-//            "2023.2.2",
-//            "2023.2.3",
-//            "2023.2.4",
-//            "2023.2.5",
-//            "2023.3",
-//            "2023.3.1",
-//            "2023.3.2",
-//            "2023.3.3",
-//            "2023.3.4",
-//            "2023.3.5",
-//            "2023.3.6",
-//            "2024.1",
-//            "2024.2"
-//        )
-//    )
-//    verifierVersion.set("1.373")
-//}
 
 tasks {
     compileKotlin {
