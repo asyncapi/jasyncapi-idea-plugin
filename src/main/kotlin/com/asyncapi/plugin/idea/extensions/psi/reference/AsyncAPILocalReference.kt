@@ -13,7 +13,7 @@ import org.jetbrains.yaml.psi.YAMLFile
 import org.jetbrains.yaml.psi.YAMLPsiElement
 
 /**
- * Reference to element inside current schema.
+ * Reference to element inside current specification.
  *
  * @author Pavel Bodiachevskii
  *

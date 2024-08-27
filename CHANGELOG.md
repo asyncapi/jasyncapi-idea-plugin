@@ -1,5 +1,231 @@
 # Changelog
 
+## 2.6.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.5.0%2Bjre17)
+
+### Added
+
+- IDEA 2024.2
+
+### Fixed
+
+- No fixes included
+
+### Changed
+
+- bump actions/checkout from 3 to 4
+- bump actions/setup-node from 3 to 4
+- bump actions/stale from 5.2.0 to 9.0.0
+- bump amannn/action-semantic-pull-request from 5.2.0 to 5.5.3
+- bump com.fasterxml.jackson.core:jackson-core from 2.15.0 to 2.17.2
+- bump com.fasterxml.jackson.dataformat:jackson-dataformat-yaml from 2.15.0 to 2.17.2
+- bump com.fasterxml.jackson.module:jackson-module-kotlin from 2.15.0 to 2.17.2
+- bump hmarr/auto-approve-action from 3.2.1 to 4.0.0
+- bump jvm from 1.9.23 to 2.0.20
+- bump marocchino/sticky-pull-request-comment from 2.5.0 to 2.9.0
+- bump org.jetbrains.intellij from 1.17.3 to 1.17.4
+- bump org.junit.jupiter:junit-jupiter-api from 5.9.2 to 5.11.0
+- bump org.junit.jupiter:junit-jupiter-engine from 5.9.2 to 5.11.0
+- bump org.junit.vintage:junit-vintage-engine from 5.9.2 to 5.11.0
+- bump pascalgn/automerge-action from 0.15.6 to 0.16.3
+
+
+## 2.5.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.5.0%2Bjre17)
+
+### Added
+
+- IDEA 2024.1
+
+### Fixed
+
+- Incorrect validation of Multi Format Schema and bindings
+
+### Changed
+- 2.0.0 schema validation and completion:
+  - Updated allowed extension name: `^x-[\w\d\-\_]+$` was changed to `^x-[\w\d\.\x2d_]+$`
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.1.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.2.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.3.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.4.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 2.5.0 schema validation and completion:
+  - OpenAPI schema v3
+  - Added `schemaFormat` to messages to recognize properly non AsyncAPI Schemas
+  - Was updated `JsonSchema` Draft 07
+- 3.0.0 schema validation and completion:
+  - Bindings:
+    - Solace:
+      - server binding 0.4.0
+      - operation binding 0.4.0
+    - HTTP:
+      - message binding 0.3.0
+      - operation binding 0.3.0
+
+## 2.4.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/454611)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.4.0%2Bjre17)
+
+### Added
+- AsyncAPI 3.0.0
+- Compatibility with IDEA 2023.3
+
+## 2.3.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/386402)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.3.0%2Bjre17)
+
+### Added
+- AsyncAPI 2.6.0
+
+### Changed
+- Plugin description
+- New icons
+
+## 2.2.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/371376)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.2.0%2Bjre17)
+
+### Added
+- Compatibility with IDEA 2023.2*
+
+## 2.1.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/329996)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.1.0%2Bjre17)
+
+### Added
+- Compatibility with IDEA 2023.1*
+
+## 2.0.0+jre17
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/282568)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.0.0%2Bjre17)
+
+### Added
+- Compatibility with IDEA 2022.3, 2022.3.*
+
+## 1.8.0+jre11
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/282007)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.8.0%2Bjre11)
+
+### Added
+- Compatibility with IDEA 2022.2.4
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.9.0 -> 1.12.0
+- was changed `org.junit.jupiter` version
+  - 5.9.0 -> 5.9.1
+- was changed `intellij-plugin-verifier` version
+  - 1.284 -> 1.289
+- was changed Kotlin version
+  - 1.6.20 -> 1.8.0
+
+## 1.7.1+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/240272)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.7.1%2Bidea2021)
+
+### Fixed
+- Preview in Windows
+
+## 1.7.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/197680)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.6.0%2Bidea2021)
+
+### Added
+- Compatability with IDEA 2022.2
+- Compatability with IDEA 2022.2.1
+- Compatability with IDEA 2022.2.2
+- Compatability with IDEA 2022.2.3
+- AsyncAPI 2.5.0
+- Reference to Avro Schemas
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.7.0 -> 1.9.0
+- was changed `org.junit.jupiter` version
+  - 5.8.2 -> 5.9.0
+
+## 1.6.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/197680)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.6.0%2Bidea2021)
+
+### Added
+- Compatability with IDEA 2022.1.3
+- Compatability with IDEA 2022.1.4
+- AsyncAPI Schema auto-completion
+- AsyncAPI 2.4.0
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.6.0 -> 1.7.0
+- was changed `intellij-plugin-verifier` version
+  - 1.278 -> 1.284
+
+## 1.5.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/168724)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.5.0%2Bidea2021)
+
+### Added
+- Compatability with IDEA 2022.1
+
+### Changed
+- was changed `org.jetbrains.intellij` version
+  - 1.4.0 -> 1.5.3
+- was changed `intellij-plugin-verifier` version
+  - 1.268 -> 1.278
+- was changed `Gradle` version
+  - 6.8 -> 7.4.2
+- was changed `JUnit` version
+  - 4.12 -> 5.8.2
+
+
+## 1.4.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/167090)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.4.0%2Bidea2021)
+
+### Added
+- Compatability with AsyncAPI 2.1.0
+- Compatability with AsyncAPI 2.2.0
+- Compatability with AsyncAPI 2.3.0
+
+
+## 1.1.0+idea2021
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/142249)
+- [GitHub](https://github.com/Pakisan/jasyncapi-idea-plugin/releases/tag/1.1.0%2Bidea2021)
+
+### Added
+- Preview of AsyncAPI schema as html in built-in/external browser
+  - Known limitations: reload on save doesn't work
+
 
 ## 1.0.0+idea2021
 published to:

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://unpkg.com/@asyncapi/react-component@1.0.0-next.12/styles/default.min.css">
+<!--        <link rel="stylesheet" href="https://unpkg.com/@asyncapi/react-component@2.2.2/styles/default.min.css">-->
+        <link rel="stylesheet" href="">
     </head>
     <body>
         <div id="asyncapi"></div>
 
-        <script src="https://unpkg.com/@asyncapi/react-component@1.0.0-next.12/browser/standalone/index.js"></script>
+<!--        <script src="https://unpkg.com/@asyncapi/react-component@2.2.2/browser/standalone/index.js"></script>-->
+        <script src=""></script>
         <script>
             AsyncApiStandalone.render({
                 schema: {
@@ -20,5 +22,7 @@
                 },
             }, document.getElementById('asyncapi'));
         </script>
+        <!-- WebSocket connection listening for reload message -->
+        <!-- WebSocket -->
     </body>
 </html>

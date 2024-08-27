@@ -14,7 +14,7 @@ import com.intellij.json.psi.JsonProperty
 // JsonReferenceVariantsProvider
 class JsonFileVariantsProvider(
         private val foundJsonElements: List<JsonElement>,
-        private val asyncAPISchemaName: String,
+        private val asyncAPISpecificationName: String,
         private val psiXPath: String,
         private val referencedFileLocation: String? = null
 ) {
@@ -33,7 +33,7 @@ class JsonFileVariantsProvider(
 
         jsonObjects.forEach { foundJsonObject ->
             val parentName = resolveParentName(foundJsonObject)
-            var restoredPath = convertToSchemaReferenceAndActualize(psiXPath)
+            var restoredPath = convertToSpecificationReferenceAndActualize(psiXPath)
 
             if (parentName.isNotBlank()) {
                 restoredPath = restoredPath.plus("/$parentName")
@@ -54,7 +54,7 @@ class JsonFileVariantsProvider(
 
         jsonStringLiterals.forEach { jsonStringLiteral ->
             val parentName = resolveParentName(jsonStringLiteral)
-            var restoredPath = convertToSchemaReferenceAndActualize(psiXPath)
+            var restoredPath = convertToSpecificationReferenceAndActualize(psiXPath)
 
             if (parentName.isNotBlank()) {
                 restoredPath = restoredPath.plus("/$parentName")
@@ -70,8 +70,8 @@ class JsonFileVariantsProvider(
         return (jsonObject.parent as? JsonProperty)?.name ?: ""
     }
 
-    private fun convertToSchemaReferenceAndActualize(psiXPath: String): String {
-        val schemaReference = psiXPath.replace("$", "#")
+    private fun convertToSpecificationReferenceAndActualize(psiXPath: String): String {
+        val specificationReference = psiXPath.replace("$", "#")
                 .split(".")
                 /*
                     Last element if it exists must be deleted.
@@ -80,13 +80,13 @@ class JsonFileVariantsProvider(
                 .dropLast(1)
                 .joinToString("/")
 
-        return referencedFileLocation?.plus(schemaReference) ?: schemaReference
+        return referencedFileLocation?.plus(specificationReference) ?: specificationReference
     }
 
     private fun buildVariant(variant: String): LookupElement {
         return LookupElementBuilder.create(variant)
                 .withCaseSensitivity(false)
-                .withTypeText(asyncAPISchemaName)
+                .withTypeText(asyncAPISpecificationName)
                 .withIcon(Icons.ASYNCAPI_ICON)
     }
 
