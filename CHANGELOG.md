@@ -2,8 +2,8 @@
 
 ## 2.6.0+jre21
 published to:
-- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)
-- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.5.0%2Bjre17)
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/594695)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/new?tag=2.6.0%2Bjre17)
 
 ### Added
 
