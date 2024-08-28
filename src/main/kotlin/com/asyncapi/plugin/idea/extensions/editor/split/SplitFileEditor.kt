@@ -12,7 +12,6 @@ import com.intellij.ui.JBSplitter
 import java.awt.BorderLayout
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
-import javax.swing.JLabel
 import javax.swing.JPanel
 
 abstract class SplitFileEditor(
@@ -22,17 +21,23 @@ abstract class SplitFileEditor(
 
     private val currentEditorLayout: SplitFileEditorLayout = SplitFileEditorLayout.SPLIT
 
+    private val splitFileEditorComponent: JComponent
+
+    init {
+        splitFileEditorComponent = createComponent()
+    }
+
     protected open fun adjustEditorsVisibility() {
-        textEditor.component.isVisible = currentEditorLayout.showEditor
-        previewEditor.component.isVisible = currentEditorLayout.showPreview
+        textEditor.component.isVisible = true
+        previewEditor.component.isVisible = true
     }
 
     private fun invalidateLayout() {
         adjustEditorsVisibility();
-        getComponent().repaint()
+        splitFileEditorComponent.repaint()
     }
 
-    override fun getComponent(): JComponent {
+    private fun createComponent(): JComponent {
         val splitter = JBSplitter(false, 0.5f, 0.15f, 0.85f)
         splitter.firstComponent = textEditor.component
         splitter.secondComponent = previewEditor.component
@@ -41,8 +46,11 @@ abstract class SplitFileEditor(
         splitFileEditor.add(splitter, BorderLayout.CENTER)
 
         adjustEditorsVisibility()
+
         return splitFileEditor
     }
+
+    override fun getComponent(): JComponent = splitFileEditorComponent
 
     override fun getPreferredFocusedComponent(): JComponent? {
         return if (textEditor.component.isVisible) {
@@ -54,7 +62,7 @@ abstract class SplitFileEditor(
 
     override fun getState(level: FileEditorStateLevel): FileEditorState {
         return MyFileEditorState(
-            SplitFileEditorLayout.SPLIT.presentationName,
+            currentEditorLayout.presentationName,
             textEditor.getState(level),
             previewEditor.getState(level)
         )
