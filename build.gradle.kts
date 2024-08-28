@@ -15,8 +15,6 @@ repositories {
     intellijPlatform {
         jetbrainsRuntime()
         defaultRepositories()
-
-        jetbrainsRuntime()
     }
 }
 
