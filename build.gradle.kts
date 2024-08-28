@@ -55,6 +55,8 @@ intellijPlatform {
             <h3>Added</h3>
             <ul>
                 <li>IDEA 2024.2</li>
+                <li>Yaml single quoted references handling - '#/components/messages/welcomeMessage', '../common/messages/welcomeMessage.yml'</li>
+                <li><code>.yml</code> file recognition</li>
             </ul>
         """.trimIndent()
     }
