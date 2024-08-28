@@ -84,11 +84,23 @@ class AsyncAPIFileReference(
     }
 
     private fun extractFileLocation(fileReference: String): String? {
-        return fileReference.removePrefix("\"").removeSuffix("\"").split("#/").firstOrNull()
+        return fileReference
+            .removePrefix("\"") // double quoted 'some text'
+            .removeSuffix("\"")
+            .removePrefix("\'") // single quoted 'some text'
+            .removeSuffix("\'")
+            .split("#/")
+            .firstOrNull()
     }
 
     private fun extractLocalReference(fileReference: String): String? {
-        return fileReference.removePrefix("\"").removeSuffix("\"").split("#/").getOrNull(1)
+        return fileReference
+            .removePrefix("\"") // double quoted 'some text'
+            .removeSuffix("\"")
+            .removePrefix("\'") // single quoted 'some text'
+            .removeSuffix("\'")
+            .split("#/")
+            .getOrNull(1)
     }
 
     private fun findFile(fileLocation: String): PsiFile? {

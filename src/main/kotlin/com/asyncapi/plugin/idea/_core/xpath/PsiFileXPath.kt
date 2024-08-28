@@ -18,8 +18,10 @@ abstract class PsiFileXPath<AsyncAPISpecification: PsiFile> {
      */
     fun compileXPath(specificationReference: String): String {
         return specificationReference
-                .removePrefix("\"")
+                .removePrefix("\"") // double quoted "some text"
                 .removeSuffix("\"")
+                .removePrefix("\'") // single quoted 'some text'
+                .removeSuffix("\'")
                 .replace("#/", "")
                 .split("/")
                 .joinToString(".", "$.", "")

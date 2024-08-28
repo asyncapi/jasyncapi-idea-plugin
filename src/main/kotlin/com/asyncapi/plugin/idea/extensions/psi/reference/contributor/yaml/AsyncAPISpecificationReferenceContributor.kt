@@ -33,8 +33,8 @@ class AsyncAPISpecificationReferenceContributor: PsiReferenceContributor() {
         return expectedChild.withParent(expectedParent)
     }
 
-    private fun fileReferencePattern(): PsiElementPattern.Capture<YAMLValue> {
-        val expectedChild = PlatformPatterns.psiElement(YAMLValue::class.java)
+    private fun fileReferencePattern(): PsiElementPattern.Capture<YAMLQuotedText> {
+        val expectedChild = PlatformPatterns.psiElement(YAMLQuotedText::class.java)
                 .withText(StandardPatterns.string().contains(".yaml"))
 
         val expectedParent = PlatformPatterns.psiElement(YAMLKeyValue::class.java)

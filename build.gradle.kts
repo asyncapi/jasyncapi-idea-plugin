@@ -13,6 +13,7 @@ version = "2.6.0+jre17"
 repositories {
     mavenCentral()
     intellijPlatform {
+        jetbrainsRuntime()
         defaultRepositories()
     }
 }
@@ -26,8 +27,9 @@ dependencies {
             "org.jetbrains.plugins.yaml"
         ))
 
-        instrumentationTools()
         pluginVerifier()
+        jetbrainsRuntime()
+        instrumentationTools()
         testFramework(TestFrameworkType.Platform)
     }
 
