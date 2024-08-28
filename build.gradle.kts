@@ -14,6 +14,8 @@ repositories {
     mavenCentral()
     intellijPlatform {
         defaultRepositories()
+
+        jetbrainsRuntime()
     }
 }
 
@@ -26,8 +28,9 @@ dependencies {
             "org.jetbrains.plugins.yaml"
         ))
 
-        instrumentationTools()
         pluginVerifier()
+        jetbrainsRuntime()
+        instrumentationTools()
         testFramework(TestFrameworkType.Platform)
     }
 

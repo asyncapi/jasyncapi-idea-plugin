@@ -1,19 +1,24 @@
 package com.asyncapi.plugin.idea.extensions.editor.preview
 
+import com.asyncapi.plugin.idea.extensions.editor.ui.AsyncAPIJCEFHtmlPanel
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter
 import com.intellij.ide.structureView.StructureViewBuilder
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.event.DocumentEvent
+import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.fileEditor.FileEditor
 import com.intellij.openapi.fileEditor.FileEditorLocation
 import com.intellij.openapi.fileEditor.FileEditorState
 import com.intellij.openapi.fileEditor.FileEditorStateLevel
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.UserDataHolderBase
+import java.awt.LayoutManager
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
-import javax.swing.JLabel
 import javax.swing.JPanel
+import javax.swing.OverlayLayout
 
 class AsyncAPIPreviewEditor(
     private val document: Document?,
@@ -24,13 +29,34 @@ class AsyncAPIPreviewEditor(
 
     var editor: Editor? = null
 
-    override fun getComponent(): JComponent {
-        val previewEditor = JPanel()
-        val mockText = JLabel("AsyncAPI Preview Editor")
+    private val asyncAPIPreviewEditorComponent: JComponent
+    private val htmlPanel: AsyncAPIJCEFHtmlPanel = AsyncAPIJCEFHtmlPanel(editor)
 
-        previewEditor.add(mockText)
+    init {
+        asyncAPIPreviewEditorComponent = createComponent()
+
+        val documentListenerHandler = object : DocumentListener {
+            override fun documentChanged(event: DocumentEvent) {
+                if (asyncAPIPreviewEditorComponent.isVisible && asyncAPIPreviewEditorComponent.isDisplayable) {
+                    htmlPanel.setHtml("${document?.text}")
+                }
+            }
+        }
+        document?.addDocumentListener(documentListenerHandler, this)
+    }
+
+    private fun createComponent(): JComponent {
+        val previewEditor = JPanel()
+        val overlay: LayoutManager = OverlayLayout(previewEditor)
+        previewEditor.setLayout(overlay)
+
+        htmlPanel.setHtml("${document?.text}")
+        previewEditor.add(htmlPanel.component)
+
         return previewEditor
     }
+
+    override fun getComponent(): JComponent = asyncAPIPreviewEditorComponent
 
     override fun getPreferredFocusedComponent(): JComponent = getComponent()
 
@@ -69,9 +95,7 @@ class AsyncAPIPreviewEditor(
     override fun getStructureViewBuilder(): StructureViewBuilder? = null
 
     override fun dispose() {
-        // TODO: dispose component
-        // Disposer.dispose(previewEditor)
-        // do nothing
+         Disposer.dispose(htmlPanel)
     }
 
 }
