@@ -18,7 +18,8 @@ class AsyncAPISpecificationReferenceContributor: PsiReferenceContributor() {
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         registrar.registerReferenceProvider(localReferencePattern(), AsyncAPILocalReferenceProvider())
-        registrar.registerReferenceProvider(fileReferencePattern(), AsyncAPIFileReferenceProvider())
+        registrar.registerReferenceProvider(yamlFileReferencePattern(), AsyncAPIFileReferenceProvider())
+        registrar.registerReferenceProvider(ymlFileReferencePattern(), AsyncAPIFileReferenceProvider())
     }
 
     private fun localReferencePattern(): PsiElementPattern.Capture<YAMLQuotedText> {
@@ -33,13 +34,24 @@ class AsyncAPISpecificationReferenceContributor: PsiReferenceContributor() {
         return expectedChild.withParent(expectedParent)
     }
 
-    private fun fileReferencePattern(): PsiElementPattern.Capture<YAMLQuotedText> {
+    private fun yamlFileReferencePattern(): PsiElementPattern.Capture<YAMLQuotedText> {
         val expectedChild = PlatformPatterns.psiElement(YAMLQuotedText::class.java)
                 .withText(StandardPatterns.string().contains(".yaml"))
 
         val expectedParent = PlatformPatterns.psiElement(YAMLKeyValue::class.java)
                 .withName("\$ref")
                 .withChild(expectedChild)
+
+        return expectedChild.withParent(expectedParent)
+    }
+
+    private fun ymlFileReferencePattern(): PsiElementPattern.Capture<YAMLQuotedText> {
+        val expectedChild = PlatformPatterns.psiElement(YAMLQuotedText::class.java)
+            .withText(StandardPatterns.string().contains(".yml"))
+
+        val expectedParent = PlatformPatterns.psiElement(YAMLKeyValue::class.java)
+            .withName("\$ref")
+            .withChild(expectedChild)
 
         return expectedChild.withParent(expectedParent)
     }
