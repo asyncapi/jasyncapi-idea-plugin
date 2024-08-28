@@ -13,6 +13,7 @@ version = "2.6.0+jre17"
 repositories {
     mavenCentral()
     intellijPlatform {
+        jetbrainsRuntime()
         defaultRepositories()
 
         jetbrainsRuntime()

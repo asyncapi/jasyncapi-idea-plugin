@@ -14,7 +14,10 @@ class AsyncAPIFileReferenceProvider: PsiReferenceProvider() {
 
     override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
         /* experimental */
-        val value = element.text.removePrefix("\"").removeSuffix("\"")
+        val value = element.text.removePrefix("\"") // Double quoted "some text"
+            .removeSuffix("\"")
+            .removePrefix("\'") // Single quoted 'some text'
+            .removePrefix("\'")
         val textRange = TextRange(1, value.length + 1)
         /* experimental */
 

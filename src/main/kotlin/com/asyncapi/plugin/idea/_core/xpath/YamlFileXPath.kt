@@ -14,7 +14,11 @@ object YamlFileXPath: PsiFileXPath<YAMLFile>() {
 
     override fun findText(asyncAPISpecification: YAMLFile?, psiXPath: String, partialMatch: Boolean): List<String> {
         return findPsi(asyncAPISpecification, psiXPath, partialMatch).map {
-            it.text.removePrefix("\"").removeSuffix("\"")
+            it.text
+                .removePrefix("\"") // double quoted "some text"
+                .removeSuffix("\"")
+                .removePrefix("\'") // single quoted 'some text'
+                .removeSuffix("\'")
         }
     }
 
