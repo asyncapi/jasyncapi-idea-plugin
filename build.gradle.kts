@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        intellijIdeaCommunity("2024.2.0.2", useInstaller = false)
+        intellijIdeaCommunity("2022.3", useInstaller = false)
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(listOf(
@@ -103,7 +103,8 @@ intellijPlatform {
                 "2024.1.6",
                 "2024.2",
                 "2024.2.0.1",
-                "2024.2.0.2"
+                "2024.2.0.2",
+                "2024.2.1"
             ))
         }
     }
