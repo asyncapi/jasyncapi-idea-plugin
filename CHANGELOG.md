@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.6.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/edit/versions/stable/596939)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/new?tag=2.6.0%2Bjre17)
+
+### Added
+
+- IDEA 2024.2
+- Yaml single quoted references handling - '#/components/messages/welcomeMessage'
+- `.yml` file recognition
+
 ## 2.5.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/520779)

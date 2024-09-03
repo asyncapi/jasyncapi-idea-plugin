@@ -127,3 +127,5 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/gradle,intellij
 
 .DS_Store
+.intellijPlatform
+.kotlin
