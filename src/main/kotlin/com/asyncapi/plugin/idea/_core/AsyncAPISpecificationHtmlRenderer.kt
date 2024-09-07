@@ -70,7 +70,7 @@ class AsyncAPISpecificationHtmlRenderer {
             )
     }
 
-    private fun replaceLocalReferences(specification: String, specificationFile: VirtualFile, isJson: Boolean): String {
+    fun replaceLocalReferences(specification: String, specificationFile: VirtualFile, isJson: Boolean): String {
         val objectMapper = if (isJson) {
             ObjectMapper()
         } else {
