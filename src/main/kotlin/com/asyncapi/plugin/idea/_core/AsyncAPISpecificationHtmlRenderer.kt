@@ -8,14 +8,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.intellij.json.JsonFileType
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
-import com.intellij.openapi.util.io.FileUtil
-import com.intellij.openapi.util.io.systemIndependentPath
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import io.netty.handler.codec.http.FullHttpRequest
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
-import java.util.function.Supplier
 
 /**
  * @author Pavel Bodiachevskii
@@ -47,20 +44,19 @@ class AsyncAPISpecificationHtmlRenderer {
 
         val isJson = specificationVirtualFile.fileType is JsonFileType
         val specification = replaceLocalReferences(specificationFile.readText(Charsets.UTF_8), specificationVirtualFile, isJson)
-        val temporalSpecificationUrl = saveAsTemporalFile(specification, isJson)
 
         val specificationTemplate = this.javaClass.getResource(specificationTemplateUrl)
         specificationTemplate ?: return "specification template not found."
 
         val webSocket = webSocketRendererProvider.provide(
             fullHttpRequest = request,
-            supplier = Supplier<VirtualFile?> { specificationVirtualFile }
+            supplier = { specificationVirtualFile }
         )
 
         return specificationTemplate.readText(Charsets.UTF_8)
             .replace(
-                "url: '',",
-                "url: '${urlProvider.specification(temporalSpecificationUrl)}',"
+                "schema: {},",
+                "schema: $specification,"
             )
             .replace(
                 "<link rel=\"stylesheet\" href=\"\">",
@@ -89,7 +85,7 @@ class AsyncAPISpecificationHtmlRenderer {
             }
         }
 
-        return objectMapper.writeValueAsString(tree)
+        return ObjectMapper().writeValueAsString(tree)
     }
 
     private fun localReferenceToFileUrl(localReference: String, specificationFile: VirtualFile): String {
@@ -102,19 +98,6 @@ class AsyncAPISpecificationHtmlRenderer {
         referencedFile ?: return fileReference
 
         return urlProvider.reference(referencedFile.path, specificationComponentReference)
-    }
-
-    private fun saveAsTemporalFile(specification: String, isJson: Boolean): String {
-        val suffix = if (isJson) {
-            ".json"
-        } else {
-            ".yaml"
-        }
-
-        val tempSpecification = FileUtil.createTempFile("jasyncapi-idea-plugin-${System.currentTimeMillis()}", suffix, true)
-        tempSpecification.writeText(specification, Charsets.UTF_8)
-
-        return tempSpecification.systemIndependentPath
     }
 
 }
