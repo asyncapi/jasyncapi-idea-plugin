@@ -8,11 +8,13 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.intellij.json.JsonFileType
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
+import com.intellij.openapi.editor.Document
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import io.netty.handler.codec.http.FullHttpRequest
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
+import java.net.URL
 
 /**
  * @author Pavel Bodiachevskii
@@ -27,6 +29,20 @@ class AsyncAPISpecificationHtmlRenderer {
     private val specificationTemplateUrl = "/ui/index.html"
     private val specificationTemplateCssUrl = "default.min.css"
     private val specificationTemplateJsUrl = "index.js"
+
+    fun render(specificationVirtualFile: VirtualFile, document: Document?): String {
+        if (specificationVirtualFile.fileType !is YAMLFileType && specificationVirtualFile.fileType !is JsonFileType) {
+            return "specification: ${specificationVirtualFile.name} not in json or yaml format."
+        }
+
+        val isJson = specificationVirtualFile.fileType is JsonFileType
+        val specification = replaceLocalReferences(document?.text ?: "", specificationVirtualFile, isJson)
+
+        val specificationTemplate = this.javaClass.getResource(specificationTemplateUrl)
+        specificationTemplate ?: return "specification template not found."
+
+        return composePage(specificationTemplate, specification)
+    }
 
     fun render(request: FullHttpRequest, specificationUrl: String?): String {
         specificationUrl ?: return "specification: not found."
@@ -53,21 +69,7 @@ class AsyncAPISpecificationHtmlRenderer {
             supplier = { specificationVirtualFile }
         )
 
-        return specificationTemplate.readText(Charsets.UTF_8)
-            .replace(
-                "schema: {},",
-                "schema: $specification,"
-            )
-            .replace(
-                "<link rel=\"stylesheet\" href=\"\">",
-                "<link rel=\"stylesheet\" href=\"${urlProvider.resource(specificationTemplateCssUrl)}\">"
-            ).replace(
-                "<script src=\"\"></script>",
-                "<script src=\"${urlProvider.resource(specificationTemplateJsUrl)}\"></script>"
-            ).replace(
-                "<!-- WebSocket -->",
-                webSocket?.toString() ?: ""
-            )
+        return composePage(specificationTemplate, specification, webSocket)
     }
 
     fun replaceLocalReferences(specification: String, specificationFile: VirtualFile, isJson: Boolean): String {
@@ -98,6 +100,34 @@ class AsyncAPISpecificationHtmlRenderer {
         referencedFile ?: return fileReference
 
         return urlProvider.reference(referencedFile.path, specificationComponentReference)
+    }
+
+    private fun composePage(
+        specificationTemplate: URL,
+        specification: String,
+        webSocket: CharSequence? = null
+    ): String {
+        val page = specificationTemplate.readText(Charsets.UTF_8)
+            .replace(
+                "schema: {},",
+                "schema: $specification,"
+            )
+            .replace(
+                "<link rel=\"stylesheet\" href=\"\">",
+                "<link rel=\"stylesheet\" href=\"${urlProvider.resource(specificationTemplateCssUrl)}\">"
+            ).replace(
+                "<script src=\"\"></script>",
+                "<script src=\"${urlProvider.resource(specificationTemplateJsUrl)}\"></script>"
+            )
+
+        return if (webSocket != null) {
+            page.replace(
+                "<!-- WebSocket -->",
+                webSocket.toString()
+            )
+        } else {
+            page
+        }
     }
 
 }

@@ -1,19 +1,19 @@
 package com.asyncapi.plugin.idea.extensions.editor.preview
 
+import com.asyncapi.plugin.idea._core.AsyncAPISpecificationHtmlRenderer
 import com.asyncapi.plugin.idea.extensions.editor.ui.AsyncAPIJCEFHtmlPanel
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter
 import com.intellij.ide.structureView.StructureViewBuilder
+import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.event.DocumentEvent
 import com.intellij.openapi.editor.event.DocumentListener
-import com.intellij.openapi.fileEditor.FileEditor
-import com.intellij.openapi.fileEditor.FileEditorLocation
-import com.intellij.openapi.fileEditor.FileEditorState
-import com.intellij.openapi.fileEditor.FileEditorStateLevel
+import com.intellij.openapi.fileEditor.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.UserDataHolderBase
+import com.intellij.openapi.vfs.VirtualFile
 import java.awt.LayoutManager
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
@@ -21,6 +21,7 @@ import javax.swing.JPanel
 import javax.swing.OverlayLayout
 
 class AsyncAPIPreviewEditor(
+    private val file: VirtualFile,
     private val document: Document?,
     private val project: Project
 ) :
@@ -31,6 +32,7 @@ class AsyncAPIPreviewEditor(
 
     private val asyncAPIPreviewEditorComponent: JComponent
     private val htmlPanel: AsyncAPIJCEFHtmlPanel = AsyncAPIJCEFHtmlPanel(editor)
+    private val specificationHtmlRenderer = service<AsyncAPISpecificationHtmlRenderer>()
 
     init {
         asyncAPIPreviewEditorComponent = createComponent()
@@ -38,7 +40,7 @@ class AsyncAPIPreviewEditor(
         val documentListenerHandler = object : DocumentListener {
             override fun documentChanged(event: DocumentEvent) {
                 if (asyncAPIPreviewEditorComponent.isVisible && asyncAPIPreviewEditorComponent.isDisplayable) {
-                    htmlPanel.setHtml("${document?.text}")
+                    htmlPanel.setHtml(specificationHtmlRenderer.render(file, document))
                 }
             }
         }
@@ -50,7 +52,7 @@ class AsyncAPIPreviewEditor(
         val overlay: LayoutManager = OverlayLayout(previewEditor)
         previewEditor.setLayout(overlay)
 
-        htmlPanel.setHtml("${document?.text}")
+        htmlPanel.setHtml(specificationHtmlRenderer.render(file, document))
         previewEditor.add(htmlPanel.component)
 
         return previewEditor

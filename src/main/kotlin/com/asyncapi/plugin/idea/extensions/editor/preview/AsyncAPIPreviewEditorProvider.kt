@@ -18,7 +18,7 @@ class AsyncAPIPreviewEditorProvider: WeighedFileEditorProvider() {
     }
 
     override fun createEditor(project: Project, file: VirtualFile): FileEditor {
-        return AsyncAPIPreviewEditor(FileDocumentManager.getInstance().getDocument(file), project)
+        return AsyncAPIPreviewEditor(file, FileDocumentManager.getInstance().getDocument(file), project)
     }
 
     override fun getEditorTypeId(): String {
