@@ -111,7 +111,8 @@ intellijPlatform {
                 "2024.2",
                 "2024.2.0.1",
                 "2024.2.0.2",
-                "2024.2.1"
+                "2024.2.1",
+                "2024.3"
             ))
         }
     }
@@ -120,7 +121,7 @@ intellijPlatform {
 tasks {
     patchPluginXml {
         sinceBuild = "223"
-        untilBuild = "242.*"
+        untilBuild = "243.*"
     }
 }
 
