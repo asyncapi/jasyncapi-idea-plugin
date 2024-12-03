@@ -61,7 +61,6 @@ intellijPlatform {
         changeNotes = """
             <h3>Added</h3>
             <ul>
-                <li>IDEA 2024.3</li>
                 <li>Resolve local references for correct AsyncAPI specification rendering</li>
             </ul>
             <h3>Fixed</h3>
@@ -115,7 +114,10 @@ intellijPlatform {
                 "2024.2.0.1",
                 "2024.2.0.2",
                 "2024.2.1",
-                "2024.3"
+                "2024.2.2",
+                "2024.2.3",
+                "2024.2.4",
+                "2024.2.5"
             ))
         }
     }
@@ -124,7 +126,7 @@ intellijPlatform {
 tasks {
     patchPluginXml {
         sinceBuild = "223"
-        untilBuild = "243.*"
+        untilBuild = "242.*"
     }
 }
 
