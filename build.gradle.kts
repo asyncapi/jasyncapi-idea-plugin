@@ -1,5 +1,6 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.jetbrains.intellij.platform") version "2.1.0"
@@ -8,7 +9,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.7.0+jre17"
+version = "3.0.0+jre21"
 
 repositories {
     mavenCentral()
@@ -27,11 +28,12 @@ dependencies {
 
             Please adjust the IntelliJ version to 2022.3 in the Gradle build script and try building the plugin again.
          */
-        intellijIdeaCommunity("2022.3", useInstaller = false) // MUST NOT be changed
+        intellijIdeaCommunity("2024.3", useInstaller = false) // MUST NOT be changed
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(listOf(
-            "org.jetbrains.plugins.yaml"
+            "org.jetbrains.plugins.yaml",
+            "com.intellij.modules.json"
         ))
 
         pluginVerifier()
@@ -74,50 +76,13 @@ intellijPlatform {
         failureLevel = listOf(
             VerifyPluginTask.FailureLevel.INVALID_PLUGIN,
             VerifyPluginTask.FailureLevel.COMPATIBILITY_PROBLEMS,
-            VerifyPluginTask.FailureLevel.NOT_DYNAMIC
+            VerifyPluginTask.FailureLevel.NOT_DYNAMIC,
+            VerifyPluginTask.FailureLevel.MISSING_DEPENDENCIES,
         )
 
         ides {
             ides(listOf(
-                "2022.3",
-                "2022.3.1",
-                "2022.3.2",
-                "2022.3.3",
-                "2023.1",
-                "2023.1.1",
-                "2023.1.2",
-                "2023.1.3",
-                "2023.1.4",
-                "2023.1.5",
-                "2023.2",
-                "2023.2.1",
-                "2023.2.2",
-                "2023.2.3",
-                "2023.2.4",
-                "2023.2.5",
-                "2023.3",
-                "2023.3.1",
-                "2023.3.2",
-                "2023.3.3",
-                "2023.3.4",
-                "2023.3.5",
-                "2023.3.6",
-                "2023.3.7",
-                "2024.1",
-                "2024.1.1",
-                "2024.1.2",
-                "2024.1.3",
-                "2024.1.4",
-                "2024.1.5",
-                "2024.1.6",
-                "2024.2",
-                "2024.2.0.1",
-                "2024.2.0.2",
-                "2024.2.1",
-                "2024.2.2",
-                "2024.2.3",
-                "2024.2.4",
-                "2024.2.5"
+                "2024.3"
             ))
         }
     }
@@ -125,25 +90,22 @@ intellijPlatform {
 
 tasks {
     patchPluginXml {
-        sinceBuild = "223"
-        untilBuild = "242.*"
+        sinceBuild = "243"
+        untilBuild = "243.*"
     }
 }
 
 tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "17"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "17"
-    }
     test {
         useJUnitPlatform()
     }
 }
 
 kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
     jvmToolchain {
-        this.languageVersion.set(JavaLanguageVersion.of(17))
+        this.languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
