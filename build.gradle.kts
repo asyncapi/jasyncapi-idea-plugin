@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.6.0+jre17"
+version = "2.7.0+jre17"
 
 repositories {
     mavenCentral()
@@ -61,9 +61,12 @@ intellijPlatform {
         changeNotes = """
             <h3>Added</h3>
             <ul>
-                <li>IDEA 2024.2</li>
-                <li>Yaml single quoted references handling - '#/components/messages/welcomeMessage', '../common/messages/welcomeMessage.yml'</li>
-                <li><code>.yml</code> file recognition</li>
+                <li>IDEA 2024.3</li>
+                <li>Resolve local references for correct AsyncAPI specification rendering</li>
+            </ul>
+            <h3>Fixed</h3>
+            <ul>
+                <li>Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it</li>
             </ul>
         """.trimIndent()
     }
