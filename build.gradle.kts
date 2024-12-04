@@ -4,7 +4,7 @@ import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 plugins {
     id("org.jetbrains.intellij.platform") version "2.1.0"
     java
-    kotlin("jvm") version "2.0.21-488"
+    kotlin("jvm") version "2.1.0"
 }
 
 group = "com.asyncapi.plugin.idea"
@@ -40,9 +40,9 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 
-    implementation("com.fasterxml.jackson.core:jackson-core:2.18.1")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.1")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.18.2")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.3")
