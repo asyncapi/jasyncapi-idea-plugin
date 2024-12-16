@@ -120,7 +120,7 @@ intellijPlatform {
 tasks {
     patchPluginXml {
         sinceBuild = "223"
-        untilBuild = "242.*"
+        untilBuild = provider { null }
     }
 }
 
