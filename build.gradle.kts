@@ -4,7 +4,7 @@ import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 plugins {
     id("org.jetbrains.intellij.platform") version "2.2.1"
     java
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
 }
 
 group = "com.asyncapi.plugin.idea"
