@@ -12,6 +12,7 @@ import org.jetbrains.io.send
 import org.jetbrains.yaml.YAMLFileType
 import java.io.File
 import java.nio.charset.StandardCharsets
+import kotlin.text.toByteArray
 
 /**
  * @author Pavel Bodiachevskii
@@ -128,7 +129,12 @@ class StaticServer : HttpRequestHandler() {
             "application/x-yaml"
         }
 
-        return Resource(contentType, requestedFile.readBytes())
+        val componentJson = asyncAPISpecificationHtmlRenderer.replaceLocalReferences(
+            requestedFile.readText(StandardCharsets.UTF_8),
+            referenceVirtualFile,
+            isJson
+        )
+        return Resource(contentType, componentJson.toByteArray(StandardCharsets.UTF_8))
     }
 
     private fun resolveResource(resourceName: String): Resource? {
