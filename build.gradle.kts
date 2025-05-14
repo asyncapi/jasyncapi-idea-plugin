@@ -37,7 +37,6 @@ dependencies {
 
         pluginVerifier()
         jetbrainsRuntime()
-        instrumentationTools()
         testFramework(TestFrameworkType.Platform)
     }
 
