@@ -90,7 +90,7 @@ intellijPlatform {
 tasks {
     patchPluginXml {
         sinceBuild = "243"
-        untilBuild = "243.*"
+        untilBuild = provider { null }
     }
 }
 
