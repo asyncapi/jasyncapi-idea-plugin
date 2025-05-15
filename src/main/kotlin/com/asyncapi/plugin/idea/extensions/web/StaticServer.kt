@@ -118,6 +118,10 @@ class StaticServer : HttpRequestHandler() {
             return Resource("application/avro", requestedFile.readBytes())
         }
 
+        if ("xsd" == referenceVirtualFile.extension) {
+            return Resource("application/xml", requestedFile.readBytes())
+        }
+
         if (referenceVirtualFile.fileType !is YAMLFileType && referenceVirtualFile.fileType !is JsonFileType) {
             return null
         }
