@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.0.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/643518)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/new?tag=3.0.0%2Bjre21)
+
+### Added
+
+- Resolve local references for correct AsyncAPI specification rendering
+
+### Fixed
+
+- Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it
+
+## 2.7.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/643494)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/new?tag=2.7.0%2Bjre17)
+
+### Added
+
+- Resolve local references for correct AsyncAPI specification rendering
+
+### Fixed
+
+- Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it
+
 ## 2.6.0+jre21
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/edit/versions/stable/596939)

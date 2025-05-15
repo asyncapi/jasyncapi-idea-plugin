@@ -51,6 +51,10 @@ class JsonFileVariantsProviderTest: BasePlatformTestCase() {
         testCompletion("asyncapi-2.5.0")
     }
 
+    fun `test completion - 2_6_0`() {
+        testCompletion("asyncapi-2.6.0")
+    }
+
     private fun testCompletion(asyncapi: String) {
         val psiFileFactory = PsiFileFactory.getInstance(project)
         val asyncAPISpecification = this.javaClass.getResource("/$asyncapi.json").readText()
