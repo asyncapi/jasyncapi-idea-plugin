@@ -1,5 +1,6 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.jetbrains.intellij.platform") version "2.6.0"
@@ -8,7 +9,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "2.6.0+jre17"
+version = "2.7.0+jre17"
 
 repositories {
     mavenCentral()
@@ -36,7 +37,6 @@ dependencies {
 
         pluginVerifier()
         jetbrainsRuntime()
-        instrumentationTools()
         testFramework(TestFrameworkType.Platform)
     }
 
@@ -44,9 +44,8 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.12.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.12.2")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.12.2")
+    testImplementation("junit:junit:4.13.2")
 }
 
 // See https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
@@ -61,9 +60,11 @@ intellijPlatform {
         changeNotes = """
             <h3>Added</h3>
             <ul>
-                <li>IDEA 2024.2</li>
-                <li>Yaml single quoted references handling - '#/components/messages/welcomeMessage', '../common/messages/welcomeMessage.yml'</li>
-                <li><code>.yml</code> file recognition</li>
+                <li>Resolve local references for correct AsyncAPI specification rendering</li>
+            </ul>
+            <h3>Fixed</h3>
+            <ul>
+                <li>Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it</li>
             </ul>
         """.trimIndent()
     }
@@ -72,7 +73,8 @@ intellijPlatform {
         failureLevel = listOf(
             VerifyPluginTask.FailureLevel.INVALID_PLUGIN,
             VerifyPluginTask.FailureLevel.COMPATIBILITY_PROBLEMS,
-            VerifyPluginTask.FailureLevel.NOT_DYNAMIC
+            VerifyPluginTask.FailureLevel.NOT_DYNAMIC,
+            VerifyPluginTask.FailureLevel.MISSING_DEPENDENCIES,
         )
 
         ides {
@@ -111,7 +113,11 @@ intellijPlatform {
                 "2024.2",
                 "2024.2.0.1",
                 "2024.2.0.2",
-                "2024.2.1"
+                "2024.2.1",
+                "2024.2.2",
+                "2024.2.3",
+                "2024.2.4",
+                "2024.2.5"
             ))
         }
     }
@@ -125,18 +131,15 @@ tasks {
 }
 
 tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "17"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "17"
-    }
     test {
         useJUnitPlatform()
     }
 }
 
 kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
     jvmToolchain {
         this.languageVersion.set(JavaLanguageVersion.of(17))
     }

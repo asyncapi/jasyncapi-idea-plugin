@@ -1,6 +1,7 @@
 package com.asyncapi.plugin.idea.psi.reference.v3._0_0
 
 import com.intellij.codeInsight.completion.CompletionType
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
 
 /**
@@ -154,11 +155,9 @@ class JsonReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test referenced file`() {
-        myFixture.configureByFiles("reference.json", "ref.json")
-        myFixture.complete(CompletionType.BASIC, 1)
-        val variants = myFixture.lookupElementStrings ?: emptyList()
-
-        assertEquals(listOf("./ref.json#/reference"), variants)
+        val referenceAtCaret = myFixture.getReferenceAtCaretPositionWithAssertion("reference.json", "ref.json")
+        val lookupElement = referenceAtCaret.variants.first() as LookupElement
+        assertEquals("./ref.json#/reference", lookupElement.lookupString)
     }
 
 }
