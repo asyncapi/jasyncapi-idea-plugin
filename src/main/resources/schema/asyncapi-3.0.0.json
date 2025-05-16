@@ -6256,6 +6256,35 @@
           }
         },
         {
+          "description": "Multi Format Schema: Avro Schema or Reference",
+          "type": "object",
+          "properties": {
+            "schema": {
+              "oneOf": [
+                {
+                  "description": "XML Schema",
+                  "type": "string",
+                  "not": {
+                    "required": [ "$ref" ]
+                  }
+                },
+                {
+                  "description": "Reference to XML Schema",
+                  "$ref": "#/definitions/Reference",
+                  "type": "object",
+                  "required": [ "$ref" ]
+                }
+              ]
+            },
+            "schemaFormat": {
+              "type": "string",
+              "enum": [
+                "application/xml"
+              ]
+            }
+          }
+        },
+        {
           "description": "Multi Format Schema: Unknown Schema is AsyncAPI Schema",
           "type": "object",
           "properties": {
@@ -6299,7 +6328,8 @@
                   "application/vnd.apache.avro+json;version=1.9.0",
                   "application/vnd.apache.avro+yaml;version=1.9.0",
                   "application/schema+json;version=draft-07",
-                  "application/schema+yaml;version=draft-07"
+                  "application/schema+yaml;version=draft-07",
+                  "application/xml"
                 ]
               }
             }
