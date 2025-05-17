@@ -59,13 +59,18 @@ intellijPlatform {
         ).asText
 
         changeNotes = """
+            <h3>Updated</h3>
+            <ul>
+                <li>New version of AsyncAPI JSON Schema</li>
+                <ul>
+                    <li>Kafka bindings 0.5.0</li>
+                    <li>Info - LinkedIn extension</li>
+                    <li>Info - X extension</li>
+                </ul>
+            </ul>
             <h3>Added</h3>
             <ul>
-                <li>Resolve local references for correct AsyncAPI specification rendering</li>
-            </ul>
-            <h3>Fixed</h3>
-            <ul>
-                <li>Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it</li>
+                <li>Multiformat schema now supports XML format</li>
             </ul>
         """.trimIndent()
     }
