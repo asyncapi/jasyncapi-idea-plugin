@@ -19,7 +19,7 @@ abstract class SplitFileEditor(
     protected val previewEditor: AsyncAPIPreviewEditor
 ): UserDataHolderBase(), FileEditor {
 
-    private val currentEditorLayout: SplitFileEditorLayout = SplitFileEditorLayout.SPLIT
+    var currentEditorLayout: SplitFileEditorLayout = SplitFileEditorLayout.EDITOR
 
     private val splitFileEditorComponent: JComponent
 

@@ -5,9 +5,9 @@ enum class SplitFileEditorLayout(
     val showPreview: Boolean,
     val presentationName: String,
 ) {
-    FIRST(true, false, "Show editor only"),
-    SECOND(false, true, "Show preview only"),
-    SPLIT(true, true, "Show editor and preview");
+    EDITOR(true, false, "Editor"),
+    PREVIEW(false, true, "Preview"),
+    EDITOR_AND_PREVIEW(true, true, "Editor and Preview");
 
     override fun toString(): String = presentationName
 }
