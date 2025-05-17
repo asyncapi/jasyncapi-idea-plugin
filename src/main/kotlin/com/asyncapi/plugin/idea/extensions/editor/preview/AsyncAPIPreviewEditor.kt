@@ -14,6 +14,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.UserDataHolderBase
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.jcef.JBCefBrowser
 import java.awt.LayoutManager
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
@@ -31,7 +32,7 @@ class AsyncAPIPreviewEditor(
     var editor: Editor? = null
 
     private val asyncAPIPreviewEditorComponent: JComponent
-    private val htmlPanel: AsyncAPIJCEFHtmlPanel = AsyncAPIJCEFHtmlPanel(editor)
+    private val jbCefBrowser: JBCefBrowser = JBCefBrowser()
     private val specificationHtmlRenderer = service<AsyncAPISpecificationHtmlRenderer>()
 
     init {
@@ -40,7 +41,7 @@ class AsyncAPIPreviewEditor(
         val documentListenerHandler = object : DocumentListener {
             override fun documentChanged(event: DocumentEvent) {
                 if (asyncAPIPreviewEditorComponent.isVisible && asyncAPIPreviewEditorComponent.isDisplayable) {
-                    htmlPanel.setHtml(specificationHtmlRenderer.render(file, document))
+                    jbCefBrowser.loadHTML(specificationHtmlRenderer.render(file, document))
                 }
             }
         }
@@ -52,8 +53,8 @@ class AsyncAPIPreviewEditor(
         val overlay: LayoutManager = OverlayLayout(previewEditor)
         previewEditor.setLayout(overlay)
 
-        htmlPanel.setHtml(specificationHtmlRenderer.render(file, document))
-        previewEditor.add(htmlPanel.component)
+        jbCefBrowser.loadHTML(specificationHtmlRenderer.render(file, document))
+        previewEditor.add(jbCefBrowser.component)
 
         return previewEditor
     }
@@ -69,6 +70,8 @@ class AsyncAPIPreviewEditor(
     override fun setState(state: FileEditorState) {
         // do nothing
     }
+
+    override fun getFile(): VirtualFile = file
 
     override fun isModified(): Boolean = false
 
@@ -97,7 +100,7 @@ class AsyncAPIPreviewEditor(
     override fun getStructureViewBuilder(): StructureViewBuilder? = null
 
     override fun dispose() {
-         Disposer.dispose(htmlPanel)
+         Disposer.dispose(jbCefBrowser)
     }
 
 }
