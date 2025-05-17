@@ -4,6 +4,9 @@ import com.asyncapi.plugin.idea._core.AsyncAPISpecificationHtmlRenderer
 import com.intellij.json.JsonFileType
 import com.intellij.openapi.components.service
 import com.intellij.openapi.vfs.LocalFileSystem
+import com.intellij.util.io.getHostName
+import com.intellij.util.io.isLocalHost
+import com.intellij.util.io.origin
 import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.http.*
@@ -24,11 +27,18 @@ class StaticServer : HttpRequestHandler() {
     private val asyncAPISpecificationHtmlRenderer = service<AsyncAPISpecificationHtmlRenderer>()
 
     override fun isAccessible(request: HttpRequest): Boolean {
+        // TODO: research why netty recognize origin: null as "null" instead of null
+        if (request.origin.equals("null") && urlProvider.isPlugin(request)) {
+            val hostName = getHostName(request)
+//            return hostName != null && isOriginAllowed(request) != OriginCheckResult.FORBID && isLocalHost(hostName)
+            return hostName != null && isLocalHost(hostName)
+        }
+
         return urlProvider.isPlugin(request) && super.isAccessible(request)
     }
 
     override fun isSupported(request: FullHttpRequest): Boolean {
-        return urlProvider.isPlugin(request) && super.isAccessible(request)
+        return urlProvider.isPlugin(request) && super.isSupported(request)
     }
 
     override fun process(
