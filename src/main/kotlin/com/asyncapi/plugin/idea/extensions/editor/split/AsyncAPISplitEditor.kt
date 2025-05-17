@@ -18,7 +18,7 @@ class AsyncAPISplitEditor(
 //        previewEditor.renderIfVisible()
     }
 
-    override fun getName(): String = "AsyncAPI Split Editor"
+    override fun getName(): String = "AsyncAPI Preview Editor"
 
     override fun removePropertyChangeListener(listener: PropertyChangeListener) {
         // do nothing
