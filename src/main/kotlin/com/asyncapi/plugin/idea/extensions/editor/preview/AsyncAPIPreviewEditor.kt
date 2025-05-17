@@ -41,7 +41,7 @@ class AsyncAPIPreviewEditor(
         val documentListenerHandler = object : DocumentListener {
             override fun documentChanged(event: DocumentEvent) {
                 if (asyncAPIPreviewEditorComponent.isVisible && asyncAPIPreviewEditorComponent.isDisplayable) {
-                    jbCefBrowser.loadHTML(specificationHtmlRenderer.render(file, document))
+                    jbCefBrowser.loadHTML(safeRender(file, document))
                 }
             }
         }
@@ -53,10 +53,18 @@ class AsyncAPIPreviewEditor(
         val overlay: LayoutManager = OverlayLayout(previewEditor)
         previewEditor.setLayout(overlay)
 
-        jbCefBrowser.loadHTML(specificationHtmlRenderer.render(file, document))
+        jbCefBrowser.loadHTML(safeRender(file, document))
         previewEditor.add(jbCefBrowser.component)
 
         return previewEditor
+    }
+
+    private fun safeRender(specificationVirtualFile: VirtualFile, document: Document?): String {
+        return try {
+            specificationHtmlRenderer.render(file, document)
+        } catch (e: Exception) {
+            e.message ?: "Something went wrong"
+        }
     }
 
     override fun getComponent(): JComponent = asyncAPIPreviewEditorComponent
