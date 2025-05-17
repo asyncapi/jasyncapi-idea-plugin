@@ -1,5 +1,6 @@
 package com.asyncapi.plugin.idea.extensions.editor.split
 
+import com.asyncapi.plugin.idea.extensions.editor.AsyncAPIEditorToolbarPanel
 import com.asyncapi.plugin.idea.extensions.editor.MyFileEditorState
 import com.asyncapi.plugin.idea.extensions.editor.preview.AsyncAPIPreviewEditor
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter
@@ -8,6 +9,7 @@ import com.intellij.openapi.fileEditor.*
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.UserDataHolderBase
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.wm.IdeFocusManager
 import com.intellij.ui.JBSplitter
 import java.awt.BorderLayout
 import java.beans.PropertyChangeListener
@@ -24,16 +26,17 @@ abstract class SplitFileEditor(
     private val splitFileEditorComponent: JComponent
 
     init {
+        textEditor.putUserData(TEXT_EDITOR_SPLIT_KEY, this);
         splitFileEditorComponent = createComponent()
     }
 
     protected open fun adjustEditorsVisibility() {
-        textEditor.component.isVisible = true
-        previewEditor.component.isVisible = true
+        textEditor.component.isVisible = currentEditorLayout.showEditor
+        previewEditor.component.isVisible = currentEditorLayout.showPreview
     }
 
     private fun invalidateLayout() {
-        adjustEditorsVisibility();
+        adjustEditorsVisibility()
         splitFileEditorComponent.repaint()
     }
 
@@ -45,9 +48,15 @@ abstract class SplitFileEditor(
         val splitFileEditor = JPanel(BorderLayout());
         splitFileEditor.add(splitter, BorderLayout.CENTER)
 
+        val myToolbarWrapper = AsyncAPIEditorToolbarPanel(textEditor.editor, splitFileEditor)
+
+        val result = JPanel(BorderLayout())
+        result.add(myToolbarWrapper, BorderLayout.NORTH)
+        result.add(splitFileEditor, BorderLayout.CENTER)
+
         adjustEditorsVisibility()
 
-        return splitFileEditor
+        return result
     }
 
     override fun getComponent(): JComponent = splitFileEditorComponent
@@ -114,5 +123,36 @@ abstract class SplitFileEditor(
     }
 
     override fun getFile(): VirtualFile = textEditor.file
+
+    fun triggerLayoutChange(requestFocus: Boolean) {
+        val oldValue: Int = currentEditorLayout.ordinal
+        val n: Int = SplitFileEditorLayout.entries.size
+        val newValue = (oldValue + n - 1) % n
+
+        triggerLayoutChange(SplitFileEditorLayout.entries[newValue], requestFocus)
+    }
+
+    fun triggerLayoutChange(newLayout: SplitFileEditorLayout, requestFocus: Boolean) {
+        if (currentEditorLayout == newLayout) {
+            return
+        }
+
+        currentEditorLayout = newLayout
+        invalidateLayout()
+
+        if (requestFocus) {
+            val focusComponent = preferredFocusedComponent
+            if (focusComponent != null) {
+                IdeFocusManager.findInstanceByComponent(focusComponent).requestFocus(focusComponent, true)
+            }
+        }
+    }
+
+    companion object {
+
+        @JvmStatic
+        val TEXT_EDITOR_SPLIT_KEY = com.intellij.openapi.util.Key<SplitFileEditor>("text-editor.split-key")
+
+    }
 
 }
