@@ -1,7 +1,10 @@
 package com.asyncapi.plugin.idea.psi.reference.v3._0_0
 
 import com.intellij.codeInsight.completion.CompletionType
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.jetbrains.rhizomedb.lookup
+
 
 /**
  * @author Pavel Bodiachevskii
@@ -153,11 +156,9 @@ class YamlReferenceVariantsTest: BasePlatformTestCase() {
     }
 
     fun `test referenced file`() {
-        myFixture.configureByFiles("reference.yaml", "ref.yaml")
-        myFixture.complete(CompletionType.BASIC, 1)
-        val variants = myFixture.lookupElementStrings ?: emptyList()
-
-        assertEquals(listOf("./ref.yaml#/reference"), variants)
+        val referenceAtCaret = myFixture.getReferenceAtCaretPositionWithAssertion("reference.yaml", "ref.yaml")
+        val lookupElement = referenceAtCaret.variants.first() as LookupElement
+        assertEquals("./ref.yaml#/reference", lookupElement.lookupString)
     }
 
 }
