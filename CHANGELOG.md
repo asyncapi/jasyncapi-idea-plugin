@@ -13,7 +13,7 @@ published to:
 
 - Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it
 
-## 2.7.0+jre21
+## 2.7.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/643494)
 - [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/new?tag=2.7.0%2Bjre17)
@@ -26,7 +26,7 @@ published to:
 
 - Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it
 
-## 2.6.0+jre21
+## 2.6.0+jre17
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/edit/versions/stable/596939)
 - [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/new?tag=2.6.0%2Bjre17)
