@@ -1,5 +1,5 @@
-<error descr="Missing required property 'info'">{
-  "asyncapi": "3.0.0",
+{
+  <error descr="Missing required property 'info'">"asyncapi": "3.0.0"</error>,
   "components": {
     "messages": {
       "UserSignedUp": {
@@ -31,4 +31,4 @@
       }
     }
   }
-}</error>
+}
