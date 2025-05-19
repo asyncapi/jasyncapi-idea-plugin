@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "3.0.0+jre21"
+version = "3.1.0+jre21"
 
 repositories {
     mavenCentral()
@@ -59,13 +59,19 @@ intellijPlatform {
         ).asText
 
         changeNotes = """
+            <h3>Updated</h3>
+            <ul>
+                <li>New version of AsyncAPI JSON Schema</li>
+                <ul>
+                    <li>Kafka bindings 0.5.0</li>
+                    <li>Info - LinkedIn extension</li>
+                    <li>Info - X extension</li>
+                </ul>
+            </ul>
             <h3>Added</h3>
             <ul>
-                <li>Resolve local references for correct AsyncAPI specification rendering</li>
-            </ul>
-            <h3>Fixed</h3>
-            <ul>
-                <li>Inject AsyncAPI specification directly into preview instead of saving as temporal file and rendering it</li>
+                <li>Multiformat schema now supports XML format</li>
+                <li>Own <code>FileEditor</code> for AsyncAPI files</li>
             </ul>
         """.trimIndent()
     }
@@ -80,7 +86,12 @@ intellijPlatform {
 
         ides {
             ides(listOf(
-                "2024.3"
+                "2024.3",
+                "2024.3.1",
+                "2024.3.2",
+                "2024.3.3",
+                "2024.3.4",
+                "2025.1",
             ))
         }
     }
@@ -89,7 +100,7 @@ intellijPlatform {
 tasks {
     patchPluginXml {
         sinceBuild = "243"
-        untilBuild = "243.*"
+        untilBuild = provider { null }
     }
 }
 

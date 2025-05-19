@@ -4,7 +4,6 @@ import com.asyncapi.plugin.idea.completion.v3.AbstractAsyncAPISpecificationCompl
 import org.junit.Ignore
 
 @Ignore("Investigate why YAML completion variants differ from JSON variants")
-
 class AsyncAPISpecificationCompletionContributorYamlTest: AbstractAsyncAPISpecificationCompletionContributorTest() {
 
     override fun fileExtension(): String = "yaml"

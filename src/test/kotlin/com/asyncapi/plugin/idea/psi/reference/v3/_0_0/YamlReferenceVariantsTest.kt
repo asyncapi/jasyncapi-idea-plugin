@@ -3,6 +3,8 @@ package com.asyncapi.plugin.idea.psi.reference.v3._0_0
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import com.jetbrains.rhizomedb.lookup
+
 
 /**
  * @author Pavel Bodiachevskii

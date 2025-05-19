@@ -19,7 +19,7 @@
         <internalFileTemplate name="AsyncAPI specification 3 (json)"/>
 
         <!-- Icons to render when working with AsyncAPI files -->
-        <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" />
+        <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" order="first"/>
 
         <!-- AsyncAPI specification inspection -->
         <localInspection language="yaml" displayName="AsyncAPI specification inspection (yaml)" groupName="AsyncAPI specification inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSpecificationInspection"/>
@@ -40,6 +40,9 @@
         <!-- Preview in built-in/external browser -->
         <webBrowserUrlProvider implementation="com.asyncapi.plugin.idea.extensions.web.AsyncAPIBrowserUrlProvider"/>
         <httpRequestHandler implementation="com.asyncapi.plugin.idea.extensions.web.StaticServer"/>
+
+        <!-- Preview in split-pane mode: [asyncapi | preview pane] -->
+        <fileEditorProvider implementation="com.asyncapi.plugin.idea.extensions.editor.split.AsyncAPISplitEditorProvider" order="first"/>
     </extensions>
 
     <actions>
@@ -47,5 +50,12 @@
         <action id="asyncapi.createSpecification" class="com.asyncapi.plugin.idea.actions.CreateAsyncAPISpecification" text="AsyncAPI Specification" description="Create AsyncAPI specification">
             <add-to-group group-id="NewGroup" relative-to-action="NewFromTemplate" anchor="after"/>
         </action>
+
+        <!-- Preview Editor -->
+        <group id="asyncapi.editor" class="com.asyncapi.plugin.idea.extensions.editor.AsyncAPIEditorActionsGroup">
+            <action class="com.asyncapi.plugin.idea.extensions.editor.actions.PreviewOnlyLayoutChangeAction" id="asyncapi.editor.previewOnly" text="Preview" description="Sets AsyncAPI editor layout to show preview only" icon="AllIcons.General.LayoutPreviewOnly"/>
+            <action class="com.asyncapi.plugin.idea.extensions.editor.actions.EditorOnlyLayoutChangeAction" id="asyncapi.editor.editorOnly" text="Editor" description="Sets AsyncAPI editor layout to show editor only" icon="AllIcons.General.LayoutEditorOnly"/>
+            <action class="com.asyncapi.plugin.idea.extensions.editor.actions.EditorAndPreviewLayoutChangeAction" id="asyncapi.editor.editorAndPreview" text="Editor and Preview" description="Sets AsyncAPI editor layout to show editor and preview" icon="AllIcons.General.LayoutEditorPreview"/>
+        </group>
     </actions>
 </idea-plugin>
