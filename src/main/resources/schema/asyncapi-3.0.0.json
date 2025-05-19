@@ -330,40 +330,15 @@
       "additionalProperties": false
     },
     "anySchema": {
-      "description": "An object representing either a Reference, a Schema or a Multi Format Schema",
-      "type": "object",
-      "oneOf": [
-        {
-          "description": "Because of $ref collision in Reference and AsyncAPI Schema(includes $ref from Json Schema)",
-          "$ref": "#/definitions/schema",
-          "not": {
-            "required": [ "schemaFormat", "schema" ]
-          }
-        },
-        {
-          "$ref": "#/definitions/multiFormatSchema",
-          "type": "object",
-          "not": {
-            "required": [ "$ref" ]
-          },
-          "required": [ "schemaFormat", "schema" ],
-          "maxProperties": 2,
-          "minProperties": 2
-        }
-      ],
-      "properties": {
-        "$ref": {
-          "description": "Reference to schema",
-          "type": "string"
-        },
-        "schema": {
-          "description": "Schema definition",
-          "type": "object"
-        },
-        "schemaFormat": {
-          "description": "Supported Schema format",
-          "type": "string"
-        }
+      "description": "An object representing either a schema or a multiFormatSchema based on the existence of the 'schema' property. If the property 'schema' is present, use the multi-format schema. Use the default AsyncAPI Schema otherwise.",
+      "if": {
+        "required": [ "schema" ]
+      },
+      "then": {
+        "$ref": "#/definitions/multiFormatSchema"
+      },
+      "else": {
+        "$ref": "#/definitions/schema"
       }
     },
     "apiKey": {
@@ -456,8 +431,7 @@
             "namespace": {
               "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
             }
-          },
-          "additionalProperties": false
+          }
         },
         "avroEnum": {
           "title": "Enum",
@@ -490,8 +464,7 @@
                 "$ref": "#/definitions/avroSchema_v1/definitions/name"
               }
             }
-          },
-          "additionalProperties": false
+          }
         },
         "avroField": {
           "title": "Field",
@@ -518,8 +491,7 @@
             "order": {
               "enum": [ "ascending", "descending", "ignore" ]
             }
-          },
-          "additionalProperties": false
+          }
         },
         "avroFixed": {
           "title": "Fixed",
@@ -549,8 +521,7 @@
             "size": {
               "type": "number"
             }
-          },
-          "additionalProperties": false
+          }
         },
         "avroMap": {
           "title": "Map",
@@ -580,8 +551,7 @@
             "values": {
               "$ref": "#/definitions/avroSchema_v1/definitions/types"
             }
-          },
-          "additionalProperties": false
+          }
         },
         "avroRecord": {
           "title": "Record",
@@ -614,8 +584,7 @@
             "namespace": {
               "$ref": "#/definitions/avroSchema_v1/definitions/namespace"
             }
-          },
-          "additionalProperties": false
+          }
         },
         "avroSchema": {
           "title": "Avro Schema",
@@ -676,8 +645,7 @@
             "type": {
               "$ref": "#/definitions/avroSchema_v1/definitions/primitiveType"
             }
-          },
-          "additionalProperties": false
+          }
         },
         "types": {
           "title": "Avro Types",
@@ -4813,6 +4781,7 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
+              "type": "object",
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -5077,6 +5046,20 @@
       },
       "additionalProperties": false
     },
+    "extensions-linkedin-0.1.0-schema": {
+      "description": "This extension allows you to provide the Linkedin profile URL of the account representing the team/company of the API.",
+      "type": "string",
+      "pattern": "^http(s)?://(www\\.)?linkedin\\.com.*$",
+      "example": [
+        "https://www.linkedin.com/company/asyncapi/",
+        "https://www.linkedin.com/in/sambhavgupta0705/"
+      ]
+    },
+    "extensions-x-0.1.0-schema": {
+      "description": "This extension allows you to provide the Twitter username of the account representing the team/company of the API.",
+      "type": "string",
+      "example": [ "sambhavgupta75", "AsyncAPISpec" ]
+    },
     "externalDocs": {
       "description": "Allows referencing an external resource for extended documentation.",
       "examples": [
@@ -5133,64 +5116,83 @@
           "version": "1.0.1"
         }
       ],
-      "type": "object",
-      "required": [ "version", "title" ],
-      "properties": {
-        "title": {
-          "description": "A unique and precise title of the API.",
-          "type": "string"
-        },
-        "description": {
-          "description": "A longer description of the API. Should be different from the title. CommonMark is allowed.",
-          "type": "string"
-        },
-        "contact": {
-          "$ref": "#/definitions/contact"
-        },
-        "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
+      "allOf": [
+        {
+          "type": "object",
+          "required": [ "version", "title" ],
+          "properties": {
+            "title": {
+              "description": "A unique and precise title of the API.",
+              "type": "string"
             },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
-        },
-        "license": {
-          "$ref": "#/definitions/license"
-        },
-        "tags": {
-          "description": "A list of tags for application API documentation control. Tags can be used for logical grouping of applications.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/tag"
+            "description": {
+              "description": "A longer description of the API. Should be different from the title. CommonMark is allowed.",
+              "type": "string"
+            },
+            "contact": {
+              "$ref": "#/definitions/contact"
+            },
+            "externalDocs": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/Reference"
+                },
+                {
+                  "$ref": "#/definitions/externalDocs"
+                }
+              ]
+            },
+            "license": {
+              "$ref": "#/definitions/license"
+            },
+            "tags": {
+              "description": "A list of tags for application API documentation control. Tags can be used for logical grouping of applications.",
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/Reference"
+                  },
+                  {
+                    "$ref": "#/definitions/tag"
+                  }
+                ]
               }
-            ]
-          }
+            },
+            "termsOfService": {
+              "description": "A URL to the Terms of Service for the API. MUST be in the format of a URL.",
+              "type": "string",
+              "format": "uri"
+            },
+            "version": {
+              "description": "A semantic version number of the API.",
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^x-[\\w\\d\\.\\x2d_]+$": {
+              "$ref": "#/definitions/specificationExtension"
+            }
+          },
+          "additionalProperties": false
         },
-        "termsOfService": {
-          "description": "A URL to the Terms of Service for the API. MUST be in the format of a URL.",
-          "type": "string",
-          "format": "uri"
+        {
+          "$ref": "#/definitions/infoExtensions"
+        }
+      ]
+    },
+    "infoExtensions": {
+      "description": "The object that lists all the extensions of Info",
+      "type": "object",
+      "properties": {
+        "x-linkedin": {
+          "$ref": "#/definitions/extensions-linkedin-0.1.0-schema"
         },
-        "version": {
-          "description": "A semantic version number of the API.",
-          "type": "string"
+        "x-x": {
+          "$ref": "#/definitions/extensions-x-0.1.0-schema"
         }
-      },
-      "patternProperties": {
-        "^x-[\\w\\d\\.\\x2d_]+$": {
-          "$ref": "#/definitions/specificationExtension"
-        }
-      },
-      "additionalProperties": false
+      }
     },
     "json-schema-draft-07-schema": {
       "title": "Core schema meta-schema",
@@ -5782,6 +5784,35 @@
       },
       "additionalProperties": false
     },
+    "messageExampleObject": {
+      "type": "object",
+      "anyOf": [
+        {
+          "required": [ "payload" ]
+        },
+        {
+          "required": [ "headers" ]
+        }
+      ],
+      "properties": {
+        "headers": {
+          "description": "Example of the application headers. It can be of any type.",
+          "type": "object"
+        },
+        "name": {
+          "description": "Machine readable name of the message example.",
+          "type": "string"
+        },
+        "payload": {
+          "description": "Example of the message payload. It can be of any type."
+        },
+        "summary": {
+          "description": "A brief summary of the message example.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "messageObject": {
       "description": "Describes a message received on a given channel and operation.",
       "examples": [
@@ -5870,33 +5901,7 @@
           "description": "List of examples.",
           "type": "array",
           "items": {
-            "type": "object",
-            "anyOf": [
-              {
-                "required": [ "payload" ]
-              },
-              {
-                "required": [ "headers" ]
-              }
-            ],
-            "properties": {
-              "headers": {
-                "description": "Example of the application headers. It can be of any type.",
-                "type": "object"
-              },
-              "name": {
-                "description": "Machine readable name of the message example.",
-                "type": "string"
-              },
-              "payload": {
-                "description": "Example of the message payload. It can be of any type."
-              },
-              "summary": {
-                "description": "A brief summary of the message example.",
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/messageExampleObject"
           }
         },
         "deprecated": {
@@ -6027,7 +6032,7 @@
           "description": "List of examples.",
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/messageExampleObject"
           }
         },
         "deprecated": {
@@ -6102,259 +6107,216 @@
       "additionalProperties": false
     },
     "multiFormatSchema": {
-      "description": "An object representing Multi Format Schema. You can use it to attach Schemas different to AsyncAPI, like Avro or OpenAPI",
+      "description": "The Multi Format Schema Object represents a schema definition. It differs from the Schema Object in that it supports multiple schema formats or languages (e.g., JSON Schema, Avro, etc.).",
       "type": "object",
-      "oneOf": [
-        {
-          "description": "Multi Format Schema: Avro Schema or Reference",
-          "type": "object",
-          "properties": {
-            "schema": {
-              "oneOf": [
-                {
-                  "description": "Avro Schema",
-                  "$ref": "#/definitions/avroSchema_v1",
-                  "type": "object",
-                  "not": {
-                    "required": [ "$ref" ]
-                  }
-                },
-                {
-                  "description": "Reference to Avro Schema",
-                  "$ref": "#/definitions/Reference",
-                  "type": "object",
-                  "required": [ "$ref" ]
-                }
-              ]
-            },
-            "schemaFormat": {
-              "type": "string",
-              "enum": [
-                "application/vnd.apache.avro;version=1.9.0",
-                "application/vnd.apache.avro+json;version=1.9.0",
-                "application/vnd.apache.avro+yaml;version=1.9.0"
-              ]
-            }
-          }
-        },
-        {
-          "description": "Multi Format Schema: OpenAPI Schema or Reference",
-          "type": "object",
-          "properties": {
-            "schema": {
-              "oneOf": [
-                {
-                  "description": "OpenAPI Schema",
-                  "$ref": "#/definitions/openapiSchema_3_0",
-                  "type": "object",
-                  "not": {
-                    "required": [ "$ref" ]
-                  }
-                },
-                {
-                  "description": "Reference to OpenAPI Schema",
-                  "$ref": "#/definitions/Reference",
-                  "type": "object",
-                  "required": [ "$ref" ]
-                }
-              ]
-            },
-            "schemaFormat": {
-              "type": "string",
-              "enum": [
-                "application/vnd.oai.openapi;version=3.0.0",
-                "application/vnd.oai.openapi+json;version=3.0.0",
-                "application/vnd.oai.openapi+yaml;version=3.0.0"
-              ]
-            }
-          }
-        },
-        {
-          "description": "Multi Format Schema: Json Schema or Reference",
-          "type": "object",
-          "properties": {
-            "schema": {
-              "description": "Because of $ref collision in Reference and Json Schema",
-              "anyOf": [
-                {
-                  "description": "Json Schema",
-                  "$ref": "#/definitions/json-schema-draft-07-schema",
-                  "type": "object",
-                  "not": {
-                    "required": [ "$ref" ]
-                  }
-                },
-                {
-                  "description": "Reference to Json Schema",
-                  "$ref": "#/definitions/Reference",
-                  "type": "object",
-                  "required": [ "$ref" ]
-                }
-              ]
-            },
-            "schemaFormat": {
-              "type": "string",
-              "enum": [
-                "application/schema+json;version=draft-07",
-                "application/schema+yaml;version=draft-07"
-              ]
-            }
-          }
-        },
-        {
-          "description": "Multi Format Schema: AsyncAPI Schema or Reference",
-          "type": "object",
-          "properties": {
-            "schema": {
-              "description": "Because of $ref collision in Reference and AsyncAPI Schema",
-              "anyOf": [
-                {
-                  "description": "AsyncAPI Schema",
-                  "$ref": "#/definitions/schema",
-                  "type": "object",
-                  "not": {
-                    "required": [ "$ref" ]
-                  }
-                },
-                {
-                  "description": "Reference to AsyncAPI Schema",
-                  "$ref": "#/definitions/Reference",
-                  "type": "object",
-                  "required": [ "$ref" ]
-                }
-              ]
-            },
-            "schemaFormat": {
-              "type": "string",
-              "enum": [
-                "application/vnd.aai.asyncapi;version=2.0.0",
-                "application/vnd.aai.asyncapi+json;version=2.0.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.0.0",
-                "application/vnd.aai.asyncapi;version=2.1.0",
-                "application/vnd.aai.asyncapi+json;version=2.1.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.1.0",
-                "application/vnd.aai.asyncapi;version=2.2.0",
-                "application/vnd.aai.asyncapi+json;version=2.2.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.2.0",
-                "application/vnd.aai.asyncapi;version=2.3.0",
-                "application/vnd.aai.asyncapi+json;version=2.3.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.3.0",
-                "application/vnd.aai.asyncapi;version=2.4.0",
-                "application/vnd.aai.asyncapi+json;version=2.4.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.4.0",
-                "application/vnd.aai.asyncapi;version=2.5.0",
-                "application/vnd.aai.asyncapi+json;version=2.5.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.5.0",
-                "application/vnd.aai.asyncapi;version=2.6.0",
-                "application/vnd.aai.asyncapi+json;version=2.6.0",
-                "application/vnd.aai.asyncapi+yaml;version=2.6.0",
-                "application/vnd.aai.asyncapi;version=3.0.0",
-                "application/vnd.aai.asyncapi+json;version=3.0.0",
-                "application/vnd.aai.asyncapi+yaml;version=3.0.0"
-              ]
-            }
-          }
-        },
-        {
-          "description": "Multi Format Schema: Avro Schema or Reference",
-          "type": "object",
-          "properties": {
-            "schema": {
-              "oneOf": [
-                {
-                  "description": "XML Schema",
-                  "type": "string",
-                  "not": {
-                    "required": [ "$ref" ]
-                  }
-                },
-                {
-                  "description": "Reference to XML Schema",
-                  "$ref": "#/definitions/Reference",
-                  "type": "object",
-                  "required": [ "$ref" ]
-                }
-              ]
-            },
-            "schemaFormat": {
-              "type": "string",
-              "enum": [
-                "application/xml"
-              ]
-            }
-          }
-        },
-        {
-          "description": "Multi Format Schema: Unknown Schema is AsyncAPI Schema",
-          "type": "object",
-          "properties": {
-            "schema": {
-              "description": "AsyncAPI Schema",
-              "$ref": "#/definitions/schema",
-              "type": "object"
-            },
-            "schemaFormat": {
-              "type": "string",
+      "if": {
+        "not": {
+          "type": "object"
+        }
+      },
+      "then": {
+        "$ref": "#/definitions/schema"
+      },
+      "else": {
+        "allOf": [
+          {
+            "if": {
               "not": {
+                "description": "If no schemaFormat has been defined, default to schema or reference",
+                "required": [ "schemaFormat" ]
+              }
+            },
+            "then": {
+              "properties": {
+                "schema": {
+                  "$ref": "#/definitions/schema"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "description": "If schemaFormat has been defined check if it's one of the AsyncAPI Schema Object formats",
+              "required": [ "schemaFormat" ],
+              "properties": {
+                "schemaFormat": {
+                  "enum": [
+                    "application/vnd.aai.asyncapi;version=2.0.0",
+                    "application/vnd.aai.asyncapi+json;version=2.0.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.0.0",
+                    "application/vnd.aai.asyncapi;version=2.1.0",
+                    "application/vnd.aai.asyncapi+json;version=2.1.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.1.0",
+                    "application/vnd.aai.asyncapi;version=2.2.0",
+                    "application/vnd.aai.asyncapi+json;version=2.2.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.2.0",
+                    "application/vnd.aai.asyncapi;version=2.3.0",
+                    "application/vnd.aai.asyncapi+json;version=2.3.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.3.0",
+                    "application/vnd.aai.asyncapi;version=2.4.0",
+                    "application/vnd.aai.asyncapi+json;version=2.4.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.4.0",
+                    "application/vnd.aai.asyncapi;version=2.5.0",
+                    "application/vnd.aai.asyncapi+json;version=2.5.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.5.0",
+                    "application/vnd.aai.asyncapi;version=2.6.0",
+                    "application/vnd.aai.asyncapi+json;version=2.6.0",
+                    "application/vnd.aai.asyncapi+yaml;version=2.6.0",
+                    "application/vnd.aai.asyncapi;version=3.0.0",
+                    "application/vnd.aai.asyncapi+json;version=3.0.0",
+                    "application/vnd.aai.asyncapi+yaml;version=3.0.0"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "schema": {
+                  "$ref": "#/definitions/schema"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [ "schemaFormat" ],
+              "properties": {
+                "schemaFormat": {
+                  "enum": [
+                    "application/schema+json;version=draft-07",
+                    "application/schema+yaml;version=draft-07"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "schema": {
+                  "$ref": "#/definitions/json-schema-draft-07-schema"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [ "schemaFormat" ],
+              "properties": {
+                "schemaFormat": {
+                  "enum": [
+                    "application/vnd.oai.openapi;version=3.0.0",
+                    "application/vnd.oai.openapi+json;version=3.0.0",
+                    "application/vnd.oai.openapi+yaml;version=3.0.0"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/Reference"
+                    },
+                    {
+                      "$ref": "#/definitions/openapiSchema_3_0"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [ "schemaFormat" ],
+              "properties": {
+                "schemaFormat": {
+                  "enum": [
+                    "application/vnd.apache.avro;version=1.9.0",
+                    "application/vnd.apache.avro+json;version=1.9.0",
+                    "application/vnd.apache.avro+yaml;version=1.9.0"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/Reference"
+                    },
+                    {
+                      "$ref": "#/definitions/avroSchema_v1"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [ "schemaFormat" ],
+              "properties": {
+                "schemaFormat": {
+                  "enum": [
+                    "application/raml+yaml;version=1.0",
+                    "application/vnd.google.protobuf;version=2",
+                    "application/vnd.google.protobuf;version=3",
+                    "application/xml"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "schema": {
+                  "type": [ "string", "object" ]
+                }
+              }
+            }
+          }
+        ],
+        "properties": {
+          "schemaFormat": {
+            "description": "A string containing the name of the schema format that is used to define the information. If schemaFormat is missing, it MUST default to application/vnd.aai.asyncapi+json;version={{asyncapi}} where {{asyncapi}} matches the AsyncAPI Version String. In such a case, this would make the Multi Format Schema Object equivalent to the Schema Object. When using Reference Object within the schema, the schemaFormat of the resource being referenced MUST match the schemaFormat of the schema that contains the initial reference. For example, if you reference Avro schema, then schemaFormat of referencing resource and the resource being reference MUST match.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "description": "All the schema formats tooling MUST support",
                 "enum": [
-                  "application/vnd.aai.asyncapi;version=2.0.0",
-                  "application/vnd.aai.asyncapi+json;version=2.0.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.0.0",
-                  "application/vnd.aai.asyncapi;version=2.1.0",
-                  "application/vnd.aai.asyncapi+json;version=2.1.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.1.0",
-                  "application/vnd.aai.asyncapi;version=2.2.0",
-                  "application/vnd.aai.asyncapi+json;version=2.2.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.2.0",
-                  "application/vnd.aai.asyncapi;version=2.3.0",
-                  "application/vnd.aai.asyncapi+json;version=2.3.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.3.0",
-                  "application/vnd.aai.asyncapi;version=2.4.0",
-                  "application/vnd.aai.asyncapi+json;version=2.4.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.4.0",
-                  "application/vnd.aai.asyncapi;version=2.5.0",
-                  "application/vnd.aai.asyncapi+json;version=2.5.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.5.0",
-                  "application/vnd.aai.asyncapi;version=2.6.0",
-                  "application/vnd.aai.asyncapi+json;version=2.6.0",
-                  "application/vnd.aai.asyncapi+yaml;version=2.6.0",
+                  "application/schema+json;version=draft-07",
+                  "application/schema+yaml;version=draft-07",
                   "application/vnd.aai.asyncapi;version=3.0.0",
                   "application/vnd.aai.asyncapi+json;version=3.0.0",
-                  "application/vnd.aai.asyncapi+yaml;version=3.0.0",
+                  "application/vnd.aai.asyncapi+yaml;version=3.0.0"
+                ]
+              },
+              {
+                "description": "All the schema formats tools are RECOMMENDED to support",
+                "enum": [
                   "application/vnd.oai.openapi;version=3.0.0",
                   "application/vnd.oai.openapi+json;version=3.0.0",
                   "application/vnd.oai.openapi+yaml;version=3.0.0",
                   "application/vnd.apache.avro;version=1.9.0",
                   "application/vnd.apache.avro+json;version=1.9.0",
                   "application/vnd.apache.avro+yaml;version=1.9.0",
-                  "application/schema+json;version=draft-07",
-                  "application/schema+yaml;version=draft-07",
+                  "application/raml+yaml;version=1.0",
+                  "application/vnd.google.protobuf;version=2",
+                  "application/vnd.google.protobuf;version=3",
                   "application/xml"
                 ]
               }
-            }
+            ]
           }
-        }
-      ],
-      "required": [ "schemaFormat", "schema" ],
-      "maxProperties": 2,
-      "minProperties": 2,
-      "properties": {
-        "schema": {
-          "description": "Schema definition",
-          "type": "object"
-        },
-        "schemaFormat": {
-          "description": "Supported Schema formats",
-          "type": "string"
         }
       },
       "patternProperties": {
         "^x-[\\w\\d\\.\\x2d_]+$": {
           "$ref": "#/definitions/specificationExtension"
         }
-      },
-      "additionalProperties": false
+      }
     },
     "oauth2Flow": {
       "description": "Configuration details for a supported OAuth Flow",
@@ -7113,7 +7075,7 @@
           ],
           "properties": {
             "bindingVersion": {
-              "enum": [ "0.4.0", "0.3.0" ]
+              "enum": [ "0.5.0", "0.4.0", "0.3.0" ]
             }
           }
         },
@@ -7901,7 +7863,7 @@
           ],
           "properties": {
             "bindingVersion": {
-              "enum": [ "0.4.0", "0.3.0" ]
+              "enum": [ "0.5.0", "0.4.0", "0.3.0" ]
             }
           }
         },
