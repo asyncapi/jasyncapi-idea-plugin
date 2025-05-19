@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "3.0.0+jre21"
+version = "3.1.0+jre21"
 
 repositories {
     mavenCentral()
