@@ -1,11 +1,11 @@
 {
   "asyncapi": "2.0.0",
-  <error descr="Property 'revision' is not allowed">"revision": "1.72.22"</error>,
+  <error descr="Property 'revision' is not allowed">"revision"</error>: "1.72.22",
   "info": {
     "title": "Account Service",
     "version": "1.0.0",
     "description": "This service is in charge of processing user signups :rocket:",
-    <error descr="Property 'website' is not allowed">"website": "https://asyncapi.com"</error>
+    <error descr="Property 'website' is not allowed">"website"</error>: "https://asyncapi.com"
   },
   "channels": {
     "user/signedup": {
