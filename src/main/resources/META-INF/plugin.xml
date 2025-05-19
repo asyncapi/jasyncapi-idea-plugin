@@ -19,7 +19,7 @@
         <internalFileTemplate name="AsyncAPI specification 3 (json)"/>
 
         <!-- Icons to render when working with AsyncAPI files -->
-        <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" />
+        <iconProvider implementation="com.asyncapi.plugin.idea.extensions.icon.AsyncAPIIconProvider" id="asyncAPIIconProvider" order="first"/>
 
         <!-- AsyncAPI specification inspection -->
         <localInspection language="yaml" displayName="AsyncAPI specification inspection (yaml)" groupName="AsyncAPI specification inspections" enabledByDefault="true" level="ERROR" implementationClass="com.asyncapi.plugin.idea.extensions.inspection.AsyncAPIYamlSpecificationInspection"/>
