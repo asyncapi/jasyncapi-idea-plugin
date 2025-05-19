@@ -71,6 +71,7 @@ intellijPlatform {
             <h3>Added</h3>
             <ul>
                 <li>Multiformat schema now supports XML format</li>
+                <li>Own <code>FileEditor</code> for AsyncAPI files</li>
             </ul>
         """.trimIndent()
     }
