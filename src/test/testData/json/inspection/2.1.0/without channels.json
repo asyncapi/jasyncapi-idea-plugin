@@ -1,5 +1,5 @@
-{
-  <error descr="Missing required property 'channels'">"asyncapi": "2.1.0"</error>,
+<error descr="Missing required property 'channels'">{
+  "asyncapi": "2.1.0",
   "info": {
     "title": "Account Service",
     "version": "1.0.0",
@@ -36,4 +36,4 @@
       }
     }
   }
-}
+}</error>
