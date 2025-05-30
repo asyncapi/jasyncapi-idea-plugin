@@ -4069,24 +4069,26 @@
           "type": [ "string", "null" ]
         },
         "bindings": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/channelBindingsObject"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/channelBindingsObject"
+          }
         },
         "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/externalDocs"
+          }
         },
         "messages": {
           "$ref": "#/definitions/channelMessages"
@@ -4111,14 +4113,15 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/tag"
-              }
-            ]
+            "if": {
+              "required": [ "$ref" ]
+            },
+            "then": {
+              "$ref": "#/definitions/Reference"
+            },
+            "else": {
+              "$ref": "#/definitions/tag"
+            }
           }
         }
       },
@@ -4508,14 +4511,15 @@
       "description": "A map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the message objects defined in this map.**",
       "type": "object",
       "additionalProperties": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/messageObject"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/messageObject"
+        }
       }
     },
     "channels": {
@@ -4534,14 +4538,15 @@
       ],
       "type": "object",
       "additionalProperties": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/channel"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/channel"
+        }
       }
     },
     "components": {
@@ -4685,14 +4690,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/channelBindingsObject"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/channelBindingsObject"
+              }
             }
           }
         },
@@ -4701,14 +4707,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/channel"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/channel"
+              }
             }
           }
         },
@@ -4717,14 +4724,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/correlationId"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/correlationId"
+              }
             }
           }
         },
@@ -4733,14 +4741,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/externalDocs"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/externalDocs"
+              }
             }
           }
         },
@@ -4749,14 +4758,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/messageBindingsObject"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/messageBindingsObject"
+              }
             }
           }
         },
@@ -4765,14 +4775,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/messageTrait"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/messageTrait"
+              }
             }
           }
         },
@@ -4781,15 +4792,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "type": "object",
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/messageObject"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/messageObject"
+              }
             }
           }
         },
@@ -4798,14 +4809,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/operationBindingsObject"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/operationBindingsObject"
+              }
             }
           }
         },
@@ -4814,14 +4826,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/operationTrait"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/operationTrait"
+              }
             }
           }
         },
@@ -4829,14 +4842,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/operation"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/operation"
+              }
             }
           }
         },
@@ -4845,14 +4859,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/parameter"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/parameter"
+              }
             }
           }
         },
@@ -4861,14 +4876,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/operationReply"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/operationReply"
+              }
             }
           }
         },
@@ -4877,14 +4893,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/operationReplyAddress"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/operationReplyAddress"
+              }
             }
           }
         },
@@ -4902,14 +4919,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/SecurityScheme"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/SecurityScheme"
+              }
             }
           }
         },
@@ -4918,14 +4936,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/serverBindingsObject"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/serverBindingsObject"
+              }
             }
           }
         },
@@ -4934,14 +4953,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/serverVariable"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/serverVariable"
+              }
             }
           }
         },
@@ -4950,14 +4970,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/server"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/server"
+              }
             }
           }
         },
@@ -4966,14 +4987,15 @@
           "type": "object",
           "patternProperties": {
             "^[\\w\\d\\.\\-_]+$": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/tag"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/tag"
+              }
             }
           }
         }
@@ -5909,14 +5931,15 @@
           "type": "boolean"
         },
         "bindings": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/messageBindingsObject"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/messageBindingsObject"
+          }
         },
         "contentType": {
           "description": "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. application/json). When omitted, the value MUST be the one specified on the defaultContentType field.",
@@ -6054,14 +6077,15 @@
           "type": "string"
         },
         "correlationId": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/correlationId"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/correlationId"
+          }
         },
         "externalDocs": {
           "oneOf": [
@@ -6849,14 +6873,15 @@
           "enum": [ "send", "receive" ]
         },
         "bindings": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/operationBindingsObject"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/operationBindingsObject"
+          }
         },
         "channel": {
           "$ref": "#/definitions/Reference"
@@ -6879,14 +6904,15 @@
           }
         },
         "reply": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/operationReply"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/operationReply"
+          }
         },
         "security": {
           "$ref": "#/definitions/securityRequirements"
@@ -7286,14 +7312,15 @@
       "type": "object",
       "properties": {
         "address": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/operationReplyAddress"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/operationReplyAddress"
+          }
         },
         "channel": {
           "$ref": "#/definitions/Reference"
@@ -7435,14 +7462,15 @@
       ],
       "type": "object",
       "additionalProperties": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/operation"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/operation"
+        }
       }
     },
     "parameter": {
@@ -7508,14 +7536,15 @@
       ],
       "type": "object",
       "additionalProperties": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/parameter"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/parameter"
+        }
       }
     },
     "schema": {
@@ -7628,14 +7657,15 @@
       "description": "An array representing security requirements.",
       "type": "array",
       "items": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/SecurityScheme"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/SecurityScheme"
+        }
       }
     },
     "server": {
@@ -7666,14 +7696,15 @@
           "type": "string"
         },
         "bindings": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/serverBindingsObject"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/serverBindingsObject"
+          }
         },
         "externalDocs": {
           "oneOf": [
@@ -8058,14 +8089,15 @@
     "serverVariables": {
       "type": "object",
       "additionalProperties": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/serverVariable"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/serverVariable"
+        }
       }
     },
     "servers": {
@@ -8112,14 +8144,15 @@
       ],
       "type": "object",
       "additionalProperties": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/Reference"
-          },
-          {
-            "$ref": "#/definitions/server"
-          }
-        ]
+        "if": {
+          "required": [ "$ref" ]
+        },
+        "then": {
+          "$ref": "#/definitions/Reference"
+        },
+        "else": {
+          "$ref": "#/definitions/server"
+        }
       }
     },
     "specificationExtension": {
@@ -8167,14 +8200,15 @@
           "type": "string"
         },
         "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/externalDocs"
+          }
         },
         "name": {
           "description": "The name of the tag.",
