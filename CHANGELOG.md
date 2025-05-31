@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.1.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/745894)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/2.3.0%2Bjre21)
+
+### Updated
+
+- New version of AsyncAPI JSON Schema
+- Kafka bindings 0.5.0
+- Info - LinkedIn extension
+- Info - X extension
+
+### Added
+
+- Multiformat schema now supports XML format
+- Own <code>FileEditor</code> for AsyncAPI files
+
 ## 3.0.0+jre21
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/643518)
