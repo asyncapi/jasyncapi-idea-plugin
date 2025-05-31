@@ -5155,14 +5155,15 @@
               "$ref": "#/definitions/contact"
             },
             "externalDocs": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/externalDocs"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/externalDocs"
+              }
             },
             "license": {
               "$ref": "#/definitions/license"
@@ -5172,14 +5173,15 @@
               "type": "array",
               "uniqueItems": true,
               "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/definitions/Reference"
-                  },
-                  {
-                    "$ref": "#/definitions/tag"
-                  }
-                ]
+                "if": {
+                  "required": [ "$ref" ]
+                },
+                "then": {
+                  "$ref": "#/definitions/Reference"
+                },
+                "else": {
+                  "$ref": "#/definitions/tag"
+                }
               }
             },
             "termsOfService": {
@@ -5946,24 +5948,26 @@
           "type": "string"
         },
         "correlationId": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/correlationId"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/correlationId"
+          }
         },
         "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/externalDocs"
+          }
         },
         "headers": {
           "$ref": "#/definitions/anySchema"
@@ -5983,14 +5987,15 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/tag"
-              }
-            ]
+            "if": {
+              "required": [ "$ref" ]
+            },
+            "then": {
+              "$ref": "#/definitions/Reference"
+            },
+            "else": {
+              "$ref": "#/definitions/tag"
+            }
           }
         },
         "traits": {
@@ -6063,14 +6068,15 @@
           "type": "boolean"
         },
         "bindings": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/messageBindingsObject"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/messageBindingsObject"
+          }
         },
         "contentType": {
           "description": "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. application/json). When omitted, the value MUST be the one specified on the defaultContentType field.",
@@ -6088,14 +6094,15 @@
           }
         },
         "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/externalDocs"
+          }
         },
         "headers": {
           "$ref": "#/definitions/anySchema"
@@ -6112,14 +6119,15 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/tag"
-              }
-            ]
+            "if": {
+              "required": [ "$ref" ]
+            },
+            "then": {
+              "$ref": "#/definitions/Reference"
+            },
+            "else": {
+              "$ref": "#/definitions/tag"
+            }
           }
         }
       },
@@ -6887,14 +6895,15 @@
           "$ref": "#/definitions/Reference"
         },
         "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/externalDocs"
+          }
         },
         "messages": {
           "description": "A list of $ref pointers pointing to the supported Message Objects that can be processed by this operation. It MUST contain a subset of the messages defined in the channel referenced in this operation. Every message processed by this operation MUST be valid against one, and only one, of the message objects referenced in this list. Please note the messages property value MUST be a list of Reference Objects and, therefore, MUST NOT contain Message Objects. However, it is RECOMMENDED that parsers (or other software) dereference this property for a better development experience.",
@@ -6926,28 +6935,30 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/tag"
-              }
-            ]
+            "if": {
+              "required": [ "$ref" ]
+            },
+            "then": {
+              "$ref": "#/definitions/Reference"
+            },
+            "else": {
+              "$ref": "#/definitions/tag"
+            }
           }
         },
         "traits": {
           "description": "A list of traits to apply to the operation object. Traits MUST be merged using traits merge mechanism. The resulting object MUST be a valid Operation Object.",
           "type": "array",
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/operationTrait"
-              }
-            ]
+            "if": {
+              "required": [ "$ref" ]
+            },
+            "then": {
+              "$ref": "#/definitions/Reference"
+            },
+            "else": {
+              "$ref": "#/definitions/operationTrait"
+            }
           }
         }
       },
@@ -7391,14 +7402,15 @@
         },
         "bindings": {
           "description": "A map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the operation.",
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/operationBindingsObject"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/operationBindingsObject"
+          }
         },
         "externalDocs": {
           "description": "Additional external documentation for this operation.",
@@ -7635,14 +7647,15 @@
               "type": "string"
             },
             "externalDocs": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Reference"
-                },
-                {
-                  "$ref": "#/definitions/externalDocs"
-                }
-              ]
+              "if": {
+                "required": [ "$ref" ]
+              },
+              "then": {
+                "$ref": "#/definitions/Reference"
+              },
+              "else": {
+                "$ref": "#/definitions/externalDocs"
+              }
             }
           },
           "patternProperties": {
@@ -7707,14 +7720,15 @@
           }
         },
         "externalDocs": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/Reference"
-            },
-            {
-              "$ref": "#/definitions/externalDocs"
-            }
-          ]
+          "if": {
+            "required": [ "$ref" ]
+          },
+          "then": {
+            "$ref": "#/definitions/Reference"
+          },
+          "else": {
+            "$ref": "#/definitions/externalDocs"
+          }
         },
         "host": {
           "description": "The server host name. It MAY include the port. This field supports Server Variables. Variable substitutions will be made when a variable is named in {braces}.",
@@ -7743,14 +7757,15 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/Reference"
-              },
-              {
-                "$ref": "#/definitions/tag"
-              }
-            ]
+            "if": {
+              "required": [ "$ref" ]
+            },
+            "then": {
+              "$ref": "#/definitions/Reference"
+            },
+            "else": {
+              "$ref": "#/definitions/tag"
+            }
           }
         },
         "variables": {
