@@ -41,7 +41,7 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 
-    implementation("com.fasterxml.jackson.core:jackson-core:2.19.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.19.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.0")
 
