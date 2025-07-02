@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "3.1.0+jre21"
+version = "3.1.1+jre21"
 
 repositories {
     mavenCentral()
@@ -59,19 +59,9 @@ intellijPlatform {
         ).asText
 
         changeNotes = """
-            <h3>Updated</h3>
+            <h3>Fixed</h3>
             <ul>
-                <li>New version of AsyncAPI JSON Schema</li>
-                <ul>
-                    <li>Kafka bindings 0.5.0</li>
-                    <li>Info - LinkedIn extension</li>
-                    <li>Info - X extension</li>
-                </ul>
-            </ul>
-            <h3>Added</h3>
-            <ul>
-                <li>Multiformat schema now supports XML format</li>
-                <li>Own <code>FileEditor</code> for AsyncAPI files</li>
+                <li>Patch AsyncAPI JSON Schema v3 to fix false validation issues</li>
             </ul>
         """.trimIndent()
     }
