@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.asyncapi.plugin.idea"
-version = "3.1.1+jre21"
+version = "3.2.0+jre21"
 
 repositories {
     mavenCentral()
@@ -59,9 +59,9 @@ intellijPlatform {
         ).asText
 
         changeNotes = """
-            <h3>Fixed</h3>
+            <h3>Changed</h3>
             <ul>
-                <li>Patch AsyncAPI JSON Schema v3 to fix false validation issues</li>
+                <li>AsyncAPI preview editor now uses new API. Enjoy new fancy view</li>
             </ul>
         """.trimIndent()
     }

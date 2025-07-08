@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.asyncapi.plugin.idea</id>
     <name>AsyncAPI</name>
-    <vendor email="pavelbodyachevskiy@gmail.com" url="https://www.asyncapi.com">AsyncAPI</vendor>
+    <vendor email="pavelbodyachevskiy@gmail.com" url="https://github.com/Pakisan">Pavel Bodiachevskii</vendor>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
