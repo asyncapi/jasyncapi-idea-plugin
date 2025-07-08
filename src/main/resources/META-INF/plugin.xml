@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.asyncapi.plugin.idea</id>
     <name>AsyncAPI</name>
-    <vendor email="pavelbodyachevskiy@gmail.com" url="https://www.asyncapi.com">AsyncAPI</vendor>
+    <vendor email="pavelbodyachevskiy@gmail.com" url="https://github.com/Pakisan">Pavel Bodiachevskii</vendor>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -50,12 +50,5 @@
         <action id="asyncapi.createSpecification" class="com.asyncapi.plugin.idea.actions.CreateAsyncAPISpecification" text="AsyncAPI Specification" description="Create AsyncAPI specification">
             <add-to-group group-id="NewGroup" relative-to-action="NewFromTemplate" anchor="after"/>
         </action>
-
-        <!-- Preview Editor -->
-        <group id="asyncapi.editor" class="com.asyncapi.plugin.idea.extensions.editor.AsyncAPIEditorActionsGroup">
-            <action class="com.asyncapi.plugin.idea.extensions.editor.actions.PreviewOnlyLayoutChangeAction" id="asyncapi.editor.previewOnly" text="Preview" description="Sets AsyncAPI editor layout to show preview only" icon="AllIcons.General.LayoutPreviewOnly"/>
-            <action class="com.asyncapi.plugin.idea.extensions.editor.actions.EditorOnlyLayoutChangeAction" id="asyncapi.editor.editorOnly" text="Editor" description="Sets AsyncAPI editor layout to show editor only" icon="AllIcons.General.LayoutEditorOnly"/>
-            <action class="com.asyncapi.plugin.idea.extensions.editor.actions.EditorAndPreviewLayoutChangeAction" id="asyncapi.editor.editorAndPreview" text="Editor and Preview" description="Sets AsyncAPI editor layout to show editor and preview" icon="AllIcons.General.LayoutEditorPreview"/>
-        </group>
     </actions>
 </idea-plugin>

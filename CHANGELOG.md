@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.2.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/789688)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/3.2.0%2Bjre21)
+
+### Changed
+
+- AsyncAPI preview editor now uses new API. Enjoy new fancy view
+
 ## 3.1.1+jre21
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/762638)
