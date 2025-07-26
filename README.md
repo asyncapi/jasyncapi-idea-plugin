@@ -1,6 +1,14 @@
 ![JetBrains Plugin](https://img.shields.io/jetbrains/plugin/v/15673-asyncapi)
 [![GitHub stars](https://img.shields.io/github/stars/asyncapi/jasyncapi-idea-plugin?style=social)](https://github.com/asyncapi/jasyncapi-idea-plugin/stargazers)
 
+## Plugin goes Freemium model
+
+Plugin was moved to a freemium model. Here is [announce](https://pavelon.dev/posts/asyncapi-jetbrains-plugin-update-freemium/) where you can
+get more details:
+- 🔧 Why the switch?
+- 💡 What's still free?
+- ✅ What's coming next?
+
 ## Getting Started
 
 1. [Install from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi)
