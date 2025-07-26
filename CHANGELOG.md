@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.3.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/807396)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/3.3.0%2Bjre21)
+
+### Changed
+
+- Plugin was switched to [freemium model](https://pavelon.dev/posts/asyncapi-jetbrains-plugin-update-freemium/) to ensure sustainable development and faster progress - while keeping all core features free
+
+### Added
+
+- Spectral integration - setup your `.spectralignore` file and lint your specifications in auto or manual mode
+
 ## 3.2.0+jre21
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/789688)
