@@ -48,7 +48,7 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
       - name: Send info about issue
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New issue that requires TSC Members attention 🆘
@@ -66,11 +66,11 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          TITLE: ${{github.event.issue.title}}
+          TITLE: ${{ github.event.issue.title }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail('${{github.event.issue.html_url}}', '$TITLE');
+            sendEmail('${{github.event.issue.html_url}}', process.env.TITLE);
 
   pull_request:
     if: github.event_name == 'pull_request_target' && contains(github.event.pull_request.body, '@asyncapi/tsc_members')
@@ -94,7 +94,7 @@ jobs:
         with:
           markdown: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New PR that requires TSC Members attention 🆘
@@ -112,11 +112,11 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          TITLE: ${{github.event.pull_request.title}}
+          TITLE: ${{ github.event.pull_request.title }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail('${{github.event.pull_request.html_url}}', '$TITLE');
+            sendEmail('${{github.event.pull_request.html_url}}', process.env.TITLE);
 
   discussion:
     if: github.event_name == 'discussion' && contains(github.event.discussion.body, '@asyncapi/tsc_members')
@@ -140,7 +140,7 @@ jobs:
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New discussion that requires TSC Members attention 🆘
@@ -158,11 +158,11 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          TITLE: ${{github.event.discussion.title}}
+          TITLE: ${{ github.event.discussion.title }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail('${{github.event.discussion.html_url}}', '$TITLE');
+            sendEmail('${{github.event.discussion.html_url}}', process.env.TITLE);
 
   issue_comment:
     if: ${{ github.event_name == 'issue_comment' && !github.event.issue.pull_request && contains(github.event.comment.body, '@asyncapi/tsc_members') }}
@@ -186,7 +186,7 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about issue comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing issue that requires TSC Members attention 🆘
@@ -204,11 +204,11 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          TITLE: ${{github.event.issue.title}}
+          TITLE: ${{ github.event.issue.title }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail('${{github.event.comment.html_url}}', '$TITLE');
+            sendEmail('${{github.event.comment.html_url}}', process.env.TITLE);
 
   pr_comment:
     if: github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@asyncapi/tsc_members')
@@ -232,7 +232,7 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about PR comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing PR that requires TSC Members attention 🆘
@@ -250,11 +250,11 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          TITLE: ${{github.event.issue.title}}
+          TITLE: ${{ github.event.issue.title }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail('${{github.event.comment.html_url}}', '$TITLE');
+            sendEmail('${{github.event.comment.html_url}}', process.env.TITLE);
 
   discussion_comment:
     if: github.event_name == 'discussion_comment' && contains(github.event.comment.body, '@asyncapi/tsc_members')
@@ -278,7 +278,7 @@ jobs:
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about discussion comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing discussion that requires TSC Members attention 🆘
@@ -296,8 +296,8 @@ jobs:
           CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
           CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-          TITLE: ${{github.event.discussion.title}}
+          TITLE: ${{ github.event.discussion.title }}
         with:
           script: |
             const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail('${{github.event.comment.html_url}}', '$TITLE');
+            sendEmail('${{github.event.comment.html_url}}', process.env.TITLE);
