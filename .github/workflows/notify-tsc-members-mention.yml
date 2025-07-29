@@ -48,7 +48,7 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
       - name: Send info about issue
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New issue that requires TSC Members attention 🆘
@@ -94,7 +94,7 @@ jobs:
         with:
           markdown: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New PR that requires TSC Members attention 🆘
@@ -140,7 +140,7 @@ jobs:
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New discussion that requires TSC Members attention 🆘
@@ -186,7 +186,7 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about issue comment
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing issue that requires TSC Members attention 🆘
@@ -232,7 +232,7 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about PR comment
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing PR that requires TSC Members attention 🆘
@@ -278,7 +278,7 @@ jobs:
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about discussion comment
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing discussion that requires TSC Members attention 🆘
