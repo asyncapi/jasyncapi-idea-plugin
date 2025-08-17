@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.4.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/830876)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/3.4.0%2Bjre21)
+
+### Added
+
+- Redocly integration - set up Redocly CLI with `.redoclyignore` file and lint your specifications in auto or manual mode
+- Quickly create `.spectralignore` trough File → New → Spectral ignore file
+- Quickly create `.redoclyignore` trough File → New → Redocly ignore file
+
+### Changed
+
+- Spectral new icons
+
+
 ## 3.3.0+jre21
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/807396)

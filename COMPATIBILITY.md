@@ -552,3 +552,26 @@ If you want to build the plugin locally and/or install it from this repo — che
 - RustRover — 2024.3+
 - WebStorm — 2024.3+
 - Writerside — 2024.3+
+
+## [3.4.0+jre21](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/3.4.0%2Bjre21)
+
+- Android Studio — Meerkat | 2024.3.1+
+- AppCode — build 243.0+
+- Aqua — 2024.3+
+- CLion — 2024.3+
+- Code With Me Guest — 1.0+
+- DataGrip — 2024.3+
+- DataSpell — 2024.3+
+- GoLand — 2024.3+
+- IntelliJ IDEA Community — 2024.3+
+- IntelliJ IDEA Ultimate — 2024.3+
+- JetBrains Client — 1.0+
+- MPS — 2024.3+
+- PhpStorm — 2024.3+
+- PyCharm — 2024.3+
+- PyCharm Community — 2024.3+
+- Rider — 2024.3+
+- RubyMine — 2024.3+
+- RustRover — 2024.3+
+- WebStorm — 2024.3+
+- Writerside — 2024.3+
