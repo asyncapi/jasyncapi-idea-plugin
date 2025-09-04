@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Get list of orphans
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         id: orphans
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
