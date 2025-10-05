@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.5.0+jre21
+published to:
+- [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/872792)
+- [GitHub](https://github.com/asyncapi/jasyncapi-idea-plugin/releases/tag/3.5.0%2Bjre21)
+
+### Added
+
+- [Beta] Native Preview Panel (paid feature) – faster rendering, native look and feel, and real-time validation. This beta currently supports only the v3 specification. Only local references are dereferenced, and Bindings rendering is not yet available
+
+### Fixed
+
+- Pass the correct name for AsyncAPI Preview Editor
+
 ## 3.4.0+jre21
 published to:
 - [JetBrains marketplace](https://plugins.jetbrains.com/plugin/15673-asyncapi/versions/stable/830876)
