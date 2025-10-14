@@ -34,7 +34,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 16
           cache: 'npm'
@@ -80,7 +80,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 16
           cache: 'npm'
@@ -126,7 +126,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 16
           cache: 'npm'
@@ -172,7 +172,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 16
           cache: 'npm'
@@ -218,7 +218,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 16
           cache: 'npm'
@@ -264,7 +264,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 16
           cache: 'npm'
