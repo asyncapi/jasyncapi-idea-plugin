@@ -32,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
@@ -43,12 +43,13 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: asyncapi/.github/.github/actions/slackify-markdown@master
+        # This workflow is from our own org repo and safe to reference by 'master'.
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
         id: issuemarkdown
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
       - name: Send info about issue
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New issue that requires TSC Members attention 🆘
@@ -78,9 +79,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
@@ -89,12 +90,13 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: asyncapi/.github/.github/actions/slackify-markdown@master
+        # This workflow is from our own org repo and safe to reference by 'master'.
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
         id: prmarkdown
         with:
           markdown: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New PR that requires TSC Members attention 🆘
@@ -124,9 +126,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
@@ -135,12 +137,13 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: asyncapi/.github/.github/actions/slackify-markdown@master
+        # This workflow is from our own org repo and safe to reference by 'master'.
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
         id: discussionmarkdown
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New discussion that requires TSC Members attention 🆘
@@ -170,9 +173,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
@@ -181,12 +184,13 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: asyncapi/.github/.github/actions/slackify-markdown@master
+        # This workflow is from our own org repo and safe to reference by 'master'.
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
         id: issuemarkdown
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about issue comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing issue that requires TSC Members attention 🆘
@@ -216,9 +220,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
@@ -227,12 +231,13 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: asyncapi/.github/.github/actions/slackify-markdown@master
+        # This workflow is from our own org repo and safe to reference by 'master'.
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
         id: prmarkdown
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about PR comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing PR that requires TSC Members attention 🆘
@@ -262,9 +267,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
@@ -273,12 +278,13 @@ jobs:
       # Handling Slack notifications
       #########
       - name: Convert markdown to slack markdown
-        uses: asyncapi/.github/.github/actions/slackify-markdown@master
+        # This workflow is from our own org repo and safe to reference by 'master'.
+        uses: asyncapi/.github/.github/actions/slackify-markdown@master # //NOSONAR
         id: discussionmarkdown
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about discussion comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing discussion that requires TSC Members attention 🆘
