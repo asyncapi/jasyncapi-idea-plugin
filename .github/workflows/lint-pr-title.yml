@@ -26,7 +26,7 @@ jobs:
       # Comments the error message from the above lint_pr_title action
       - if: ${{ always() && steps.lint_pr_title.outputs.error_message != null && !contains(fromJson('["asyncapi-bot", "dependabot[bot]", "dependabot-preview[bot]", "allcontributors[bot]"]'), github.actor)}}
         name: Comment on PR
-        uses: marocchino/sticky-pull-request-comment@70d2764d1a7d5d9560b100cbea0077fc8f633987 #use 3.0.2 https://github.com/marocchino/sticky-pull-request-comment/releases/tag/v3.0.2
+        uses: marocchino/sticky-pull-request-comment@d4d6b0936434b21bc8345ad45a440c5f7d2c40ff #use 3.0.3 https://github.com/marocchino/sticky-pull-request-comment/releases/tag/v3.0.3
         with:
           header: pr-title-lint-error
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
@@ -40,7 +40,7 @@ jobs:
         # deletes the error comment if the title is correct
       - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
         name: delete the comment
-        uses: marocchino/sticky-pull-request-comment@70d2764d1a7d5d9560b100cbea0077fc8f633987 #use 3.0.2 https://github.com/marocchino/sticky-pull-request-comment/releases/tag/v3.0.2
+        uses: marocchino/sticky-pull-request-comment@d4d6b0936434b21bc8345ad45a440c5f7d2c40ff #use 3.0.3 https://github.com/marocchino/sticky-pull-request-comment/releases/tag/v3.0.3
         with:
           header: pr-title-lint-error
           delete: true
