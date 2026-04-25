@@ -34,13 +34,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       #########
@@ -53,30 +53,29 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.issue.html_url}}) \n ${{github.event.issue.body}}"
       - name: Send info about issue
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New issue that requires TSC Members attention 🆘
           SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
           MSG_MINIMAL: true
       #########
-      # Handling Mailchimp notifications
+      # Handling Kit.com notifications
       #########
       - name: Install deps
         run: npm install
-        working-directory: ./.github/workflows/scripts/mailchimp
-      - name: Send email with MailChimp
+        working-directory: ./.github/workflows/scripts/kit
+      - name: Send email with Kit.com
         uses: actions/github-script@v7
         env:
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          KIT_TSC_TAG_ID: ${{ secrets.KIT_TSC_TAG_ID }}
           TITLE: ${{ github.event.issue.title }}
           HTML_URL: ${{ github.event.issue.html_url }}
         with:
           script: |
-            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail(process.env.HTML_URL, process.env.TITLE);
+            const sendEmail = require('./.github/workflows/scripts/kit/index.js');
+            return sendEmail(process.env.HTML_URL, process.env.TITLE);
 
   pull_request:
     if: github.event_name == 'pull_request_target' && contains(github.event.pull_request.body, '@asyncapi/tsc_members')
@@ -84,13 +83,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       #########
@@ -103,30 +102,29 @@ jobs:
         with:
           markdown: "[${{github.event.pull_request.title}}](${{github.event.pull_request.html_url}}) \n ${{github.event.pull_request.body}}"
       - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New PR that requires TSC Members attention 🆘
           SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
           MSG_MINIMAL: true
       #########
-      # Handling Mailchimp notifications
+      # Handling Kit.com notifications
       #########
       - name: Install deps
         run: npm install
-        working-directory: ./.github/workflows/scripts/mailchimp
-      - name: Send email with MailChimp
+        working-directory: ./.github/workflows/scripts/kit
+      - name: Send email with Kit.com
         uses: actions/github-script@v7
         env:
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          KIT_TSC_TAG_ID: ${{ secrets.KIT_TSC_TAG_ID }}
           TITLE: ${{ github.event.pull_request.title }}
           HTML_URL: ${{ github.event.pull_request.html_url }}
         with:
           script: |
-            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail(process.env.HTML_URL, process.env.TITLE);
+            const sendEmail = require('./.github/workflows/scripts/kit/index.js');
+            return sendEmail(process.env.HTML_URL, process.env.TITLE);
 
   discussion:
     if: github.event_name == 'discussion' && contains(github.event.discussion.body, '@asyncapi/tsc_members')
@@ -134,13 +132,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       #########
@@ -152,31 +150,30 @@ jobs:
         id: discussionmarkdown
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.discussion.html_url}}) \n ${{github.event.discussion.body}}"
-      - name: Send info about pull request
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+      - name: Send info about discussion
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New discussion that requires TSC Members attention 🆘
           SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
           MSG_MINIMAL: true
       #########
-      # Handling Mailchimp notifications
+      # Handling Kit.com notifications
       #########
       - name: Install deps
         run: npm install
-        working-directory: ./.github/workflows/scripts/mailchimp
-      - name: Send email with MailChimp
+        working-directory: ./.github/workflows/scripts/kit
+      - name: Send email with Kit.com
         uses: actions/github-script@v7
         env:
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          KIT_TSC_TAG_ID: ${{ secrets.KIT_TSC_TAG_ID }}
           TITLE: ${{ github.event.discussion.title }}
           HTML_URL: ${{ github.event.discussion.html_url }}
         with:
           script: |
-            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail(process.env.HTML_URL, process.env.TITLE);
+            const sendEmail = require('./.github/workflows/scripts/kit/index.js');
+            return sendEmail(process.env.HTML_URL, process.env.TITLE);
 
   issue_comment:
     if: ${{ github.event_name == 'issue_comment' && !github.event.issue.pull_request && contains(github.event.comment.body, '@asyncapi/tsc_members') }}
@@ -184,13 +181,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       #########
@@ -203,30 +200,29 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about issue comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing issue that requires TSC Members attention 🆘
           SLACK_MESSAGE: ${{steps.issuemarkdown.outputs.text}}
           MSG_MINIMAL: true
       #########
-      # Handling Mailchimp notifications
+      # Handling Kit.com notifications
       #########
       - name: Install deps
         run: npm install
-        working-directory: ./.github/workflows/scripts/mailchimp
-      - name: Send email with MailChimp
+        working-directory: ./.github/workflows/scripts/kit
+      - name: Send email with Kit.com
         uses: actions/github-script@v7
         env:
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          KIT_TSC_TAG_ID: ${{ secrets.KIT_TSC_TAG_ID }}
           TITLE: ${{ github.event.issue.title }}
           HTML_URL: ${{ github.event.comment.html_url }}
         with:
           script: |
-            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail(process.env.HTML_URL, process.env.TITLE);
+            const sendEmail = require('./.github/workflows/scripts/kit/index.js');
+            return sendEmail(process.env.HTML_URL, process.env.TITLE);
 
   pr_comment:
     if: github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@asyncapi/tsc_members')
@@ -234,13 +230,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       #########
@@ -253,30 +249,29 @@ jobs:
         with:
           markdown: "[${{github.event.issue.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about PR comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing PR that requires TSC Members attention 🆘
           SLACK_MESSAGE: ${{steps.prmarkdown.outputs.text}}
           MSG_MINIMAL: true
       #########
-      # Handling Mailchimp notifications
+      # Handling Kit.com notifications
       #########
       - name: Install deps
         run: npm install
-        working-directory: ./.github/workflows/scripts/mailchimp
-      - name: Send email with MailChimp
+        working-directory: ./.github/workflows/scripts/kit
+      - name: Send email with Kit.com
         uses: actions/github-script@v7
         env:
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          KIT_TSC_TAG_ID: ${{ secrets.KIT_TSC_TAG_ID }}
           TITLE: ${{ github.event.issue.title }}
           HTML_URL: ${{ github.event.comment.html_url }}
         with:
           script: |
-            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail(process.env.HTML_URL, process.env.TITLE);
+            const sendEmail = require('./.github/workflows/scripts/kit/index.js');
+            return sendEmail(process.env.HTML_URL, process.env.TITLE);
 
   discussion_comment:
     if: github.event_name == 'discussion_comment' && contains(github.event.comment.body, '@asyncapi/tsc_members')
@@ -284,13 +279,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       #########
@@ -303,27 +298,26 @@ jobs:
         with:
           markdown: "[${{github.event.discussion.title}}](${{github.event.comment.html_url}}) \n ${{github.event.comment.body}}"
       - name: Send info about discussion comment
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
           SLACK_WEBHOOK: ${{secrets.SLACK_TSC_MEMBERS_NOTIFY}}
           SLACK_TITLE: 🆘 New comment under existing discussion that requires TSC Members attention 🆘
           SLACK_MESSAGE: ${{steps.discussionmarkdown.outputs.text}}
           MSG_MINIMAL: true
       #########
-      # Handling Mailchimp notifications
+      # Handling Kit.com notifications
       #########
       - name: Install deps
         run: npm install
-        working-directory: ./.github/workflows/scripts/mailchimp
-      - name: Send email with MailChimp
+        working-directory: ./.github/workflows/scripts/kit
+      - name: Send email with Kit.com
         uses: actions/github-script@v7
         env:
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_SERVICE_ACCOUNT: ${{ secrets.CALENDAR_SERVICE_ACCOUNT }}
-          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          KIT_TSC_TAG_ID: ${{ secrets.KIT_TSC_TAG_ID }}
           TITLE: ${{ github.event.discussion.title }}
           HTML_URL: ${{ github.event.comment.html_url }}
         with:
           script: |
-            const sendEmail = require('./.github/workflows/scripts/mailchimp/index.js');
-            sendEmail(process.env.HTML_URL, process.env.TITLE);
+            const sendEmail = require('./.github/workflows/scripts/kit/index.js');
+            return sendEmail(process.env.HTML_URL, process.env.TITLE);
