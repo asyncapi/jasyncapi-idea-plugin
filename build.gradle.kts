@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("org.jetbrains.intellij.platform") version "2.9.0"
     java
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.3.21"
 }
 
 group = "com.asyncapi.plugin.idea"
