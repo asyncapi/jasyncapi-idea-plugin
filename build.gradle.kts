@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("org.jetbrains.intellij.platform") version "2.10.0"
     java
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.3.21"
 }
 
 group = "com.asyncapi.plugin.idea"
@@ -41,7 +41,7 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 
-    implementation("com.fasterxml.jackson.core:jackson-core:2.20.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.21.3")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.2")
 
