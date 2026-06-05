@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           persist-credentials: false
       - name: Convert markdown to slack markdown for issue
@@ -32,7 +32,7 @@ jobs:
         with:
           markdown: "[${{ env.RELEASE_TAG }}](${{ env.RELEASE_URL }}) \n ${{ env.RELEASE_BODY }}"
       - name: Send info about release to Slack
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # Using v2.3.3
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
         env:
             SLACK_WEBHOOK: ${{ secrets.SLACK_RELEASES }}
             SLACK_TITLE: Release ${{ env.RELEASE_TAG }} for ${{ env.REPO_NAME }} is out in the wild 😱💪🍾🎂
@@ -46,11 +46,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           persist-credentials: false
       - name: Get version of last and previous release
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         id: versions
         with:
           github-token: ${{ github.token }}
