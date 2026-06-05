@@ -32,7 +32,7 @@ jobs:
         with:
           markdown: "[${{ env.RELEASE_TAG }}](${{ env.RELEASE_URL }}) \n ${{ env.RELEASE_BODY }}"
       - name: Send info about release to Slack
-        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990 # Using v2.3.2
+        uses: rtCamp/action-slack-notify@33ca3be66c6f378fe1610fd1d5258632dbed5e58 # Using v2.4.0
         env:
             SLACK_WEBHOOK: ${{ secrets.SLACK_RELEASES }}
             SLACK_TITLE: Release ${{ env.RELEASE_TAG }} for ${{ env.REPO_NAME }} is out in the wild 😱💪🍾🎂
