@@ -45,7 +45,7 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.22.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.2")
 
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:6.1.0")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:6.1.1")
     testImplementation("junit:junit:4.13.2")
 }
 
