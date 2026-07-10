@@ -3,7 +3,7 @@ import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("org.jetbrains.intellij.platform") version "2.18.0"
+    id("org.jetbrains.intellij.platform") version "2.18.1"
     java
     kotlin("jvm") version "2.4.0"
 }
